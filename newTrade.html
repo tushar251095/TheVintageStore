@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Home</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="CSS/common.css" />
+    <link rel="stylesheet" href="CSS/newTradeStyle.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+  <body class="d-flex flex-column min-vh-100">
+    <header class="container-fluid mainheader">
+      <div class="row p-2">
+        <div class="col-sm-3 logo">
+          <a href="index.html">
+            <h3 class="pt-1">TheVintage Store</h3>
+          </a>
+        </div>
+        <div class="col-sm-9">
+          <ul class="headernav list-group list-group-horizontal">
+            <li class="list-group-item">
+              <a href="newTrade.html">Start Trading</a>
+            </li>
+            <li class="list-group-item">
+              <a href="#">SignUp</a>
+            </li>
+            <li class="list-group-item">
+              <a href="#">Login</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <nav class="navbar navbar-expand-lg navbar-light mainnavbar">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto ml-3">
+          <li class="nav-item">
+            <a class="nav-link text-dark font-weight-bold" href="index.html">
+              <i class="fa fa-home fa-lg" aria-hidden="true"></i>&nbsp;Home
+            </a>
+          </li>
+
+          <li class="nav-item ml-4">
+            <a class="nav-link text-dark font-weight-bold" href="trades.html"
+              ><i class="fa fa-handshake-o fa-lg"></i>&nbsp;Trades</a
+            >
+          </li>
+          <li class="nav-item ml-4">
+            <a class="nav-link text-dark font-weight-bold" href="#"
+              ><i class="fa fa-info-circle fa-lg"></i>&nbsp;About</a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="container-fluid p-3">
+      <div class="row d-flex justify-content-center">
+        <div class="col-sm-6">
+          <h3 class="text-center">New Trade</h3>
+          <form class="w-100 p-3 border border-secondary">
+            <label><b>Category</b></label>
+            <input
+              class="form-control mt-2"
+              type="text"
+              placeholder="Enter category name"
+            />
+
+            <label class="mt-3"><b>Title</b></label>
+            <input class="form-control" type="text" placeholder="Enter Title" />
+
+            <label class="mt-3"><b>Year</b></label>
+            <input class="form-control" type="text" placeholder="Enter year" />
+
+             <label class="mt-3"><b>Description</b></label>
+            <textarea class="form-control" cols="20" rows="5"></textarea>
+            <button class="btn btn-primary mt-3">Create Trade</button>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <footer class="container-fluid footer p-3 text-center mt-auto">
+      <h5>@copyright TheVintage Store</h5>
+    </footer>
+    <script src="Javascript/navScript.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

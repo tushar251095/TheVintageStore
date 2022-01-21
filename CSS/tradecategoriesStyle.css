@@ -1,0 +1,35 @@
+.categoriesheader {
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .catogriescontent{
+      display: flex;
+      justify-content:space-evenly;
+      flex-wrap:wrap;
+      padding: 10px;
+  }
+  .customcard{
+      height: 350px;
+      width: 270px;
+      border: 1px solid black;
+      margin-top: 10px;
+  }
+  
+  .customcard h5{
+      text-align: center;
+  }
+  
+  .customcard img{
+      height: 200px;
+      width: 100%;
+  }
+  .customcard li{
+      list-style: none;
+  }
+  .customcard li a{
+    text-decoration: none;
+    color: black;
+  }
+  
+  

@@ -1,0 +1,68 @@
+.maincontent{
+    background-image: linear-gradient(
+        rgba(0, 0, 0, 0.3),
+        rgba(0, 0, 0, 0.3)
+      ),url('../Images/homebanner.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    color: white;
+    min-height: 60vh;
+    background-size: auto;
+}
+.headernav {
+  float: right;
+}
+
+.mainheader{
+    background-color: #880E4F;
+}
+.list-group-item {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+}
+
+.headernav li a{
+    text-decoration: none;
+    color: white;
+}
+
+.logo a{
+    text-decoration: none;
+    color: white;
+}
+.logo{
+    font-family: cursive;
+}
+.logo h3{
+    float: right;
+}
+
+.thmbtn1{
+    background-color:#880E4F ;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 90px;
+}
+
+.mainnavbar{
+    background-color:#FCE4EC;
+}
+
+.detailsdiv{
+    padding: 100px 30px;
+}
+.footer{
+    background-color: #880E4F;
+    color: white;
+    bottom: 0;
+}
+
+@media screen and (max-width: 768px) {
+
+    .logo h3{
+        float: left;
+    }
+    
+}
