@@ -4,6 +4,7 @@
     <title>Home</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="Images/favicon.ico">
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -11,6 +12,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="CSS/common.css" />
+    <link rel="stylesheet" href="CSS/productDetailsStyle.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -18,14 +20,15 @@
   </head>
   <body class="d-flex flex-column min-vh-100"> 
     <header class="container-fluid mainheader">
-      <div class="row p-2">
-        <div class="col-sm-3 logo">
+      <div class="row p-1">
+        <div class="col-sm-5 logo">
           <a href="index.html">
-            <h3 class="pt-1">TheVintage Store</h3>
+          <img src="Images/logo.png" height="60px" class="float-left  ml-4" />
+            <h4 class="pt-3">TheVintage Store</h4>
           </a>
         </div>
-        <div class="col-sm-9">
-          <ul class="headernav list-group list-group-horizontal">
+        <div class="col-sm-7">
+          <ul class="headernav list-group list-group-horizontal mt-1">
             <li class="list-group-item">
               <a href="newTrade.html">Start Trading</a>
             </li>
@@ -77,9 +80,9 @@
     <main class="container-fluid">
         <div class="row">
             <div class="col-sm-4 p-3">
-                <div class="imagesection">
-                    <img class="productimage" src="Images/vintagedresses.jpg" height="350" width="400" alt="image"/>
-                </div>
+               
+                    <img class="productimage img-fluid" src="Images/vintagedresses.jpg"  alt="image"/>
+            
             </div>
             <div class="col-sm-5 p-3">
                 <section class="detailssection">

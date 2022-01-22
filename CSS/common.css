@@ -32,10 +32,11 @@
     color: white;
 }
 .logo{
-    font-family: cursive;
+    font-family:cursive;
+   
 }
-.logo h3{
-    float: right;
+.logo h4{
+    float: left;
 }
 
 .thmbtn1{
@@ -61,7 +62,7 @@
 
 @media screen and (max-width: 768px) {
 
-    .logo h3{
+    .logo h4{
         float: left;
     }
     
