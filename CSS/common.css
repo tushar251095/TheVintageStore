@@ -15,6 +15,7 @@
 
 .mainheader{
     background-color: #880E4F;
+    /* background-color: #DC143C; */
 }
 .list-group-item {
   background-color: transparent;
@@ -44,7 +45,14 @@
     color: white;
     border: none;
     padding: 10px;
-    width: 90px;
+    min-width: 90px;
+}
+.thmbtn2{
+    background-color:#880E4F ;
+    color: white;
+    border: none;
+    padding: 10px;
+    min-width: 90px;
 }
 
 .mainnavbar{
@@ -66,4 +74,8 @@
         float: left;
     }
     
+}
+
+.lastfooter{
+    background-color:#640839 ;
 }
