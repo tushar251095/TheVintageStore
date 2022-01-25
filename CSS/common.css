@@ -9,10 +9,15 @@
     min-height: 60vh;
     background-size: auto;
 }
+.homecard{
+    /* box-shadow: 0 4px 8px 0 rgba(0,0,0,0.6); */
+}
 .headernav {
   float: right;
 }
-
+.logoimg{
+    height: 60px;
+}
 .mainheader{
     background-color: #880E4F;
     /* background-color: #DC143C; */
@@ -26,6 +31,12 @@
 .headernav li a{
     text-decoration: none;
     color: white;
+}
+
+.anchorstyle:hover{
+    text-decoration: none;
+    color: white;
+   
 }
 
 .logo a{
@@ -46,6 +57,11 @@
     border: none;
     padding: 10px;
     min-width: 90px;
+    text-decoration: none;
+}
+.thmbtn1:hover{
+    color: white;
+    text-decoration: none;
 }
 .thmbtn2{
     background-color:#880E4F ;
@@ -61,6 +77,10 @@
 
 .detailsdiv{
     padding: 100px 30px;
+}
+.detailsimg{
+    height: 150px;
+    width: 150px;
 }
 .footer{
     background-color: #880E4F;

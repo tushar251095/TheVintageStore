@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Home</title>
+    <title>New Trade</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css" />
@@ -18,7 +18,7 @@
       <div class="row p-1">
         <div class="col-sm-5 logo">
           <a href="index.html">
-          <img src="Images/logo.png" height="60px" class="float-left  ml-4" />
+          <img src="Images/logo.png" class="float-left  ml-4 logoimg" alt="logo" />
             <h4 class="pt-3">TheVintage Store</h4>
           </a>
         </div>
@@ -64,7 +64,7 @@
             >
           </li>
           <li class="nav-item ml-4">
-            <a class="nav-link text-dark font-weight-bold" href="#"
+            <a class="nav-link text-dark font-weight-bold" href="about.html"
               ><i class="fa fa-info-circle fa-lg"></i>&nbsp;About</a
             >
           </li>
@@ -74,10 +74,11 @@
 
     <main class="container-fluid p-3">
       <div class="row d-flex justify-content-center">
-        <div class="col-sm-6">
-          <h3 class="text-center">New Trade</h3>
-          <form class="w-100 p-3 border border-secondary">
-            <label><b>Category</b></label>
+        <div class="col-sm-6 ">
+          
+          <form class="w-100 p-5 tradeform mt-3">
+            <h4 class="text-center">New Trade</h4>
+            <label class="mt-3"><b>Category</b></label>
             <input
               class="form-control mt-2"
               type="text"
@@ -90,9 +91,15 @@
             <label class="mt-3"><b>Year</b></label>
             <input class="form-control" type="text" placeholder="Enter year" />
 
+            <label class="mt-3"><b>Category Image</b></label>
+            <input class="form-control" type="file" />
+
              <label class="mt-3"><b>Description</b></label>
             <textarea class="form-control" cols="20" rows="5"></textarea>
-            <button class="thmbtn1 mt-3">Create Trade</button>
+            <div class="text-center mt-3">
+              <a href="trades.html" class="thmbtn1">Create Trade</a>
+            </div>
+           
           </form>
         </div>
       </div>
@@ -101,23 +108,26 @@
     <footer class="container-fluid footer mt-auto">
       <div class="row p-5">
         <div class="col-sm-4">
-          <div class="ml-5">
-            <h5>The Vintage Store</h5>
-            <p class="text-left">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry.
-            </p>
+          <div class="ml-5 ">
+           
+            <a href="about.html" class="text-light anchorstyle">
+              <img src="Images/logo.png" height="100" width="100" class="ml-4" alt="logo">
+              <h5>The Vintage Store</h5>
+            </a>
           </div>
         </div>
         <div class="col-sm-4 text-left">
           <div class="ml-5">
             <h5>Contact</h5>
-            <l class="fa fa-home fa-lg mt-3"></l>&nbsp;8765 University Road Apt
+            <i class="fa fa-home fa-lg mt-3"></i>&nbsp;8765 University Road Apt
             L
             <br />
-            <i class="fas fa-phone fa-lg mt-3"></i>&nbsp;(980) 327 9722
+            <i class="fas fa-phone fa-lg pt-4"></i>&nbsp;(980) 327 9722
             <br />
-            <i class="fas fa-envelope fa-lg mt-3"></i>&nbsp;tnemade@uncc.edu
+            <a class="text-light anchorstyle" href="mailto:abc@example.com'" >
+              <i class="fas fa-envelope fa-lg pt-4"></i>&nbsp;tnemade@uncc.edu
+            </a>
+           
           </div>
         </div>
         <div class="col-sm-4">
@@ -140,7 +150,7 @@
         </div>
       </div>
     </footer>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="jquery/jquery.min.js"></script>
     <script src="bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
   </body>
 </html>

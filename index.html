@@ -17,7 +17,7 @@
       <div class="row p-1">
         <div class="col-sm-5 logo">
           <a href="index.html">
-            <img src="Images/logo.png" height="60px" class="float-left ml-4" />
+            <img src="Images/logo.png"  class="float-left ml-4 logoimg" alt="logo" />
             <h4 class="pt-3">The Vintage Store</h4>
           </a>
         </div>
@@ -27,7 +27,7 @@
               <a href="newTrade.html">Start Trading</a>
             </li>
             <li class="list-group-item">
-              <a href="#">SignUp</a>
+              <a href="#" class="">SignUp</a>
             </li>
             <li class="list-group-item">
               <a href="#">Login</a>
@@ -63,7 +63,7 @@
             >
           </li>
           <li class="nav-item ml-4">
-            <a class="nav-link text-dark font-weight-bold" href="#"
+            <a class="nav-link text-dark font-weight-bold" href="about.html"
               ><i class="fa fa-info-circle fa-lg"></i>&nbsp;About</a
             >
           </li>
@@ -76,19 +76,22 @@
         <div class="col-sm-6 detailsdiv">
           <h3>Welcome to The Vintage Store</h3>
           <h4>Old is Gold!</h4>
-          <p>
-            The place where you can sell or buy certified vintage products at
-            best price.<br />
+          <p class="mb-4">
+            The place where you can trade your certified vintage products.<br />
           </p>
-          <button class="thmbtn1">Trades</button>
+          <span class="mt-2">
+            <a href="trades.html" class="thmbtn1 pr-4 pl-4">Trades</a>
+          </span>
+         
         </div>
       </section>
-      <section class="row mt-12 text-center p-5">
+      <section class="container mt-2 text-center p-5">
         <div class="row">
-          <div class="col-sm-4">
-              <img src="Images/vintagedetails.jpg" alt="image"  height="150px" width="150px">
+          <div class="col-sm-4 homecard">
+              <img src="Images/vintagedetails.jpg" alt="image"  class="detailsimg">
+              <h5 class="text-left mt-2">What is Vintage product?</h5>
               <p class="text-left mt-2">
-                <b>What is Vintage product?</b><br>
+                
                 It is an object that represents a previous era or time period in
                 human society. An item should be at least 100 years old to be
                 defined as an antique. Generally speaking if the item is no older
@@ -96,23 +99,19 @@
                 vintage.
               </p>
           </div>
-          <div class="col-sm-4">
-            <img src="Images/bestprice.jpg" alt="image"  height="150px" width="150px">
-           
+          <div class="col-sm-4 homecard">
+            <img src="Images/trade.png" alt="image"  class="detailsimg">
+           <h5 class="text-left mt-2">How does trade work?</h5>
             <p class="text-left mt-2">
-              <b>Best Price</b><br>
-              It is an object that represents a previous era or time period in
-              human society. An item should be at least 100 years old to be
-              defined as an antique. Generally speaking if the item is no older
-              than an antique but not less than 20 years, it falls under the term
-              vintage.
+              Register/Add your vintage product with us and trade other vintage product anytime.
+              You can trade any listed product in categories which matches your product value.
+              On approval of both side of trade product is then exchange with the respective client.
             </p>
         </div>
-        <div class="col-sm-4 ">
-          <img src="Images/quality.jpg" alt="image"  height="150px" width="150px">
-         
+        <div class="col-sm-4 homecard">
+          <img src="Images/quality.jpg" alt="image"  class="detailsimg">
+         <h5 class="text-left mt-2">Quality & Trustable Product</h5>
           <p class="text-left mt-2">
-            <b>Quality Assurance & Trustable Product</b><br>
             It is an object that represents a previous era or time period in
             human society. An item should be at least 100 years old to be
             defined as an antique. Generally speaking if the item is no older
@@ -128,22 +127,25 @@
       <div class="row p-5">
         <div class="col-sm-4">
           <div class="ml-5 ">
-            <h5>The Vintage Store</h5>
-            <p class="text-left mt-3">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry.
-            </p>
+           
+            <a href="about.html" class="text-light anchorstyle">
+              <img src="Images/logo.png" height="100" width="100" class="ml-4" alt="logo">
+              <h5>The Vintage Store</h5>
+            </a>
           </div>
         </div>
         <div class="col-sm-4 text-left">
           <div class="ml-5">
             <h5>Contact</h5>
-            <l class="fa fa-home fa-lg mt-3"></l>&nbsp;8765 University Road Apt
+            <i class="fa fa-home fa-lg mt-3"></i>&nbsp;8765 University Road Apt
             L
             <br />
             <i class="fas fa-phone fa-lg pt-4"></i>&nbsp;(980) 327 9722
             <br />
-            <i class="fas fa-envelope fa-lg pt-4"></i>&nbsp;tnemade@uncc.edu
+            <a class="text-light anchorstyle" href="mailto:abc@example.com'">
+              <i class="fas fa-envelope fa-lg pt-4"></i>&nbsp;tnemade@uncc.edu
+            </a>
+           
           </div>
         </div>
         <div class="col-sm-4">
@@ -166,7 +168,7 @@
         </div>
       </div>
     </footer>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="jquery/jquery.min.js"></script>
     <script src="bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
   </body>
 </html>
