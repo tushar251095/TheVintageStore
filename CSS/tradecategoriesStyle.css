@@ -46,4 +46,6 @@
       flex-wrap:wrap;
       padding: 10px;
   }
-  
+  .cardbox ul li:hover > a{
+      color: #bd0667;
+  }
