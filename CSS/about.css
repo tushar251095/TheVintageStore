@@ -13,3 +13,11 @@ color:#df1a83;
 .myimg{
     max-height: 500px;
 }
+
+@media screen and (max-width: 768px) {
+
+    .mobileheading{
+        margin-top: 40px;
+    }
+    
+}

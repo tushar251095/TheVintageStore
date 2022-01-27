@@ -98,6 +98,10 @@
     .logo h4{
         float: left;
     }
+    .logo{
+        font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+       
+    }
     
 }
 
