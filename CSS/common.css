@@ -102,8 +102,19 @@
         font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
        
     }
+    .footerlogomobile{
+        display: inline !important;
+    }
+    .mobilefooterlogo{
+        float: left;
+    }
+    .mobilefooterlogotext{
+        margin-top: 20px;
+    }
     
 }
+
+
 
 .lastfooter{
     background-color:#640839 ;
