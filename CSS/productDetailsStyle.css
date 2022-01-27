@@ -1,3 +1,11 @@
 .checked{
     color: orange;
 }
+
+@media screen and (max-width: 768px) {
+
+    .thmbtn2{
+        margin-top: 10px;
+    }
+    
+}

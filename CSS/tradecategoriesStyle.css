@@ -49,3 +49,8 @@
   .cardbox ul li:hover > a{
       color: #bd0667;
   }
+
+  .subtypeclass{
+      overflow: hidden;
+      text-overflow:ellipsis;
+  }

@@ -1,0 +1,15 @@
+.profileimg{
+    height: 120px;
+    width: 100%;
+}
+
+.col-sm-3{
+    padding: 0;
+}
+.profilename{
+color:#df1a83;
+}
+
+.myimg{
+    max-height: 500px;
+}

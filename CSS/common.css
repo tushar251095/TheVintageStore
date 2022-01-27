@@ -1,13 +1,13 @@
 .maincontent{
     background-image: linear-gradient(
-        rgba(0, 0, 0, 0.3),
-        rgba(0, 0, 0, 0.3)
+        rgba(0, 0, 0, 0.4),
+        rgba(0, 0, 0, 0.4)
       ),url('../Images/homebanner.jpg');
     background-repeat: no-repeat;
     background-position: center;
     color: white;
     min-height: 60vh;
-    background-size: auto;
+    background-size: cover;
 }
 .homecard{
     /* box-shadow: 0 4px 8px 0 rgba(0,0,0,0.6); */
@@ -27,7 +27,12 @@
   border: none;
   color: #fff;
 }
-
+.nameclass{
+    color:#c9860a
+}
+.quoteclass{
+    color:#1dc906
+}
 .headernav li a{
     text-decoration: none;
     color: white;
