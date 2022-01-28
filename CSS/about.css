@@ -19,5 +19,22 @@ color:#df1a83;
     .mobileheading{
         margin-top: 40px;
     }
+    /* .profileimg{
+        height: 130px;
+        width: 70%;
+    } */
+    
+    
+}
+
+@media screen and (max-width: 568px) {
+
+   
+    .profileimg{
+        /* height: 130px;
+        width: 70%; */
+        display: none;
+    } 
+    
     
 }
