@@ -2,10 +2,18 @@
     color: orange;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 520px) and (max-device-width: 768px)  {
 
     .thmbtn2{
         margin-top: 10px;
     }
     
 }
+
+/* @media screen and (max-width: 425px) {
+
+    .thmbtn2{
+        margin-top: 10px;
+    }
+    
+} */
