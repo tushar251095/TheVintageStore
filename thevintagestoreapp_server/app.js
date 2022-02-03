@@ -334,7 +334,7 @@ app.get("/view/allproduct", (req, res) => {
   res.send(EditItems);
 });
 
-//api to Update trade in product_data
+//API to Update trade in product_data
 app.post("/update/trade", (req, res) => {
   var objindex=FIndByID(req.body.product_id,Product_data)
   Product_data[objindex].prod_name=req.body.prod_name
