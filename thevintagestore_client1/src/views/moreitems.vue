@@ -1,0 +1,103 @@
+<template>
+  <main class="container-fluid">
+    <div>
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <h4 class="text-center p-3">{{catgoryname}}</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-3 p-3" v-for="product in productArray" :key="product">
+          <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2)">
+            <img
+              :src="product.product_img_url"
+              class="img-fluid"
+              alt="Product Image"
+            />
+            <div class="p-3">
+              <h6>
+                <router-link to="/trade"  @click="$store.dispatch('saveid', product.product_id)"  class="subtypeclass text-dark">{{product.prod_name}}</router-link>
+                
+              </h6>
+              <span v-if="product.ratings==0">
+                Rating Not Available
+              </span>
+              <span v-if="product.ratings==1">
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+              </span>
+               <span v-if="product.ratings==2">
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star "></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+              </span>
+               <span v-if="product.ratings==3">
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+              </span>
+               <span v-if="product.ratings==4">
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+              </span>
+               <span v-if="product.ratings==5">
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+              </span>
+
+              <p>Year: {{product.year}}</p>
+              <button class="btn thmbtn1">Trade It</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</template>
+
+<script>
+import EventServices from '@/services/EventServices.js';
+export default {
+  data() {
+    return {
+      productArray: [],
+      catgoryname:""
+    };
+  },
+  created() {
+    this.getproducts();
+  },
+  methods: {
+    getproducts() {
+      EventServices.getMoreitems(this.$store.state.category_id).then((data) => {
+        this.productArray = data;
+         this.catgoryname=data[data.length-1].category_name
+         data.pop()
+         this.productArray = data;
+      });
+     
+    
+    },
+  },
+};
+</script>
+<style scoped>
+img{
+    max-height: 200px;
+    min-height: 200px;
+    width: 100%;
+}
+</style>

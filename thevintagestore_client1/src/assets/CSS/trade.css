@@ -1,0 +1,15 @@
+.checked{
+    color: orange;
+}
+
+@media screen and (min-width: 520px) and (max-device-width: 768px)  {
+
+    .thmbtn2{
+        margin-top: 10px;
+    }
+    
+}
+.productimage{
+    max-height: 500px;
+    width: 100%;
+}

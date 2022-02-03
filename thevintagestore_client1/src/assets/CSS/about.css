@@ -1,0 +1,40 @@
+.profileimg{
+    height: 120px;
+    width: 100%;
+}
+
+.col-sm-3{
+    padding: 0;
+}
+.profilename{
+color:#df1a83;
+}
+
+.myimg{
+    max-height: 500px;
+}
+
+@media screen and (max-width: 768px) {
+
+    .mobileheading{
+        margin-top: 40px;
+    }
+    /* .profileimg{
+        height: 130px;
+        width: 70%;
+    } */
+    
+    
+}
+
+@media screen and (max-width: 568px) {
+
+   
+    .profileimg{
+        /* height: 130px;
+        width: 70%; */
+        display: none;
+    } 
+    
+    
+}
