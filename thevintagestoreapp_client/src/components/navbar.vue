@@ -1,41 +1,29 @@
 <template>
   <div>
     <nav class="navbar navbar-expand-lg navbar-light mainnavbar">
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto ml-3">
-          <li class="nav-item ml-4">
+      <div class="responsivenav">
+        <ul class="navbar-nav me-auto ms-3">
+          <li class="nav-item ms-4">
             <router-link class="nav-link text-dark font-weight-bold" to="/">
-              <i class="fa fa-home fa-lg" aria-hidden="true"></i>&nbsp;Home
+              <i class="fa fa-home fa-lg" aria-hidden="true"></i>&nbsp;<b>Home</b>
             </router-link>
           </li>
 
-          <li class="nav-item ml-4">
+          <li class="nav-item ms-4">
             <router-link
               class="nav-link text-dark font-weight-bold"
               to="/trades"
-              ><i class="fa fa-handshake fa-lg"></i>&nbsp;Trades</router-link
+              ><i class="fa fa-handshake fa-lg"></i>&nbsp;<b>Trades</b></router-link
             >
           </li>
-          <li class="nav-item ml-4">
+          <li class="nav-item ms-4">
             <router-link class="nav-link text-dark font-weight-bold" to="/edit"
-              ><i class="fas fa-edit fa-lg"></i>&nbsp;Edit Trade</router-link
+              ><i class="fas fa-edit fa-lg"></i>&nbsp;<b>Edit Trade</b></router-link
             >
           </li>
-          <li class="nav-item ml-4">
+          <li class="nav-item ms-4">
             <router-link class="nav-link text-dark font-weight-bold" to="/about"
-              ><i class="fa fa-info-circle fa-lg"></i>&nbsp;About</router-link
+              ><i class="fa fa-info-circle fa-lg"></i>&nbsp;<b>About</b></router-link
             >
           </li>
         </ul>
@@ -45,5 +33,10 @@
 </template>
 
 <style scoped>
-@import "../assets/CSS/about.css";
+@import "../assets/CSS/common.css";
+@media screen and (max-width: 768px) {
+  .navbar-nav {
+    flex-direction: row;
+  }
+}
 </style>

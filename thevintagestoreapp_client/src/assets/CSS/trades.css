@@ -46,8 +46,16 @@
       flex-wrap:wrap;
       padding: 10px;
   }
-  .cardbox ul li:hover > a{
+  .cardbox ul li:hover > p{
       color: #bd0667;
+      cursor: pointer;
   }
 
- 
+  .cardbox ul li >p{
+      padding: 0 !important;
+      margin-bottom: 0;
+  }
+
+  li>a{
+      cursor: pointer;
+  }

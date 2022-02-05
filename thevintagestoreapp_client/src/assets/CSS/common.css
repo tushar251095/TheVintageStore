@@ -20,9 +20,9 @@
     /* background-color: #DC143C; */
 }
 .list-group-item {
-  background-color: transparent;
-  border: none;
-  color: #fff;
+  background-color: transparent !important;
+  border: none !important;
+  color: #fff !important;
 }
 .nameclass{
     color:#c9860a
@@ -30,18 +30,22 @@
 .quoteclass{
     color:#1dc906
 }
-.headernav li router-link{
+.headernav li a{
     text-decoration: none;
     color: white;
 }
 
+.anchorstyle{
+    text-decoration: none;
+    color: white;
+}
 .anchorstyle:hover{
     text-decoration: none;
     color: rgb(255, 255, 255);
    
 }
 
-.logo router-link{
+.logo a{
     text-decoration: none;
     color: white;
 }

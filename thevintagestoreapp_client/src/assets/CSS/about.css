@@ -1,8 +1,7 @@
-.profileimg{
-    height: 120px;
-    width: 100%;
+.img-fluid{
+    min-height: 120px;
+    min-width: 100%;
 }
-
 .col-sm-3{
     padding: 0;
 }
@@ -19,17 +18,15 @@ color:#df1a83;
     .mobileheading{
         margin-top: 40px;
     }
-    /* .profileimg{
+    .profileimg{
         height: 130px;
         width: 70%;
-    } */
+    }
     
     
 }
 
 @media screen and (max-width: 568px) {
-
-   
     .profileimg{
         /* height: 130px;
         width: 70%; */

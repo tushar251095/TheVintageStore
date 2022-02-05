@@ -1,9 +1,11 @@
 <template>
-  <div id="nav" class="d-flex flex-column min-vh-100 scrollclass">
-    <headerbar></headerbar>
-    <navbar />
-    <router-view />
-    <footerbar class="mt-auto"></footerbar>
+  <div id="app">
+    <div id="nav" class="d-flex flex-column min-vh-100 scrollclass">
+      <headerbar></headerbar>
+      <navbar />
+      <router-view />
+      <footerbar class="mt-auto"></footerbar>
+    </div>
   </div>
 </template>
 
@@ -24,7 +26,6 @@ export default {
 };
 </script>
 <style>
-
 /* Hide scrollbar for Chrome, Safari and Opera */
 /* body::-webkit-scrollbar {
     display: none;
@@ -36,5 +37,4 @@ export default {
   -ms-overflow-style: none;  
   scrollbar-width: none;  
 } */
-
 </style>

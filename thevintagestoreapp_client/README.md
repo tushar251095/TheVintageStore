@@ -1,4 +1,4 @@
-# thevintagestoreapp
+# thevintagestoreapp_client
 
 ## Project setup
 ```

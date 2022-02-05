@@ -13,38 +13,40 @@
           <h3>{{ productdetails.prod_name }}</h3>
           <span class="d-flex">
             <span>
-              <label><b>Rating:&nbsp;&nbsp;</b></label>
+              <label class="mt-2"><b>Rating:&nbsp;&nbsp;</b></label>
             </span>
-            <span v-if="productdetails.ratings==0">Rating Not Available</span>
-            <span v-if="productdetails.ratings == 1">
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star"></span>
-              <span class="fa fa-star"></span>
-              <span class="fa fa-star"></span>
-              <span class="fa fa-star"></span>
-            </span>
-            <span v-if="productdetails.ratings == 2">
+            <span v-if="productdetails.ratings == 0" class="mt-2"
+              >Rating Not Available</span
+            >
+            <span v-if="productdetails.ratings == 1" class="mt-2">
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star"></span>
               <span class="fa fa-star"></span>
               <span class="fa fa-star"></span>
               <span class="fa fa-star"></span>
             </span>
-            <span v-if="productdetails.ratings == 3">
+            <span v-if="productdetails.ratings == 2" class="mt-2">
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+            </span>
+            <span v-if="productdetails.ratings == 3" class="mt-2">
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star"></span>
               <span class="fa fa-star"></span>
             </span>
-            <span v-if="productdetails.ratings == 4">
+            <span v-if="productdetails.ratings == 4" class="mt-2">
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star"></span>
             </span>
-            <span v-if="productdetails.ratings == 5">
+            <span v-if="productdetails.ratings == 5" class="mt-2">
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star checked"></span>
@@ -52,16 +54,18 @@
               <span class="fa fa-star checked"></span>
             </span>
           </span>
-          <label><b>Category:</b> {{ productdetails.category_name }}</label
+          <label class="mt-2"
+            ><b>Category:</b> {{ productdetails.category_name }}</label
           ><br />
-          <label><b>Year:</b> {{ productdetails.year }}</label><br />
+          <label class="mt-2"><b>Year:</b> {{ productdetails.year }}</label
+          ><br />
 
-          <label class=""
+          <label class="mt-2"
             ><b>Seller:</b>&nbsp;{{ productdetails.seller }}</label
           >
 
-          <p><b>Discription:</b></p>
-          <p>
+          <p class="mt-2">
+            <b>Discription:</b><br />
             {{ productdetails.description }}
           </p>
         </section>
@@ -71,15 +75,17 @@
           <p><b>Are you interested in this product?</b></p>
           <!-- <button class="thmbtn1">Trade It</button>
             <button class="thmbtn2">Rate It</button> -->
-          <router-link to="/" class="btn thmbtn1">Trade It</router-link>
-          <router-link to="/" class="btn thmbtn2 ml-2">Rate It</router-link>
+          <router-link to="/" class="thmbtn1">Trade It</router-link>
+          <router-link to="/" class="thmbtn2 ms-2 anchorstyle"
+            >Rate It</router-link
+          >
         </div>
       </div>
     </div>
   </main>
 </template>
 <script>
-import EventServices from '@/services/EventServices.js';
+import EventServices from "@/services/EventServices.js";
 export default {
   data() {
     return {
@@ -91,7 +97,7 @@ export default {
         ratings: 0,
         category: "",
         product_img_url: "",
-        category_name:""
+        category_name: "",
       },
     };
   },
@@ -100,9 +106,12 @@ export default {
   },
   methods: {
     async getproductdetails() {
-      EventServices.getProductDetails(this.$store.state.product_id).then((data) => {
-        this.productdetails = data[0];
-      });
+      //console.log(this.$store.state.product_id);
+      EventServices.getProductDetails(this.$store.state.product_id).then(
+        (data) => {
+          this.productdetails = data[0];
+        }
+      );
     },
   },
 };
@@ -110,4 +119,5 @@ export default {
 
 <style scoped>
 @import "../assets/CSS/trade.css";
+@import "../assets/CSS/common.css";
 </style>

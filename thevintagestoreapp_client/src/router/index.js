@@ -1,4 +1,5 @@
-import { createRouter, createWebHistory } from "vue-router";
+import Vue from "vue";
+import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Trades from "../views/trades.vue";
 import Trade from "../views/trade.vue";
@@ -6,6 +7,9 @@ import MoreItems from "../views/moreitems.vue";
 import Addtrade from "../views/newtrade.vue";
 import About from "../views/about.vue";
 import Edit from "../views/edit.vue";
+import Signup from "../views/registrationForm.vue";
+
+Vue.use(VueRouter);
 
 const routes = [
   {
@@ -42,11 +46,17 @@ const routes = [
     path: "/edit",
     name: "Edit",
     component: Edit,
-  }
+  },
+  {
+    path: "/registration",
+    name: "Signup",
+    component: Signup,
+  },
 ];
 
-const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+const router = new VueRouter({
+  mode: "history",
+  base: process.env.BASE_URL,
   routes,
 });
 

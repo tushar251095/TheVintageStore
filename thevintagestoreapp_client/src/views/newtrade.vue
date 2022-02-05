@@ -18,49 +18,48 @@
 
           <br />
           <label>Not in list add new:&nbsp;&nbsp;</label>
-          <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm">Add category</button>
 
+          <button
+            type="button"
+            v-b-modal.addcategory-modal
+            class="btn btn-secondary btn-sm"
+          >
+            Add Category
+          </button>
           <br />
 
-          <div
-            class="modal fade bd-example-modal-sm"
-            id="myModal"
-            tabindex="-1"
-            role="dialog"
-            aria-labelledby="mySmallModalLabel"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog modal-sm">
-              <div class="modal-content">
-                <h4 class="text-center">Add Category</h4>
-                <div class="p-3">
-                  <label><b>Category Name</b></label
-                  ><br />
-                  <input type="text" placeholder="Enter category name" v-model="addcatobj.category_name"/><br />
-                  <label><b>Category Image URL</b></label
-                  ><br />
-                  <input
-                  v-model="addcatobj.imageurl"
-                    type="url"
-                    placeholder="Image URL for catergory"
-                  /><br />
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button type="button" class="btn btn-primary" data-dismiss="modal" @click.prevent="CreateCategory()">
-                   Create Category
-                  </button>
-                </div>
-              </div>
+          <b-modal id="addcategory-modal" hide-header>
+            <h4 class="text-center">Add Category</h4>
+            <div class="p-3">
+              <label><b>Category Name</b></label
+              ><br />
+              <input
+                type="text"
+                placeholder="Enter category name"
+                v-model="addcatobj.category_name"
+              /><br />
+              <label><b>Category Image URL</b></label
+              ><br />
+              <input
+                v-model="addcatobj.imageurl"
+                type="url"
+                placeholder="Image URL for catergory"
+              /><br />
             </div>
-          </div>
-
+            <template #modal-footer="{ cancel }">
+              <b-button size="md" variant="secondary" @click="cancel()">
+                Cancel
+              </b-button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-dismiss="modal"
+                @click.prevent="CreateCategory()"
+              >
+                Create Category
+              </button>
+            </template>
+          </b-modal>
           <label class="mt-3"><b>Product Name</b></label>
           <input
             v-model="tradeobj.prod_name"
@@ -125,10 +124,10 @@ export default {
         product_img_url: "",
       },
       dropdowncategories: [],
-      addcatobj:{
-          imageurl:"",
-          category_name:""
-      }
+      addcatobj: {
+        imageurl: "",
+        category_name: "",
+      },
     };
   },
   created() {
@@ -149,8 +148,7 @@ export default {
     },
     CreateCategory() {
       EventServices.addNewCategory(this.addcatobj).then(() => {
-       this.$router.push("Trades")
-      
+        this.$router.push("Trades");
       });
     },
   },
