@@ -30,10 +30,11 @@
 
           <b-modal id="addcategory-modal" hide-header>
             <h4 class="text-center">Add Category</h4>
-            <div class="p-3">
+            <div class="p-3 d-flex flex-column justify-content-center">
               <label><b>Category Name</b></label
               ><br />
               <input
+              class="form-control"
                 type="text"
                 placeholder="Enter category name"
                 v-model="addcatobj.category_name"
@@ -41,6 +42,7 @@
               <label><b>Category Image URL</b></label
               ><br />
               <input
+              class="form-control"
                 v-model="addcatobj.imageurl"
                 type="url"
                 placeholder="Image URL for catergory"

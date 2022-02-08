@@ -250,12 +250,13 @@ app.post("/moreitems", (req, res) => {
     ratings: obj.ratings,
     year: obj.year,
     product_id: obj.product_id,
-  }));
+  })).slice(req.body.startingIndex,req.body.endingIndex+1);
   var result = Categories.filter((obj) => {
     return obj.category_id === req.body.category_id;
   }).map((obj) => ({
     category_name: obj.title,
   }));
+  result[0].arraySize=Categories.length
   MoreItems.push(result[0]);
   // console.log(MoreItems)
   res.send(MoreItems);
@@ -322,14 +323,15 @@ function FIndByID(id, dataArray) {
 }
 
 //API to view all items on edit page
-app.get("/view/allproduct", (req, res) => {
+app.post("/view/allproduct", (req, res) => {
   var EditItems = Product_data.map((obj) => ({
     product_img_url: obj.product_img_url,
     prod_name: obj.prod_name,
     ratings: obj.ratings,
     year: obj.year,
     product_id: obj.product_id,
-  }));
+  })).slice(req.body.startingIndex,req.body.endingIndex+1);
+  EditItems.push({arraySize:Product_data.length})
   // console.log(EditItems)
   res.send(EditItems);
 });
@@ -343,4 +345,28 @@ app.post("/update/trade", (req, res) => {
   Product_data[objindex].category_id=req.body.category_id
   Product_data[objindex].description=req.body.description
   res.send("success");
+});
+
+app.post("/find/catrgory", (req, res) => {
+ var index_of_object = Categories.findIndex((obj) => obj.category_id == req.body.category_id);
+  if (index_of_object == -1) {
+    return false;
+  } else {
+  res.send( Categories[index_of_object]);
+  }
+   
+});
+
+app.post("/edit/catrgory", (req, res) => {
+  var index_of_object = Categories.findIndex((obj) => obj.category_id == req.body.category_id);
+  if (index_of_object == -1) {
+    return false;
+  } else {
+    Categories[index_of_object].title= req.body.title
+    Categories[index_of_object].imageurl= req.body.imageurl
+    res.send(Categories[index_of_object]);
+ 
+  }
+ 
+ 
 });

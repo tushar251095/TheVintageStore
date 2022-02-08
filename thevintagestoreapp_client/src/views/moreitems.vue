@@ -66,6 +66,18 @@
             </div>
           </div>
         </div>
+        <div class="d-flex justify-content-center">
+          <b-pagination-nav
+        class=""
+          v-model="currentPage"
+          :number-of-pages="pages"
+          @change="getproducts()"
+          base-url="#"
+          first-number
+          last-number
+        ></b-pagination-nav>
+        </div>
+        
       </div>
     </div>
   </main>
@@ -78,18 +90,42 @@ export default {
     return {
       productArray: [],
       catgoryname: "",
+      currentPage: 1,
+      pages: 9,
+      perPage: 6,
+      startingIndex: 0,
+      endingIndex: 0,
     };
   },
   created() {
     this.getproducts();
   },
   methods: {
+    generatingIndex() {
+      return new Promise((resolve, reject) => {
+        resolve(true);
+        reject(true);
+      });
+    },
     getproducts() {
-      EventServices.getMoreitems(this.$store.state.category_id).then((data) => {
-        this.productArray = data;
-        this.catgoryname = data[data.length - 1].category_name;
-        data.pop();
-        this.productArray = data;
+      var sendobj = {};
+      this.generatingIndex().then(() => {
+        this.startingIndex = (this.currentPage - 1) * this.perPage;
+        this.endingIndex = this.currentPage * this.perPage - 1;
+        // console.log("startingIndex" + ": " + this.startingIndex);
+        // console.log("endingIndex" + ": " + this.endingIndex);
+        sendobj = {
+          startingIndex: this.startingIndex,
+          endingIndex: this.endingIndex,
+          category_id: parseInt(sessionStorage.getItem("category_id")),
+        };
+        EventServices.getMoreitems(sendobj).then((data) => {
+          this.productArray = data;
+          this.catgoryname = data[data.length - 1].category_name;
+          this.pages=((data[data.length - 1].arraySize-1) + this.perPage - 1)/this.perPage
+         data.pop();
+          this.productArray = data;
+        });
       });
     },
     StoreProductID(payload) {

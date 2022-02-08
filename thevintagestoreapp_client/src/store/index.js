@@ -20,7 +20,9 @@ export default new Vuex.Store({
     saveid({ commit }, payload) {
       return new Promise((resolve, reject) => {
         try {
+          // sessionStorage.setItem("product_id",payload)
           commit("STORE_ID_SAVE", payload);
+          
           resolve(true);
         } catch (error) {
           commit("save Error", error);
@@ -31,6 +33,7 @@ export default new Vuex.Store({
     savecatid({ commit }, payload) {
       return new Promise((resolve, reject) => {
         try {
+          sessionStorage.setItem("category_id",payload)
           commit("STORE_CategoryID_SAVE", payload);
           resolve(true);
         } catch (error) {

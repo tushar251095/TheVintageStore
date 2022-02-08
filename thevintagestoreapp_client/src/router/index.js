@@ -8,6 +8,7 @@ import Addtrade from "../views/newtrade.vue";
 import About from "../views/about.vue";
 import Edit from "../views/edit.vue";
 import Signup from "../views/registrationForm.vue";
+import Login from "../views/Login.vue";
 
 Vue.use(VueRouter);
 
@@ -51,6 +52,11 @@ const routes = [
     path: "/registration",
     name: "Signup",
     component: Signup,
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: Login,
   },
 ];
 

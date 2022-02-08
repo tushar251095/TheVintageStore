@@ -160,6 +160,17 @@
         </button>
       </template>
     </b-modal>
+    <div class="d-flex justify-content-center">
+          <b-pagination-nav
+        class=""
+          v-model="currentPage"
+          :number-of-pages="pages"
+          @change="getproducts()"
+          base-url="#"
+          first-number
+          last-number
+        ></b-pagination-nav>
+        </div>
   </main>
 </template>
 
@@ -173,18 +184,41 @@ export default {
       productname: "",
       dropdowncategories: [],
       editobj: {},
+       currentPage: 1,
+      pages: 9,
+      perPage: 8,
+      startingIndex: 0,
+      endingIndex: 0,
+     
     };
   },
   created() {
     this.getproducts();
   },
   methods: {
+    generatingIndex() {
+      return new Promise((resolve, reject) => {
+        resolve(true);
+        reject(true);
+      });
+    },
     getproducts() {
-      EventServices.getAllItemsForEditpage(this.$store.state.category_id).then(
+       this.generatingIndex().then(() => {
+        this.startingIndex = (this.currentPage - 1) * this.perPage;
+        this.endingIndex = this.currentPage * this.perPage - 1;
+        var sendobj = {
+          startingIndex: this.startingIndex,
+          endingIndex: this.endingIndex,
+        };
+         EventServices.getAllItemsForEditpage(sendobj).then(
         (data) => {
+          this.pages=((data[data.length - 1].arraySize-1) + this.perPage - 1)/this.perPage
+         data.pop();
           this.productArray = data;
         }
       );
+        })
+     
     },
     saveProductID(productid, name) {
       this.productID = productid;

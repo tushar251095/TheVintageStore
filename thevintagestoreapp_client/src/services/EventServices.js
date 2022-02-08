@@ -23,10 +23,10 @@ export default {
     return res.data;
   },
   async getMoreitems(payload) {
-    let sendobj = {
-      category_id: payload,
-    };
-    let res = await apiClient.post("/moreitems", sendobj);
+    // let sendobj = {
+    //   category_id: payload,
+    // };
+     let res = await apiClient.post("/moreitems", payload);
     return res.data;
   },
   async getdropdownCategories() {
@@ -41,8 +41,8 @@ export default {
     let res = await apiClient.post("/add/category", payload);
     return res.data;
   },
-  async getAllItemsForEditpage() {
-    let res = await apiClient.get("/view/allproduct");
+  async getAllItemsForEditpage(payload) {
+    let res = await apiClient.post("/view/allproduct",payload);
     return res.data;
   },
   async deleteProduct(payload) {
@@ -53,6 +53,16 @@ export default {
   async updateProduct(payload) {
     // console.log(payload)
     let res = await apiClient.post("/update/trade", payload);
+    return res.data;
+  },
+  async findCategory(payload) {
+    // console.log(payload)
+    let res = await apiClient.post("/find/catrgory", payload);
+    return res.data;
+  },
+  async editCategory(payload) {
+    // console.log(payload)
+    let res = await apiClient.post("/edit/catrgory", payload);
     return res.data;
   },
 };

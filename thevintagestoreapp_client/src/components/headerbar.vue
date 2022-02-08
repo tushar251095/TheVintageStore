@@ -25,7 +25,7 @@
               >
             </li>
             <li class="list-group-item">
-              <router-link to="/" class="text-light anchorstyle"
+              <router-link to="/login" class="text-light anchorstyle"
                 >Login</router-link
               >
             </li>
