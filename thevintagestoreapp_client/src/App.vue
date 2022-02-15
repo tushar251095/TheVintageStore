@@ -23,6 +23,9 @@ export default {
     headerbar: headerbar,
     footerbar: footerbar,
   },
+  created(){
+    console.log(sessionStorage.getItem("found"))
+  }
 };
 </script>
 <style>

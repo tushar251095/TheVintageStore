@@ -9,6 +9,7 @@ import About from "../views/about.vue";
 import Edit from "../views/edit.vue";
 import Signup from "../views/registrationForm.vue";
 import Login from "../views/Login.vue";
+import PageNotFound from "../views/PageNotFound.vue";
 
 Vue.use(VueRouter);
 
@@ -58,6 +59,9 @@ const routes = [
     name: "Login",
     component: Login,
   },
+  { path: "*", 
+  component: PageNotFound,
+ }
 ];
 
 const router = new VueRouter({
