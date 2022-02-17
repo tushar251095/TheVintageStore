@@ -79,7 +79,7 @@
                   class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2"
                 >
                   <img
-                    src="../assets/Images/tradeimage.jpg"
+                    src="../../public/Images/tradeimage.jpg"
                     class="img-fluid"
                     alt="signup image"
                   />
@@ -115,14 +115,14 @@ export default {
     register() {
       // this.$toasted.show('hello billo')
       if (this.registerobj.password == this.confirmpassword) {
-        console.log("in if");
+       // console.log("in if");
         this.$toast.open({
           message: "Registration Successfull!!",
           type: "success",
           position: "top",
         });
       } else {
-        console.log("in else");
+        //console.log("in else");
         this.$toast.open({
           message: "Something went wrong!",
           type: "error",

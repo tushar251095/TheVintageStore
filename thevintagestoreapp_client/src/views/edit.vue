@@ -84,7 +84,7 @@
     </div>
     <b-modal id="delete-modal" hide-header>
       <img
-        src="../assets/Images/delete.png"
+        src="../../public/Images/delete.png"
         alt="delete icon"
         height="70"
         width="70"
@@ -107,7 +107,7 @@
     <b-modal id="update-modal" hide-header>
       <div class="modal-body">
         <img
-          src="../assets/Images/edit.png"
+          src="../../public/Images/edit.png"
           alt="delete icon"
           height="70"
           width="70"

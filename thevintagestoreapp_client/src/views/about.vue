@@ -20,7 +20,7 @@
         </div>
         <div class="col-sm-12 col-md-6 col-lg-7 myimg">
           <img
-            src="../assets/Images/about.png"
+            src="../../public/Images/about.png"
             alt="about image"
             class="img-fluid mt-3"
           />
@@ -53,7 +53,7 @@
             <div class="col-sm-3 col-md-3 col-lg-3 imgclass">
               <img
                 class="img-fluid profileimg rounded-circle"
-                src="../assets/Images/dummyperson.png"
+                src="../../public/Images/dummyperson.png"
                 alt="dummyperson"
               />
             </div>
@@ -80,5 +80,5 @@
   </main>
 </template>
 <style scoped>
-@import "../assets/CSS/about.css";
+@import "../../public/CSS/about.css";
 </style>

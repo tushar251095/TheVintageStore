@@ -24,7 +24,7 @@ export default {
     footerbar: footerbar,
   },
   created(){
-    console.log(sessionStorage.getItem("found"))
+    //console.log(sessionStorage.getItem("found"))
   }
 };
 </script>

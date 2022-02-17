@@ -123,7 +123,7 @@ export default {
     async getdata() {
       EventServices.getCategories().then((data) => {
         this.categories = data;
-        console.log(this.categories);
+       // console.log(this.categories);
       });
     },
     StoreProductID(payload) {
@@ -168,7 +168,7 @@ export default {
          this.$refs["modal-editcat"].show();
       });
        
-        console.log("success");
+        //console.log("success");
       }
     },
     EditCategory(){
@@ -187,7 +187,7 @@ export default {
 </script>
 
 <style scoped>
-@import "../assets/CSS/trades.css";
+@import "../../public/CSS/trades.css";
 .CardDesign:hover {
   cursor: pointer;
   transform: scale(1.05);

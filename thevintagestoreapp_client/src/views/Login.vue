@@ -90,7 +90,7 @@ export default {
   background-image:linear-gradient(
         rgba(0, 0, 0, 0.4),
         rgba(0, 0, 0, 0.4)
-      ), url("../assets/Images/backdropsignin.jpg");
+      ), url("../../public/Images/backdropsignin.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

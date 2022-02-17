@@ -8,8 +8,8 @@
           <select v-model="tradeobj.category_id" class="form-control">
             <option disabled value="">Please select one</option>
             <option
-              v-for="category in dropdowncategories"
-              :key="category"
+              v-for="(category,index) in dropdowncategories"
+              :key="index"
               :value="category.category_id"
             >
               {{ category.title }}
@@ -133,13 +133,13 @@ export default {
     };
   },
   created() {
-    this.categoriesdropdown();
+     this.categoriesdropdown();
   },
   methods: {
     async categoriesdropdown() {
       EventServices.getdropdownCategories().then((data) => {
         this.dropdowncategories = data;
-        console.log(this.dropdowncategories[0].title);
+        //console.log(this.dropdowncategories[0].title);
       });
     },
 
@@ -158,5 +158,5 @@ export default {
 </script>
 
 <style scoped>
-@import "../assets/CSS/newTrade.css";
+@import "../../public/CSS/newTrade.css";
 </style>

@@ -5,7 +5,7 @@
         <div class="ms-5 mt-3 footerlogomobile">
           <router-link to="/" class="text-light anchorstyle">
             <img
-              src="../assets/Images/logo.png"
+              src="../../public/Images/logo.png"
               height="100"
               width="100"
               class="ms-4 mobilefooterlogo"
@@ -57,5 +57,5 @@
   </footer>
 </template>
 <style scoped>
-@import "../assets/CSS/common.css";
+@import "../../public/CSS/common.css";
 </style>

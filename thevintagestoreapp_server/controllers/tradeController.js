@@ -1,0 +1,164 @@
+const model=require("../model/tradeModel")
+
+const Product_data= model.Product_data()
+const Categories=model.Categories()
+
+//API for categories page
+exports.categories = (req, res) => {
+  let temp_categories = [];
+  temp_categories = Categories;
+  for (let i = 0; i < Categories.length; i++) {
+    Categories[i];
+    var result = Product_data.filter((obj) => {
+      return (
+        obj.category_id === Categories[i].category_id &&
+        obj.product_status == "available"
+      );
+    }).map((obj) => ({ prod_name: obj.prod_name, product_id: obj.product_id }));
+    temp_categories[i].subtype = result.slice(0, 3);
+  }
+
+  res.send(temp_categories);
+};
+
+//API for product details page(requires product_id in request body)
+exports.productdetails = (req, res) => {
+  var result = Product_data.filter((obj) => {
+    return obj.product_id === req.body.product_id;
+  });
+  var result1 = Categories.filter((obj) => {
+    return obj.category_id === result[0].category_id;
+  });
+  result[0].category_name = result1[0].title;
+  res.send(result);
+};
+
+//API to view all items on More items page
+exports.moreitems = (req, res) => {
+  var MoreItems = Product_data.filter((obj) => {
+    return obj.category_id === req.body.category_id;
+  })
+    .map((obj) => ({
+      product_img_url: obj.product_img_url,
+      prod_name: obj.prod_name,
+      ratings: obj.ratings,
+      year: obj.year,
+      product_id: obj.product_id,
+    }))
+    .slice(req.body.startingIndex, req.body.endingIndex + 1);
+  var result = Categories.filter((obj) => {
+    return obj.category_id === req.body.category_id;
+  }).map((obj) => ({
+    category_name: obj.title,
+  }));
+  result[0].arraySize = Categories.length;
+  MoreItems.push(result[0]);
+  // console.log(MoreItems)
+  res.send(MoreItems);
+};
+
+//api to add new trade in product_data
+exports.addnewtrade = (req, res) => {
+  var counter = Product_data.length;
+  Product_data.push({
+    prod_name: req.body.prod_name,
+    product_id: ++counter,
+    category_id: req.body.category_id,
+    year: parseInt(req.body.year),
+    seller: req.body.seller,
+    seller_id: 2,
+    ratings: 0,
+    description: req.body.description,
+    product_img_url: req.body.product_img_url,
+    product_status: "available",
+  });
+  res.send(Product_data[counter - 1]);
+};
+
+//api to get categories object for dropdownlist
+exports.dropdownlisttrades = (req, res) => {
+  var temp_categories = Categories.map((obj) => ({
+    title: obj.title,
+    category_id: obj.category_id,
+  }));
+  res.send(temp_categories);
+};
+
+//api to add category
+exports.addcategory = (req, res) => {
+  var counter = Categories.length;
+  Categories.push({
+    title: req.body.category_name,
+    category_id: ++counter,
+    imageurl: req.body.imageurl,
+  });
+  res.send(Categories[counter - 1]);
+};
+
+//api to delete trade
+exports.deletetrade = (req, res) => {
+  //handle error for wrong id
+  insex_of_tarde = FIndByID(req.body.product_id, Product_data);
+  Product_data.splice(insex_of_tarde, 1);
+  res.send(Product_data);
+};
+
+//function to find object index by id
+function FIndByID(id, dataArray) {
+  index_of_object = dataArray.findIndex((obj) => obj.product_id == id);
+  if (index_of_object == -1) {
+    return false;
+  } else {
+    return index_of_object;
+  }
+}
+
+//API to view all items on edit page
+exports.viewall = (req, res) => {
+  var EditItems = Product_data.map((obj) => ({
+    product_img_url: obj.product_img_url,
+    prod_name: obj.prod_name,
+    ratings: obj.ratings,
+    year: obj.year,
+    product_id: obj.product_id,
+  })).slice(req.body.startingIndex, req.body.endingIndex + 1);
+  EditItems.push({ arraySize: Product_data.length });
+  // console.log(EditItems)
+  res.send(EditItems);
+};
+
+//API to Update trade in product_data
+exports.updatetrade = (req, res) => {
+  var objindex = FIndByID(req.body.product_id, Product_data);
+  Product_data[objindex].prod_name = req.body.prod_name;
+  Product_data[objindex].year = req.body.year;
+  Product_data[objindex].product_img_url = req.body.product_img_url;
+  Product_data[objindex].category_id = req.body.category_id;
+  Product_data[objindex].description = req.body.description;
+  res.send("success");
+};
+
+exports.findcategory = (req, res) => {
+  var index_of_object = Categories.findIndex(
+    (obj) => obj.category_id == req.body.category_id
+  );
+  if (index_of_object == -1) {
+    return false;
+  } else {
+    res.send(Categories[index_of_object]);
+  }
+};
+
+exports.updatecategory = (req, res) => {
+  var index_of_object = Categories.findIndex(
+    (obj) => obj.category_id == req.body.category_id
+  );
+  if (index_of_object == -1) {
+    return false;
+  } else {
+    Categories[index_of_object].title = req.body.title;
+    Categories[index_of_object].imageurl = req.body.imageurl;
+    res.send(Categories[index_of_object]);
+  }
+};
+
