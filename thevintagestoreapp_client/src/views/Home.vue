@@ -23,7 +23,7 @@
       <div class="row justify-content-center">
         <div class="col-sm-12 col-md-6 col-lg-4 homecard">
           <img
-            src="../../public/Images/vintagedetails.jpg"
+            src="../assets/Images/vintagedetails.jpg"
             alt="image"
             class="detailsimg"
           />
@@ -38,7 +38,7 @@
         </div>
         <div class="col-sm-12 col-md-6 col-lg-4 homecard">
           <img
-            src="../../public/Images/trade.png"
+            src="../assets/Images/trade.png"
             alt="image"
             class="detailsimg"
           />
@@ -52,7 +52,7 @@
         </div>
         <div class="col-sm-12 col-md-6 col-lg-4 homecard">
           <img
-            src="../../public/Images/quality.jpg"
+            src="../assets/Images/quality.jpg"
             alt="image"
             class="detailsimg"
           />
@@ -71,5 +71,5 @@
 </template>
 
 <style scoped>
-@import "../../public/CSS/common.css";
+@import "../assets/CSS/common.css";
 </style>

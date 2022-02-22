@@ -1,0 +1,19 @@
+.registerpart {
+    background-image:linear-gradient(
+          rgba(0, 0, 0, 0.4),
+          rgba(0, 0, 0, 0.4)
+        ), url("../Images/backdropsignin.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .thmbtn1 {
+    border-radius: 20px;
+    width: 150px;
+  }
+  .innercontent {
+    width: 60%;
+  }
+  .form-floating > input{
+      background-color: rgba(116, 68, 68, 0.075);
+  }

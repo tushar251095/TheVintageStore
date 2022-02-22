@@ -12,7 +12,7 @@
           v-for="(product, index) in productArray"
           :key="index"
         >
-          <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2)">
+          <div class="card">
             <img
               :src="product.product_img_url"
               class="img-fluid"
@@ -84,7 +84,7 @@
     </div>
     <b-modal id="delete-modal" hide-header>
       <img
-        src="../../public/Images/delete.png"
+        src="../assets/Images/delete.png"
         alt="delete icon"
         height="70"
         width="70"
@@ -107,7 +107,7 @@
     <b-modal id="update-modal" hide-header>
       <div class="modal-body">
         <img
-          src="../../public/Images/edit.png"
+          src="../assets/Images/edit.png"
           alt="delete icon"
           height="70"
           width="70"
@@ -226,8 +226,12 @@ export default {
     },
     deleteTrade() {
       EventServices.deleteProduct({ product_id: this.productID }).then(() => {
-        this.$router.push("Edit");
-        window.location.reload();
+        this.$toast.open({
+          message: "Trade Deleted Successfully",
+          type: "success",
+          position: "top",
+        });
+        this.$router.push("trades");
       });
     },
     openUpdateForm(product_id) {
@@ -245,10 +249,15 @@ export default {
     },
     editTrade() {
       // console.log(this.editobj);
-      EventServices.updateProduct(this.editobj).then((data) => {
-        console.log(data[0]);
-        this.$router.push("Edit");
-        window.location.reload();
+      EventServices.updateProduct(this.editobj).then(() => {
+        // console.log(data[0]);
+         this.$toast.open({
+          message: "Trade Updated Successfully",
+          type: "success",
+          position: "top",
+        });
+        this.$router.push("trades");
+        //window.location.reload();
       });
     },
     StoreProductID(payload) {
@@ -262,12 +271,5 @@ export default {
 };
 </script>
 <style scoped>
-.img-fluid {
-  max-height: 200px;
-  min-height: 200px;
-  width: 100%;
-}
-p {
-  cursor: pointer;
-}
+@import "../assets/CSS/moreItem.css";
 </style>

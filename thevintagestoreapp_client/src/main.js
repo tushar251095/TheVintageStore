@@ -7,7 +7,8 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import VueToast from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
-
+import '@fortawesome/fontawesome-free/css/all.css'
+import '@fortawesome/fontawesome-free/js/all.js'
 Vue.use(VueToast);
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);

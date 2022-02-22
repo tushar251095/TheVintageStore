@@ -50,6 +50,11 @@ export default {
     let res = await apiClient.post("/delete/trade", payload);
     return res.data;
   },
+  async deleteCategory(payload) {
+    // console.log(payload)
+    let res = await apiClient.post("/delete/category", payload);
+    return res.data;
+  },
   async updateProduct(payload) {
     // console.log(payload)
     let res = await apiClient.post("/update/trade", payload);

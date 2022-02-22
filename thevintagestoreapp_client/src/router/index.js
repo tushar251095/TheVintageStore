@@ -10,7 +10,7 @@ import Edit from "../views/edit.vue";
 import Signup from "../views/registrationForm.vue";
 import Login from "../views/Login.vue";
 import PageNotFound from "../views/PageNotFound.vue";
-
+import Contact from "../views/contact.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -58,6 +58,11 @@ const routes = [
     path: "/login",
     name: "Login",
     component: Login,
+  },
+  {
+    path: "/contact",
+    name: "contact",
+    component: Contact,
   },
   { path: "*", 
   component: PageNotFound,

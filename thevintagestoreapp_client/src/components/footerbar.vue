@@ -5,7 +5,7 @@
         <div class="ms-5 mt-3 footerlogomobile">
           <router-link to="/" class="text-light anchorstyle">
             <img
-              src="../../public/Images/logo.png"
+              src="../assets/Images/logo.png"
               height="100"
               width="100"
               class="ms-4 mobilefooterlogo"
@@ -32,9 +32,9 @@
         <div class="ms-5 mt-2">
           <h5 class="">Follow Us</h5>
           <div class="mt-3 text-light">
-            <a href="#">
+            <!-- <a href="#">
               <i class="fab fa-facebook fa-lg pe-2 text-light"></i
-            ></a>
+            ></a> -->
             <a href="#"><i class="fab fa-linkedin fa-lg p-2 text-light"></i></a>
             <a href="#">
               <i class="fab fa-twitter-square fa-lg p-2 text-light"></i
@@ -42,6 +42,10 @@
             <a href="#">
               <i class="fab fa-instagram fa-lg p-2 text-light"></i
             ></a>
+              <a href="#" class="rounded">
+              <i class="fa fab fa-facebook-f fa-lg p-2 text-light"></i
+            ></a>
+           
           </div>
         </div>
       </div>
@@ -57,5 +61,5 @@
   </footer>
 </template>
 <style scoped>
-@import "../../public/CSS/common.css";
+@import "../assets/CSS/common.css";
 </style>

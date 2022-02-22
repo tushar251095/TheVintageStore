@@ -118,6 +118,6 @@ export default {
 </script>
 
 <style scoped>
-@import "../../public/CSS/trade.css";
-@import "../../public/CSS/common.css";
+@import "../assets/CSS/trade.css";
+@import "../assets/CSS/common.css";
 </style>

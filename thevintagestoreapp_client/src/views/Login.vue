@@ -81,30 +81,6 @@ export default {
     }
 }
 </script>
-<style scoped>
-/* .signupbox{
-    border:1px solid black;
-} */
-.registerpart {
-  /* background-color: rgb(83, 189, 166); */
-  background-image:linear-gradient(
-        rgba(0, 0, 0, 0.4),
-        rgba(0, 0, 0, 0.4)
-      ), url("../../public/Images/backdropsignin.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-.thmbtn1 {
-  border-radius: 20px;
-  width: 150px;
-}
-.innercontent {
-  width: 60%;
-  /* padding: 20px; */
-  /* padding-left: 250px; */
-}
-.form-floating > input{
-    background-color: rgba(116, 68, 68, 0.075);
-}
+<style scoped src="../assets/CSS/login.css">
+/* @import "../assets/CSS/login.css"; */
 </style>

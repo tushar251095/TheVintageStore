@@ -5,7 +5,7 @@
         <div class="col-sm-5 logo">
           <router-link to="/">
             <img
-              src="../../public/Images/logo.png"
+              src="../assets/Images/logo.png"
               class="float-start ms-4 logoimg"
               alt="logo"
             />
@@ -36,5 +36,5 @@
   </div>
 </template>
 <style>
-@import "../../public/CSS/common.css";
+@import "../assets/CSS/common.css";
 </style>

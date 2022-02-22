@@ -1,0 +1,22 @@
+.checked{
+    color:orange;
+}
+
+.titleclass{
+    text-decoration: none;
+}
+.subtypeclass:hover{
+    text-decoration: none;
+}
+
+.card > img {
+    max-height: 200px;
+    min-height: 200px;
+    width: 100%;
+  }
+  p {
+    cursor: pointer;
+  }
+  .card{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  }

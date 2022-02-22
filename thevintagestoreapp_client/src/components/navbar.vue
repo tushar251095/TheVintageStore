@@ -33,7 +33,7 @@
 </template>
 
 <style scoped>
-@import "../../public/CSS/common.css";
+@import "../assets/CSS/common.css";
 @media screen and (max-width: 768px) {
   .navbar-nav {
     flex-direction: row;

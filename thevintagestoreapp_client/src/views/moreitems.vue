@@ -12,11 +12,11 @@
           v-for="(product, index) in productArray"
           :key="index"
         >
-          <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2)">
+          <div class="card">
             <img
               :src="product.product_img_url"
               class="img-fluid"
-              alt="Product Image"
+              alt="Product Image itemimg"
             />
             <div class="p-3">
               <h6>
@@ -139,12 +139,5 @@ export default {
 };
 </script>
 <style scoped>
-img {
-  max-height: 200px;
-  min-height: 200px;
-  width: 100%;
-}
-p {
-  cursor: pointer;
-}
+@import "../assets/CSS/moreItem.css";
 </style>

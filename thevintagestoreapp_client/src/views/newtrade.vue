@@ -139,16 +139,23 @@ export default {
     async categoriesdropdown() {
       EventServices.getdropdownCategories().then((data) => {
         this.dropdowncategories = data;
-        //console.log(this.dropdowncategories[0].title);
       });
     },
 
     CreateTrade() {
       EventServices.addNewTrade(this.tradeobj).then(() => {
-        alert("success");
+         this.$toast.open({
+          message: "Trade Added Successfully",
+          type: "success",
+          position: "top",
+        });
+        this.$router.push("Trades");
       });
     },
     CreateCategory() {
+      if(this.addcatobj.imageurl==""){
+        this.addcatobj.imageurl="https://i.ytimg.com/vi/2QvOxa_7wEw/maxresdefault.jpg";
+      }
       EventServices.addNewCategory(this.addcatobj).then(() => {
         this.$router.push("Trades");
       });
@@ -158,5 +165,5 @@ export default {
 </script>
 
 <style scoped>
-@import "../../public/CSS/newTrade.css";
+@import "../assets/CSS/newTrade.css";
 </style>

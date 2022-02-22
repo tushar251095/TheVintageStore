@@ -98,14 +98,24 @@ exports.addcategory = (req, res) => {
 //api to delete trade
 exports.deletetrade = (req, res) => {
   //handle error for wrong id
-  insex_of_tarde = FIndByID(req.body.product_id, Product_data);
+  insex_of_tarde = FIndByID(req.body.product_id, Product_data,"product_id");
   Product_data.splice(insex_of_tarde, 1);
   res.send(Product_data);
 };
 
+//api to delete category
+exports.deletecategory = (req, res) => {
+  //handle error for wrong id
+  // console.log(req.body.category_id)
+  insex_of_tarde = FIndByID(req.body.category_id, Categories,"category_id");
+  // console.log(insex_of_tarde)
+  Categories.splice(insex_of_tarde, 1);
+  res.send("SUCCESS");
+};
+
 //function to find object index by id
-function FIndByID(id, dataArray) {
-  index_of_object = dataArray.findIndex((obj) => obj.product_id == id);
+function FIndByID(id, dataArray,value) {
+  index_of_object = dataArray.findIndex((obj) => obj[value] == id);
   if (index_of_object == -1) {
     return false;
   } else {
@@ -129,13 +139,13 @@ exports.viewall = (req, res) => {
 
 //API to Update trade in product_data
 exports.updatetrade = (req, res) => {
-  var objindex = FIndByID(req.body.product_id, Product_data);
+  var objindex = FIndByID(req.body.product_id, Product_data,"product_id");
   Product_data[objindex].prod_name = req.body.prod_name;
   Product_data[objindex].year = req.body.year;
   Product_data[objindex].product_img_url = req.body.product_img_url;
   Product_data[objindex].category_id = req.body.category_id;
   Product_data[objindex].description = req.body.description;
-  res.send("success");
+  res.send("SUCCESS");
 };
 
 exports.findcategory = (req, res) => {
@@ -158,7 +168,7 @@ exports.updatecategory = (req, res) => {
   } else {
     Categories[index_of_object].title = req.body.title;
     Categories[index_of_object].imageurl = req.body.imageurl;
-    res.send(Categories[index_of_object]);
+    res.send("SUCCESS");
   }
 };
 
