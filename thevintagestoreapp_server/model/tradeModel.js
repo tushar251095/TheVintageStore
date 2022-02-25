@@ -43,6 +43,7 @@ const Categories = [
       product_img_url:
         "https://github.com/tushar251095/TheVintageStore/blob/main/Images/productimage.png?raw=true",
       product_status: "available",
+      view_count:10
     },
     {
       prod_name: "The Empire Line Vintage Dress",
@@ -57,6 +58,7 @@ const Categories = [
       product_img_url:
         "https://github.com/tushar251095/TheVintageStore/blob/main/Images/empirelinedress.jpg?raw=true",
       product_status: "available",
+      view_count:3
     },
     {
       prod_name: "The Fit and Flare Dress",
@@ -71,6 +73,7 @@ const Categories = [
       product_img_url:
         "https://github.com/tushar251095/TheVintageStore/blob/main/Images/fitnflatedress.jpg?raw=true",
       product_status: "available",
+      view_count:3
     },
     {
       prod_name: "Vinatge Abstarct Painting",
@@ -85,6 +88,7 @@ const Categories = [
       product_img_url:
         "https://github.com/tushar251095/TheVintageStore/blob/main/Images/abstractpainting.jpg?raw=true",
       product_status: "available",
+      view_count:1
     },
     {
       prod_name: "Yellow Red Blue Painting",
@@ -99,6 +103,7 @@ const Categories = [
       product_img_url:
         "https://github.com/tushar251095/TheVintageStore/blob/main/Images/yellowredpainting.jpg?raw=true",
       product_status: "available",
+      view_count:0
     },
     {
       prod_name: "Starry Night by Vincent Gogh",
@@ -113,6 +118,7 @@ const Categories = [
       product_img_url:
         "https://github.com/tushar251095/TheVintageStore/blob/main/Images/starynightpainting.jpg?raw=true",
       product_status: "available",
+      view_count:15
     },
     {
       prod_name: "Edwardian chair",
@@ -127,6 +133,7 @@ const Categories = [
       product_img_url:
         "https://github.com/tushar251095/TheVintageStore/blob/main/Images/edwardiancharir.jpg?raw=true",
       product_status: "available",
+      view_count:12
     },
     {
       prod_name: "Trumpet Tables",
@@ -141,6 +148,7 @@ const Categories = [
       product_img_url:
         "https://github.com/tushar251095/TheVintageStore/blob/main/Images/trumpetable.jpg?raw=true",
       product_status: "available",
+      view_count:10
     },
     {
       prod_name: "Hoosier Cabinet",
@@ -155,6 +163,7 @@ const Categories = [
       product_img_url:
         "https://github.com/tushar251095/TheVintageStore/blob/main/Images/hoosiercabinet.jpg?raw=true",
       product_status: "available",
+      view_count:3
     },
     {
       prod_name: "Jaguar E-Type",
@@ -169,6 +178,7 @@ const Categories = [
       product_img_url:
         "https://github.com/tushar251095/TheVintageStore/blob/main/Images/jaguareEtype.jpg?raw=true",
       product_status: "available",
+      view_count:5
     },
     {
       prod_name: "Chevrolet Corvette",
@@ -183,6 +193,7 @@ const Categories = [
       product_img_url:
         "https://github.com/tushar251095/TheVintageStore/blob/main/Images/corvettecar.jpg?raw=true",
       product_status: "available",
+      view_count:3
     },
     {
       prod_name: "Porsche 911",
@@ -197,6 +208,7 @@ const Categories = [
       product_img_url:
         "https://github.com/tushar251095/TheVintageStore/blob/main/Images/porsche911.jpg?raw=true",
       product_status: "available",
+      view_count:5
     },
   ];
 

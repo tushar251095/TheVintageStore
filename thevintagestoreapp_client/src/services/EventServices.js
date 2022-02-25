@@ -15,17 +15,11 @@ export default {
   },
 
   async getProductDetails(payload) {
-    let sendobj = {
-      product_id: payload,
-    };
-    let res = await apiClient.post("/trade", sendobj);
-    console.log(res.data);
+    let res = await apiClient.get("/trade/"+payload);
+    //console.log(res.data);
     return res.data;
   },
   async getMoreitems(payload) {
-    // let sendobj = {
-    //   category_id: payload,
-    // };
      let res = await apiClient.post("/moreitems", payload);
     return res.data;
   },
@@ -68,6 +62,11 @@ export default {
   async editCategory(payload) {
     // console.log(payload)
     let res = await apiClient.post("/edit/catrgory", payload);
+    return res.data;
+  },
+  async mostviewed() {
+    // console.log(payload)
+    let res = await apiClient.get("/mostviewed");
     return res.data;
   },
 };

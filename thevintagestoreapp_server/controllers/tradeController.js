@@ -5,10 +5,10 @@ const Categories=model.Categories()
 
 //API for categories page
 exports.categories = (req, res) => {
+
   let temp_categories = [];
   temp_categories = Categories;
   for (let i = 0; i < Categories.length; i++) {
-    Categories[i];
     var result = Product_data.filter((obj) => {
       return (
         obj.category_id === Categories[i].category_id &&
@@ -23,13 +23,13 @@ exports.categories = (req, res) => {
 
 //API for product details page(requires product_id in request body)
 exports.productdetails = (req, res) => {
-  var result = Product_data.filter((obj) => {
-    return obj.product_id === req.body.product_id;
-  });
-  var result1 = Categories.filter((obj) => {
-    return obj.category_id === result[0].category_id;
-  });
-  result[0].category_name = result1[0].title;
+  var index_of_object=FIndByID(req.params.product_id,Product_data,"product_id");
+  Product_data[index_of_object].view_count=Product_data[index_of_object].view_count+1;
+  var result=[];
+  result.push(Product_data[index_of_object])
+  console.log(result)
+  var index_of_object1=FIndByID(result[0].category_id,Categories,"category_id");
+  result[0].category_name=Categories[index_of_object1].title;
   res.send(result);
 };
 
@@ -71,6 +71,7 @@ exports.addnewtrade = (req, res) => {
     description: req.body.description,
     product_img_url: req.body.product_img_url,
     product_status: "available",
+    view_count:0
   });
   res.send(Product_data[counter - 1]);
 };
@@ -172,3 +173,19 @@ exports.updatecategory = (req, res) => {
   }
 };
 
+exports.mostviewed=(req,res)=>{
+  var mostviewed=[...Product_data]
+   mostviewed.sort(function(a,b){
+    return b.view_count-a.view_count
+  })
+ .map((obj) => ({
+      product_img_url: obj.product_img_url,
+      prod_name: obj.prod_name,
+      ratings: obj.ratings,
+      year: obj.year,
+      product_id: obj.product_id,
+      view_count:obj.view_count
+    }))
+    ;
+    res.send(mostviewed.slice(0,4))
+}

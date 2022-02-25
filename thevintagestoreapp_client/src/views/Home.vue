@@ -67,8 +67,148 @@
         </div>
       </div>
     </section>
+    <section class="card p-3 mb-3">
+      <div class="row">
+        <div class="col-sm-12 col-lg-12 col-md-12">
+          <h4 class="">Most Viewed Products</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div
+          class="col-sm-12 col-md-6 col-lg-3 p-3"
+          v-for="(product, index) in productArray"
+          :key="index"
+        >
+          <div class="card">
+            <img
+              :src="product.product_img_url"
+              class="img-fluid"
+              alt="Product Image"
+            />
+            <div class="p-3">
+              <h6>
+                <p @click="StoreProductID(product.product_id)">
+                  {{ product.prod_name }}
+                </p>
+              </h6>
+              <span v-if="product.ratings == 0"> Rating Not Available </span>
+              <span v-if="product.ratings == 1">
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+              </span>
+              <span v-if="product.ratings == 2">
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+              </span>
+              <span v-if="product.ratings == 3">
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+              </span>
+              <span v-if="product.ratings == 4">
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+              </span>
+              <span v-if="product.ratings == 5">
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+              </span>
+
+              <p>Year: {{ product.year }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-6 p-5">
+          <div class="card h-100">
+            <span>
+            <img src="../assets/Images/old.jpeg" class="image-fluid homecardimg" />
+            </span>
+             <div class="p-3">
+            <h4>
+              What's the difference between old clothes and Vintage clothing?
+            </h4>
+            <p>
+              Well, "old" is a relative term. You might consider your four year
+              old designer purse old, not to mention your 10 year old Manolo
+              Blahniks. However, were you to sell these items today, they would
+              be considered premium second hand or pre-loved designer fashion.
+              Keep them for another decade or two though, and they will become
+              official vintage pieces.
+            </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-6 p-5">
+          <div class="card h-100">
+            <span>
+            <img src="../assets/Images/retro.jpeg" class="image-fluid homecardimg" />
+            </span>
+            <div class="p-3">
+            <h4>Retro or vintage?</h4>
+            <p>
+              Retro, which is short for Retrospective, is often called "vintage
+              style" and usually refers to clothing imitating the clothing style
+              of a previous era. The "nostalgia cycle" of fashion and clothing
+              style is often focusing on the two decades 20–30 years before the
+              current one. Retro style does is often but not necessarily consist
+              of vintage garments and accessories. It might be a mix of vintage
+              and newly produced clothing pieces, or entirely new ones.
+              Reproduction, or repro, clothing is a newly made copy of an older
+              garment.
+            </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 </template>
+<script>
+import EventServices from "@/services/EventServices.js";
+export default {
+  data() {
+    return {
+      productArray: [],
+    };
+  },
+  created() {
+    this.getmostvieweddata();
+  },
+  methods: {
+    async getmostvieweddata() {
+      EventServices.mostviewed().then((data) => {
+        this.productArray = data;
+        // console.log(this.categories);
+      });
+    },
+    StoreProductID(payload) {
+      this.$store.dispatch("saveid", payload).then(() => {
+        this.$router.push({
+          name: "Trade",
+        });
+      });
+    },
+  },
+};
+</script>
 
 <style scoped>
 @import "../assets/CSS/common.css";

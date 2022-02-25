@@ -29,6 +29,9 @@ export default {
 };
 </script>
 <style>
+#app{
+  background-color: rgb(250, 250, 250);
+}
 /* Hide scrollbar for Chrome, Safari and Opera */
 /* body::-webkit-scrollbar {
     display: none;
