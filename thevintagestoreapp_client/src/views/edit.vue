@@ -124,8 +124,8 @@
         <select v-model="editobj.category_id" class="form-control">
           <option disabled value="">Please select one</option>
           <option
-            v-for="category in dropdowncategories"
-            :key="category"
+            v-for="(category,index) in dropdowncategories"
+            :key="index"
             :value="category.category_id"
           >
             {{ category.title }}

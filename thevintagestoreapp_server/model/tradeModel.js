@@ -1,3 +1,5 @@
+// const Categories = []
+// const Product_data=[]
 const Categories = [
     {
       title: "Clothing",
@@ -28,6 +30,8 @@ const Categories = [
       subtype: [],
     },
   ];
+
+  
   
   const Product_data = [
     {
@@ -214,3 +218,222 @@ const Categories = [
 
   exports.Categories=()=> Categories
   exports.Product_data=()=>Product_data
+
+//function to find object index by id
+function FIndByID(id, dataArray,value) {
+  index_of_object = dataArray.findIndex((obj) => obj[value] == id);
+  if (index_of_object == -1) {
+    return -1;
+  } else {
+    return index_of_object;
+  }
+}
+
+  //function get all categories from array
+  //if array has element return the same array by adding three product
+  //if array is empty return empty
+  exports.getAllCategories=()=>{
+    let temp_categories = [];
+    temp_categories = Categories;
+    for (let i = 0; i < Categories.length; i++) {
+      var result = Product_data.filter((obj) => {
+        return (
+          obj.category_id === Categories[i].category_id &&
+          obj.product_status == "available"
+        );
+      }).map((obj) => ({ prod_name: obj.prod_name, product_id: obj.product_id }));
+      temp_categories[i].subtype = result.slice(0, 3);
+    }
+    return temp_categories;
+  }
+
+  //Return product details by matching product_id 
+  //if id not present return null
+  exports.getproductDetails=(product_id)=>{
+    var index_of_object=FIndByID(product_id,Product_data,"product_id");
+    if(index_of_object==-1){
+        return null;
+    }else{
+      Product_data[index_of_object].view_count=Product_data[index_of_object].view_count+1;
+      var productDetails=[];
+      productDetails.push(Product_data[index_of_object])
+      var index_of_object1=FIndByID(productDetails[0].category_id,Categories,"category_id");
+      productDetails[0].category_name=Categories[index_of_object1].title;
+      return productDetails;
+    }
+   
+  }
+
+  //return all products with display details
+  //if empty send emppy array
+  exports.allProductsforCategory=(category_id,startingIndex,endingIndex)=>{
+    var MoreItems = Product_data.filter((obj) => {
+      return obj.category_id === category_id;
+    })
+      .map((obj) => ({
+        product_img_url: obj.product_img_url,
+        prod_name: obj.prod_name,
+        ratings: obj.ratings,
+        year: obj.year,
+        product_id: obj.product_id,
+      }))
+      .slice(startingIndex,endingIndex + 1);
+    var result = Categories.filter((obj) => {
+      return obj.category_id === category_id;
+    }).map((obj) => ({
+      category_name: obj.title,
+    }));
+    if(result.length>0){
+      result[0].arraySize = Categories.length;
+      MoreItems.push(result[0]);
+      return MoreItems;
+    }else{
+      return null;
+    }
+   
+  }
+
+  //save new trade object to product_data array
+  //return success after adding object
+  exports.saveNewTrade=(newTrade)=>{
+    let counter = Product_data.length;
+    Product_data.push({
+      prod_name: newTrade.prod_name,
+      product_id: ++counter,
+      category_id: newTrade.category_id,
+      year: parseInt(newTrade.year),
+      seller: newTrade.seller,
+      seller_id: 2,
+      ratings: 0,
+      description: newTrade.description,
+      product_img_url: newTrade.product_img_url,
+      product_status: "available",
+      view_count:0
+    });
+    return "SUCCESS"
+  }
+
+  //return list of categories names for dropdown list
+  exports.getCategoriesNames=()=>{
+    var temp_categories = Categories.map((obj) => ({
+      title: obj.title,
+      category_id: obj.category_id,
+    }));
+
+    return temp_categories;
+  }
+
+  //save new category in categories array
+  //retrun success on adding
+  exports.saveNewCategory=(newCategory)=>{
+    var counter = Categories.length;
+  Categories.push({
+    title: newCategory.category_name,
+    category_id: ++counter,
+    imageurl: newCategory.imageurl,
+  });
+  return "SUCCESS";
+  }
+
+  //delete item from prodct array
+  //return success on successfully removing item
+  exports.removeProduct=(product_id)=>{
+      insex_of_tarde = FIndByID(product_id, Product_data,"product_id");
+      if(insex_of_tarde== -1){
+        return null;
+      }else{
+        Product_data.splice(insex_of_tarde, 1);
+        return "SUCCESS";
+      }
+  }
+
+  //delete item fro categories array
+  //return success on successfully removing item
+  exports.removeCategory=(category_id)=>{
+    insex_of_category = FIndByID(category_id, Categories,"category_id");
+    if(insex_of_category== -1){
+      return null;
+    }else{
+      Categories.splice(insex_of_category, 1);
+      return "SUCCESS";
+    }
+  }
+
+  //Return all products from all categories with minimum display details
+  //if rempty return empty array
+  exports.getAllProducts=(startingIndex,endingIndex)=>{
+    var EditItems = Product_data.map((obj) => ({
+      product_img_url: obj.product_img_url,
+      prod_name: obj.prod_name,
+      ratings: obj.ratings,
+      year: obj.year,
+      product_id: obj.product_id,
+    })).slice(startingIndex, endingIndex + 1);
+    if( Product_data.length>0){
+      EditItems.push({ arraySize: Product_data.length });
+      return EditItems;
+    }else{
+      return []
+    }
+  }
+
+  //function to update object/trade in product array
+  //return success if updated successfully else return null
+  exports.updateProductDetails=(updatedTrade)=>{
+    var index_of_tarde = FIndByID(updatedTrade.product_id, Product_data,"product_id");
+    if(index_of_tarde== -1){
+      return null;
+    }else{
+      Product_data[index_of_tarde].prod_name = updatedTrade.prod_name;
+      Product_data[index_of_tarde].year = updatedTrade.year;
+      Product_data[index_of_tarde].product_img_url = updatedTrade.product_img_url;
+      Product_data[index_of_tarde].category_id = updatedTrade.category_id;
+      Product_data[index_of_tarde].description = updatedTrade.description;
+      return "SUCCESS";
+    }
+  }
+
+  //find category by id
+  //return if found else return null
+  exports.findCategoryByID=(category_id)=>{
+    var index_of_object = Categories.findIndex(
+      (obj) => obj.category_id == category_id
+    );
+    if (index_of_object == -1) {
+      return null;
+    } else {
+      return Categories[index_of_object];
+    }
+  }
+
+  //update category and return success 
+  //else reurn null
+  exports.updateCategoryByID=(updatedCategory)=>{
+    var index_of_object = Categories.findIndex(
+      (obj) => obj.category_id == updatedCategory.category_id
+    );
+    if (index_of_object == -1) {
+      return null;
+    } else {
+      Categories[index_of_object].title = updatedCategory.title;
+      Categories[index_of_object].imageurl = updatedCategory.imageurl;
+      return "SUCCESS"
+    }
+  }
+
+  //return most viwed products on the basis of view count
+  exports.mostViwedProduct=()=>{
+    var mostviewed=[...Product_data]
+   mostviewed.sort(function(a,b){
+    return b.view_count-a.view_count
+  })
+ .map((obj) => ({
+      product_img_url: obj.product_img_url,
+      prod_name: obj.prod_name,
+      ratings: obj.ratings,
+      year: obj.year,
+      product_id: obj.product_id,
+      view_count:obj.view_count
+    }));
+    return mostviewed.slice(0,4)
+  }

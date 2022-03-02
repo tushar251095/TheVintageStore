@@ -4,10 +4,10 @@ const router= express.Router()
 
 
 //API for categories page
-router.get("/trades",controller.categories);
+router.get("/categories",controller.categories);
 
 //API for product details page(requires product_id in request body)
-router.get("/trade/:product_id",controller.productdetails);
+router.get("/:product_id",controller.productdetails);
 
 //API to view all items on More items page
 router.post("/moreitems", controller.moreitems);
@@ -16,31 +16,32 @@ router.post("/moreitems", controller.moreitems);
 router.post("/add/trade", controller.addnewtrade);
 
 //api to get categories object for dropdownlist
-router.get("/categories", controller.dropdownlisttrades);
+router.get("/categories/names", controller.dropdownlisttrades);
 
 //api to add category
 router.post("/add/category",controller.addcategory);
 
 //api to delete trade
-router.post("/delete/trade", controller.deletetrade);
+router.delete("/product/delete/:product_id", controller.deletetrade);
 
 //api to delete category
-router.post("/delete/category", controller.deletecategory);
+router.delete("/delete/category/:category_id", controller.deletecategory);
 
 //API to view all items on edit page
-router.post("/view/allproduct", controller.viewall);
+router.get("/view/allproduct/:startingIndex/:endingIndex", controller.viewall);
 
 //API to Update trade in product_data
-router.post("/update/trade", controller.updatetrade);
+router.put("/update/trade", controller.updatetrade);
 
 //api to find cattegory
-router.post("/find/catrgory", controller.findcategory);
+router.get("/find/catrgory/:category_id", controller.findcategory);
 
 //api to edit category by id
-router.post("/edit/catrgory", controller.updatecategory);
+router.put("/edit/catrgory", controller.updatecategory);
 
-//api to get most viwed items
-router.get("/mostviewed", controller.mostviewed);
+//api to edit category by id
+router.get("/product/mostviewed", controller.mostSearched);
+
 
 
 module.exports=router;
