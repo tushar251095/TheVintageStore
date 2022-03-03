@@ -1,3 +1,4 @@
+const { v4: uuidv4 } = require('uuid');
 // const Categories = []
 // const Product_data=[]
 const Categories = [
@@ -216,9 +217,6 @@ const Categories = [
     },
   ];
 
-  exports.Categories=()=> Categories
-  exports.Product_data=()=>Product_data
-
 //function to find object index by id
 function FIndByID(id, dataArray,value) {
   index_of_object = dataArray.findIndex((obj) => obj[value] == id);
@@ -248,11 +246,11 @@ function FIndByID(id, dataArray,value) {
   }
 
   //Return product details by matching product_id 
-  //if id not present return null
+  //if id not present return false
   exports.getproductDetails=(product_id)=>{
     var index_of_object=FIndByID(product_id,Product_data,"product_id");
     if(index_of_object==-1){
-        return null;
+        return false;
     }else{
       Product_data[index_of_object].view_count=Product_data[index_of_object].view_count+1;
       var productDetails=[];
@@ -288,7 +286,7 @@ function FIndByID(id, dataArray,value) {
       MoreItems.push(result[0]);
       return MoreItems;
     }else{
-      return null;
+      return false;
     }
    
   }
@@ -296,10 +294,9 @@ function FIndByID(id, dataArray,value) {
   //save new trade object to product_data array
   //return success after adding object
   exports.saveNewTrade=(newTrade)=>{
-    let counter = Product_data.length;
     Product_data.push({
       prod_name: newTrade.prod_name,
-      product_id: ++counter,
+      product_id: uuidv4(),
       category_id: newTrade.category_id,
       year: parseInt(newTrade.year),
       seller: newTrade.seller,
@@ -310,7 +307,7 @@ function FIndByID(id, dataArray,value) {
       product_status: "available",
       view_count:0
     });
-    return "SUCCESS"
+    return true
   }
 
   //return list of categories names for dropdown list
@@ -326,13 +323,12 @@ function FIndByID(id, dataArray,value) {
   //save new category in categories array
   //retrun success on adding
   exports.saveNewCategory=(newCategory)=>{
-    var counter = Categories.length;
   Categories.push({
     title: newCategory.category_name,
-    category_id: ++counter,
+    category_id: uuidv4(),
     imageurl: newCategory.imageurl,
   });
-  return "SUCCESS";
+  return true;
   }
 
   //delete item from prodct array
@@ -340,10 +336,10 @@ function FIndByID(id, dataArray,value) {
   exports.removeProduct=(product_id)=>{
       insex_of_tarde = FIndByID(product_id, Product_data,"product_id");
       if(insex_of_tarde== -1){
-        return null;
+        return false;
       }else{
         Product_data.splice(insex_of_tarde, 1);
-        return "SUCCESS";
+        return true;
       }
   }
 
@@ -352,10 +348,10 @@ function FIndByID(id, dataArray,value) {
   exports.removeCategory=(category_id)=>{
     insex_of_category = FIndByID(category_id, Categories,"category_id");
     if(insex_of_category== -1){
-      return null;
+      return false;
     }else{
       Categories.splice(insex_of_category, 1);
-      return "SUCCESS";
+      return true;
     }
   }
 
@@ -378,46 +374,46 @@ function FIndByID(id, dataArray,value) {
   }
 
   //function to update object/trade in product array
-  //return success if updated successfully else return null
+  //return success if updated successfully else return false
   exports.updateProductDetails=(updatedTrade)=>{
     var index_of_tarde = FIndByID(updatedTrade.product_id, Product_data,"product_id");
     if(index_of_tarde== -1){
-      return null;
+      return false;
     }else{
       Product_data[index_of_tarde].prod_name = updatedTrade.prod_name;
       Product_data[index_of_tarde].year = updatedTrade.year;
       Product_data[index_of_tarde].product_img_url = updatedTrade.product_img_url;
       Product_data[index_of_tarde].category_id = updatedTrade.category_id;
       Product_data[index_of_tarde].description = updatedTrade.description;
-      return "SUCCESS";
+      return true;
     }
   }
 
   //find category by id
-  //return if found else return null
+  //return if found else return false
   exports.findCategoryByID=(category_id)=>{
     var index_of_object = Categories.findIndex(
       (obj) => obj.category_id == category_id
     );
     if (index_of_object == -1) {
-      return null;
+      return false;
     } else {
       return Categories[index_of_object];
     }
   }
 
   //update category and return success 
-  //else reurn null
+  //else reurn false
   exports.updateCategoryByID=(updatedCategory)=>{
     var index_of_object = Categories.findIndex(
       (obj) => obj.category_id == updatedCategory.category_id
     );
     if (index_of_object == -1) {
-      return null;
+      return false;
     } else {
       Categories[index_of_object].title = updatedCategory.title;
       Categories[index_of_object].imageurl = updatedCategory.imageurl;
-      return "SUCCESS"
+      return true
     }
   }
 

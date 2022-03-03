@@ -17,10 +17,25 @@ app.use(express.urlencoded({extended:true}))
 
 //routes
 const tradeRouter= require("./routes/tradeRoutes")
-const mainRouter= require("./routes/mainRoutes")
 app.use("/trade",tradeRouter);
-app.use("/",mainRouter);
 
+//middleware to handle pagenotfound error
+app.use((req,res,next)=>{
+    let err= new Error("Serevr cannot locate the given URL "+req.url)
+    err.status=404;
+    next(err)
+ })
+ 
+ //middleware to handle 500 internal server error
+ app.use((err,req,res,next)=>{
+     console.log(err.stack)
+     if(!err.status){
+         err.status=500;
+         err.message="Internal server error";
+     }
+     res.status(err.status)
+     res.send({message:err.message,statusCode:err.status})
+ })
 //Starting server
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

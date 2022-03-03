@@ -73,7 +73,11 @@
           <h4 class="">Most Viewed Products</h4>
         </div>
       </div>
-      <div class="row">
+      <div class="row" v-if="productArray.length==0">
+        <hr>
+          <h4 class="text-secondary">No products to display</h4>
+      </div>
+      <div class="row" v-else>
         <div
           class="col-sm-12 col-md-6 col-lg-3 p-3"
           v-for="(product, index) in productArray"
@@ -194,10 +198,11 @@ export default {
   },
   methods: {
     async getmostvieweddata() {
-      EventServices.mostviewed().then((data) => {
-        this.productArray = data;
-        // console.log(this.categories);
-      });
+     await EventServices.mostviewed().then((data) => {
+       if(data != undefined){
+          this.productArray = data;
+        }
+      })
     },
     StoreProductID(payload) {
       this.$store.dispatch("saveid", payload).then(() => {

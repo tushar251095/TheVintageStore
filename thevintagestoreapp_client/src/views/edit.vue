@@ -7,7 +7,13 @@
         </div>
       </div>
       <div class="row">
+        <div  class="col-sm-12 col-md-12 col-lg-12 p-3" v-if="productArray.length==0">
+            <div>
+              <h4 class="p-5 border border-secondary text-secondary text-center">No products to display</h4>
+            </div>
+        </div>
         <div
+        v-else
           class="col-sm-12 col-md-6 col-lg-3 p-3"
           v-for="(product, index) in productArray"
           :key="index"
@@ -212,9 +218,11 @@ export default {
         };
          EventServices.getAllItemsForEditpage(sendobj).then(
         (data) => {
-          this.pages=((data[data.length - 1].arraySize-1) + this.perPage - 1)/this.perPage
+          if(data != undefined){
+            this.pages=((data[data.length - 1].arraySize-1) + this.perPage - 1)/this.perPage
          data.pop();
           this.productArray = data;
+          }
         }
       );
         })

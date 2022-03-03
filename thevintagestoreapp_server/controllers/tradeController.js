@@ -1,24 +1,28 @@
 const model=require("../model/tradeModel")
 
-const Product_data= model.Product_data()
-const Categories=model.Categories()
-
 //API for categories page
 exports.categories = (req, res) => {
   res.send(model.getAllCategories());
 };
 
 //API for product details page(requires product_id in request body)
-exports.productdetails = (req, res) => {
+exports.productdetails = (req, res,next) => {
   let product_id=req.params.product_id;
-  res.send(model.getproductDetails(product_id));
+  if(!model.getproductDetails(product_id)){
+    let err = new Error("cannot find the requested resource with id: "+product_id);
+    err.status = 404;
+    next(err);
+  }else{
+    res.send(model.getproductDetails(product_id));
+  }
+ 
 };
 
 //API to view all items for specific category
 exports.moreitems = (req, res) => {
-  let category_id=req.body.category_id
-  let startingIndex=req.body.startingIndex
-  let endingIndex=req.body.endingIndex
+  let category_id=parseInt(req.params.category_id)
+  let startingIndex=parseInt(req.params.startingIndex)
+  let endingIndex=parseInt(req.params.endingIndex)
   res.send(model.allProductsforCategory(category_id,startingIndex,endingIndex));
 };
 
@@ -40,26 +44,28 @@ exports.addcategory = (req, res) => {
 };
 
 //api to delete trade
-exports.deletetrade = (req, res) => {
+exports.deletetrade = (req, res,next) => {
   let product_id=req.params.product_id
-  res.send(model.removeProduct(product_id));
+  if(model.removeProduct(product_id)){
+    res.send("SUCCESS")
+  }else{
+    let err = new Error("cannot find the requested resource with id: "+product_id);
+    err.status = 404;
+    next(err);
+  } 
 };
 
 //api to delete category
-exports.deletecategory = (req, res) => {
+exports.deletecategory = (req, res,next) => {
   let category_id=req.params.category_id
-  res.send(model.removeCategory(category_id));
-};
-
-//function to find object index by id
-function FIndByID(id, dataArray,value) {
-  index_of_object = dataArray.findIndex((obj) => obj[value] == id);
-  if (index_of_object == -1) {
-    return false;
-  } else {
-    return index_of_object;
+  if(model.removeCategory(category_id)){
+    res.send("SUCCESS");
+  }else{
+    let err = new Error("cannot find the requested resource with id: "+category_id);
+    err.status = 404;
+    next(err);
   }
-}
+};
 
 //API to view all items on edit page
 exports.viewall = (req, res) => {
@@ -69,9 +75,16 @@ exports.viewall = (req, res) => {
 };
 
 //API to Update trade in product_data
-exports.updatetrade = (req, res) => {
+exports.updatetrade = (req, res,next) => {
  let updatedTarde=req.body
-  res.send(model.updateProductDetails(updatedTarde));
+ if(model.updateProductDetails(updatedTarde)){
+  res.send("SUCCESS");
+ }else{
+  let err = new Error("cannot find the requested resource with id: "+updatedTarde.product_id);
+  err.status = 404;
+  next(err);
+ }
+ 
 };
 
 //api to finf category by id
@@ -81,9 +94,16 @@ exports.findcategory = (req, res) => {
 };
 
 //API to update Category by id
-exports.updatecategory = (req, res) => {
+exports.updatecategory = (req, res,next) => {
   let updatedCategory=req.body
-  res.send(model.updateCategoryByID(updatedCategory));
+  if(model.updateCategoryByID(updatedCategory)){
+    res.send("SUCCESS");
+  }else{
+    let err = new Error("cannot find the requested resource with id: "+updatedCategory.category_id);
+    err.status = 404;
+    next(err);
+  }
+  
 };
 
 //API for most serached products

@@ -65,6 +65,7 @@ const routes = [
     component: Contact,
   },
   { path: "*", 
+  name:PageNotFound,
   component: PageNotFound,
  }
 ];

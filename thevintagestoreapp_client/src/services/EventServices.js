@@ -1,72 +1,146 @@
 import axios from "axios";
-
+import router from '../router'
 const apiClient = axios.create({
   baseURL: "http://localhost:3000/trade",
+  
   withCredentials: false,
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",
   },
 });
+
+let errorView="PageNotFound"
 export default {
   async getCategories() {
-    let res = await apiClient.get("/categories");
-    return res.data;
+    try{
+      let res = await apiClient.get("/categories");
+      return res.data;
+    }catch(error){
+      sessionStorage.setItem("statusCode",error.response.data.statusCode)
+      sessionStorage.setItem("errorMessage",error.response.data.message)
+      router.push(errorView)
+    }
   },
 
   async getProductDetails(payload) {
-    let res = await apiClient.get("/"+payload);
-    //console.log(res.data);
-    return res.data;
+    try{
+      let res = await apiClient.get("/"+payload);
+      return res.data;
+    }catch(error){
+      sessionStorage.setItem("statusCode",error.response.data.statusCode)
+      sessionStorage.setItem("errorMessage",error.response.data.message)
+      router.push(errorView)
+    }
   },
   async getMoreitems(payload) {
-     let res = await apiClient.post("/moreitems", payload);
+    try{
+      let res = await apiClient.post("/moreitems/"+payload.category_id+"/"+payload.startingIndex+"/"+payload.endingIndex);
     return res.data;
+    }catch(error){
+      sessionStorage.setItem("statusCode",error.response.data.statusCode)
+      sessionStorage.setItem("errorMessage",error.response.data.message)
+      router.push(errorView)
+    }
   },
   async getdropdownCategories() {
-    let res = await apiClient.get("/categories/names");
-    return res.data;
+    try{
+      let res = await apiClient.get("/categories/names");
+      return res.data;
+    }catch(error){
+      sessionStorage.setItem("statusCode",error.response.data.statusCode)
+      sessionStorage.setItem("errorMessage",error.response.data.message)
+      router.push(errorView)
+    }
   },
   async addNewTrade(payload) {
-    let res = await apiClient.post("/add/trade", payload);
+    try{
+      let res = await apiClient.post("/add/trade", payload);
     return res.data;
+    }catch(error){
+      sessionStorage.setItem("statusCode",error.response.data.statusCode)
+      sessionStorage.setItem("errorMessage",error.response.data.message)
+      router.push(errorView)
+    }
   },
   async addNewCategory(payload) {
-    let res = await apiClient.post("/add/category", payload);
-    return res.data;
+    try{
+      let res = await apiClient.post("/add/category", payload);
+      return res.data;
+    }catch(error){
+      sessionStorage.setItem("statusCode",error.response.data.statusCode)
+      sessionStorage.setItem("errorMessage",error.response.data.message)
+      router.push(errorView)
+    }
   },
   async getAllItemsForEditpage(payload) {
-    let res = await apiClient.get("/view/allproduct/"+payload.startingIndex+"/"+payload.endingIndex);
+    try{
+      let res = await apiClient.get("/view/allproduct/"+payload.startingIndex+"/"+payload.endingIndex);
     return res.data;
+    }catch(error){
+      sessionStorage.setItem("statusCode",error.response.data.statusCode)
+      sessionStorage.setItem("errorMessage",error.response.data.message)
+      router.push(errorView)
+    }
   },
   async deleteProduct(payload) {
-    //console.log(payload.product_id)
-    let res = await apiClient.delete("/product/delete/"+payload.product_id+"?_method=DELETE");
+    try{
+      let res = await apiClient.delete("/product/delete/"+payload.product_id+"?_method=DELETE");
     return res.data;
+    }catch(error){
+      sessionStorage.setItem("statusCode",error.response.data.statusCode)
+      sessionStorage.setItem("errorMessage",error.response.data.message)
+      router.push(errorView)
+    }
   },
   async deleteCategory(payload) {
-    // console.log(payload)
-    let res = await apiClient.delete("/delete/category/"+payload.category_id+"?_method=DELETE");
+    try{
+      let res = await apiClient.delete("/delete/category/"+payload.category_id+"?_method=DELETE");
     return res.data;
+    }catch(error){
+      sessionStorage.setItem("statusCode",error.response.data.statusCode)
+      sessionStorage.setItem("errorMessage",error.response.data.message)
+      router.push(errorView)
+    }
   },
   async updateProduct(payload) {
-    // console.log(payload)
-    let res = await apiClient.put("/update/trade", payload);
-    return res.data;
+    try{
+      let res = await apiClient.put("/update/trade", payload);
+      return res.data;
+    }catch(error){
+      sessionStorage.setItem("statusCode",error.response.data.statusCode)
+      sessionStorage.setItem("errorMessage",error.response.data.message)
+      router.push(errorView)
+    }
   },
   async findCategory(payload) {
-    // console.log(payload)
-    let res = await apiClient.get("/find/catrgory/"+payload.category_id);
-    return res.data;
+    try{
+      let res = await apiClient.get("/find/catrgory/"+payload.category_id);
+      return res.data;
+    }catch(error){
+      sessionStorage.setItem("statusCode",error.response.data.statusCode)
+      sessionStorage.setItem("errorMessage",error.response.data.message)
+      router.push(errorView)
+    }
   },
   async editCategory(payload) {
-    // console.log(payload)
-    let res = await apiClient.put("/edit/catrgory", payload);
-    return res.data;
+    try{
+      let res = await apiClient.put("/edit/catrgory", payload);
+      return res.data;
+    }catch(error){
+      sessionStorage.setItem("statusCode",error.response.data.statusCode)
+      sessionStorage.setItem("errorMessage",error.response.data.message)
+      router.push(errorView)
+    }
   },
   async mostviewed() {
-    // console.log(payload)
-    let res = await apiClient.get("/product/mostviewed");
-    return res.data;
+    try{
+      let res = await apiClient.get("/product/mostviewed");
+      return res.data;
+    }catch(error){
+      sessionStorage.setItem("statusCode",error.response.data.statusCode)
+      sessionStorage.setItem("errorMessage",error.response.data.message)
+      router.push(errorView)
+    }
   },
 };

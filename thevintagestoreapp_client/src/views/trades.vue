@@ -13,10 +13,14 @@
       </div>
     </section>
     <section class="row justify-content-start" :class="mainbackground">
+      <div v-if="categories.length==0">
+        <h4 class="text-secondary p-5 text-center border border-rounded border-dark">No Categories to display</h4>
+      </div>
       <div
         class="col-sm-12 col-md-6 col-lg-4 ps-5 pe-5 pb-2"
         v-for="(category, index) in categories"
         :key="index"
+        v-else
       >
         <div class="cardbox" :class="cardClass">
           <img :src="category.imageurl" alt="product image" class="cardimage" />
@@ -208,8 +212,9 @@ export default {
   methods: {
     async getdata() {
       EventServices.getCategories().then((data) => {
-        this.categories = data;
-        // console.log(this.categories);
+         if(data != undefined){
+         this.categories = data;
+        }
       });
     },
     StoreProductID(payload) {
