@@ -17,7 +17,7 @@
       </div>
       <div class="col-sm-12 col-md-6 col-lg-4 text-left">
         <div class="ms-5 mt-2">
-          <h5>Contact</h5>
+         <router-link class="text-light linkclass" to="/contact"><h5>Contact</h5></router-link> 
           <i class="fa fa-home fa-lg mt-3"></i>&nbsp;8765 University Road Apt L
           <br />
           <i class="fas fa-phone fa-lg pt-4"></i>&nbsp;(980) 327 9722

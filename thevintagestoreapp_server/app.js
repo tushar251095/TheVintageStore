@@ -31,7 +31,7 @@ app.use((req,res,next)=>{
      console.log(err.stack)
      if(!err.status){
          err.status=500;
-         err.message="Internal server error";
+         err.message="Internal server error.";
      }
      res.status(err.status)
      res.send({message:err.message,statusCode:err.status})

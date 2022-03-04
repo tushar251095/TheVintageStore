@@ -4,18 +4,20 @@
       <div class="col-sm-12 col-md-10 col-lg-6">
         <form class="w-100 p-5 tradeform mt-3">
           <h4 class="text-center">New Trade</h4>
-          <label class="mt-3"><b>Category</b></label>
+          <label class="mt-3"
+            ><b>Category</b><span class="text-danger">*</span></label
+          >
           <select v-model="tradeobj.category_id" class="form-control">
             <option disabled value="">Please select one</option>
             <option
-              v-for="(category,index) in dropdowncategories"
+              v-for="(category, index) in dropdowncategories"
               :key="index"
               :value="category.category_id"
             >
               {{ category.title }}
             </option>
           </select>
-
+          <p class="text-danger">{{errorobj.category_nameErr}}</p>
           <br />
           <label>Not in list add new:&nbsp;&nbsp;</label>
 
@@ -34,7 +36,7 @@
               <label><b>Category Name</b></label
               ><br />
               <input
-              class="form-control"
+                class="form-control"
                 type="text"
                 placeholder="Enter category name"
                 v-model="addcatobj.category_name"
@@ -42,7 +44,7 @@
               <label><b>Category Image URL</b></label
               ><br />
               <input
-              class="form-control"
+                class="form-control"
                 v-model="addcatobj.imageurl"
                 type="url"
                 placeholder="Image URL for catergory"
@@ -62,15 +64,20 @@
               </button>
             </template>
           </b-modal>
-          <label class="mt-3"><b>Product Name</b></label>
+          <label class="mt-3"
+            ><b>Product Name</b><span class="text-danger">*</span></label
+          >
           <input
             v-model="tradeobj.prod_name"
             class="form-control"
             type="text"
             placeholder="Enter Name of Product"
+            required
           />
 
-          <label class="mt-3"><b>Seller Name</b></label>
+          <label class="mt-3"
+            ><b>Seller Name</b><span class="text-danger">*</span></label
+          >
           <input
             v-model="tradeobj.seller"
             class="form-control"
@@ -78,7 +85,9 @@
             placeholder="Enter Name who will sell it"
           />
 
-          <label class="mt-3"><b>Year</b></label>
+          <label class="mt-3"
+            ><b>Year</b><span class="text-danger">*</span></label
+          >
           <input
             v-model="tradeobj.year"
             class="form-control"
@@ -86,7 +95,9 @@
             placeholder="Enter year"
           />
 
-          <label class="mt-3"><b>Product Image URL</b></label>
+          <label class="mt-3"
+            ><b>Product Image URL</b><span class="text-danger">*</span></label
+          >
           <input
             v-model="tradeobj.product_img_url"
             class="form-control"
@@ -94,7 +105,9 @@
             placeholder="Enter product image URL"
           />
 
-          <label class="mt-3"><b>Description</b></label>
+          <label class="mt-3"
+            ><b>Description</b><span class="text-danger">*</span></label
+          >
           <textarea
             v-model="tradeobj.description"
             class="form-control"
@@ -125,6 +138,9 @@ export default {
         description: "",
         product_img_url: "",
       },
+      errorobj: {
+        category_nameErr:""
+      },
       dropdowncategories: [],
       addcatobj: {
         imageurl: "",
@@ -133,7 +149,7 @@ export default {
     };
   },
   created() {
-     this.categoriesdropdown();
+    this.categoriesdropdown();
   },
   methods: {
     async categoriesdropdown() {
@@ -141,20 +157,52 @@ export default {
         this.dropdowncategories = data;
       });
     },
-
+    formValidations() {
+      if (this.tradeobj.prod_name == "") {
+        this.errorobj.prod_nameErr = "Product name is required";
+      }
+      if (this.tradeobj.category_name == "") {
+        this.errorobj.category_nameErr = "Category name is required";
+      }
+      if (this.tradeobj.product_img_url == "") {
+        this.errorobj.product_img_urlErr = "Product Image URL is required";
+      }
+      if (this.tradeobj.year == "") {
+        this.errorobj.yearErr = "year is required";
+      }
+      if (this.tradeobj.seller == "") {
+        this.errorobj.sellerErr = "seller name is required";
+      }
+      if (this.tradeobj.description == "") {
+        this.errorobj.descriptionErr = "Description is required";
+      }
+    },
     CreateTrade() {
-      EventServices.addNewTrade(this.tradeobj).then(() => {
-         this.$toast.open({
-          message: "Trade Added Successfully",
-          type: "success",
-          position: "top",
+      if (
+        this.tradeobj.prod_name == "" ||
+        this.tradeobj.product_img_url == "" ||
+        this.tradeobj.category_name == "" ||
+        this.tradeobj.year == "" ||
+        this.tradeobj.description == "" ||
+        this.tradeobj.seller == ""
+      ) {
+        this.formValidations()
+        console.log(this.errorobj);
+      } else {
+        EventServices.addNewTrade(this.tradeobj).then(() => {
+          this.$toast.open({
+            message: "Trade Added Successfully",
+            type: "success",
+            position: "top",
+          });
+          this.$router.push("Trades");
         });
-        this.$router.push("Trades");
-      });
+      }
     },
     CreateCategory() {
-      if(this.addcatobj.imageurl==""){
-        this.addcatobj.imageurl="https://i.ytimg.com/vi/2QvOxa_7wEw/maxresdefault.jpg";
+      if (this.addcatobj.imageurl == "") {
+        this.addcatobj.imageurl =
+          "https://i.ytimg.com/vi/2QvOxa_7wEw/maxresdefault.jpg";
       }
       EventServices.addNewCategory(this.addcatobj).then(() => {
         this.$router.push("Trades");

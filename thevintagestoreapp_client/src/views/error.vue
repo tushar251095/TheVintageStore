@@ -2,8 +2,9 @@
 <div>
   <div class="d-flex flex-column justify-content-center align-items-center p-5 m-5">
     <i class="far fa-frown fa-7x"></i><br>
-    <h1>404</h1>
-  <h4 class="text-secondary">Requested URL not found</h4>
+    <h1>{{statusCode}}</h1>
+  <h4 class="text-secondary">{{errorMessage}}</h4>
+  <h4 class="text-secondary" v-if="statusCode==500">Something went wrong while processing your request.</h4>
   <router-link to="/">Back to Home</router-link>
 </div>
 </div>

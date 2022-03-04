@@ -10,7 +10,7 @@ const apiClient = axios.create({
   },
 });
 
-let errorView="PageNotFound"
+let errorView="error"
 export default {
   async getCategories() {
     try{

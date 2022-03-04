@@ -9,8 +9,9 @@ import About from "../views/about.vue";
 import Edit from "../views/edit.vue";
 import Signup from "../views/registrationForm.vue";
 import Login from "../views/Login.vue";
-import PageNotFound from "../views/PageNotFound.vue";
+import errorViewComponent from "../views/error.vue";
 import Contact from "../views/contact.vue";
+import PageNotFound from "../views/PageNotFound.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -62,10 +63,14 @@ const routes = [
   {
     path: "/contact",
     name: "contact",
-    component: Contact,
+    component:Contact ,
   },
-  { path: "*", 
-  name:PageNotFound,
+  { path: "/error", 
+  name:"error",
+  component: errorViewComponent,
+ },
+ { path: "*", 
+  name:"PageNotFound",
   component: PageNotFound,
  }
 ];

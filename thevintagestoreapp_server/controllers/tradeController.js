@@ -1,5 +1,6 @@
 const model=require("../model/tradeModel")
 
+let errorMsg="cannot find the requested resource URL: "
 //API for categories page
 exports.categories = (req, res) => {
   res.send(model.getAllCategories());
@@ -9,7 +10,7 @@ exports.categories = (req, res) => {
 exports.productdetails = (req, res,next) => {
   let product_id=req.params.product_id;
   if(!model.getproductDetails(product_id)){
-    let err = new Error("cannot find the requested resource with id: "+product_id);
+    let err = new Error(errorMsg+req.url);
     err.status = 404;
     next(err);
   }else{
@@ -49,7 +50,7 @@ exports.deletetrade = (req, res,next) => {
   if(model.removeProduct(product_id)){
     res.send("SUCCESS")
   }else{
-    let err = new Error("cannot find the requested resource with id: "+product_id);
+    let err = new Error(errorMsg+req.url);
     err.status = 404;
     next(err);
   } 
@@ -61,7 +62,7 @@ exports.deletecategory = (req, res,next) => {
   if(model.removeCategory(category_id)){
     res.send("SUCCESS");
   }else{
-    let err = new Error("cannot find the requested resource with id: "+category_id);
+    let err = new Error(errorMsg+req.url);
     err.status = 404;
     next(err);
   }
@@ -80,7 +81,7 @@ exports.updatetrade = (req, res,next) => {
  if(model.updateProductDetails(updatedTarde)){
   res.send("SUCCESS");
  }else{
-  let err = new Error("cannot find the requested resource with id: "+updatedTarde.product_id);
+  let err = new Error(errorMsg+req.url+"/"+updatedTarde.product_id);
   err.status = 404;
   next(err);
  }
@@ -99,7 +100,7 @@ exports.updatecategory = (req, res,next) => {
   if(model.updateCategoryByID(updatedCategory)){
     res.send("SUCCESS");
   }else{
-    let err = new Error("cannot find the requested resource with id: "+updatedCategory.category_id);
+    let err = new Error(errorMsg+req.url+"/"+updatedCategory.category_id);
     err.status = 404;
     next(err);
   }
