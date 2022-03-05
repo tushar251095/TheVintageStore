@@ -107,7 +107,7 @@ export default {
   methods: {
     async getproductdetails() {
       //console.log(this.$store.state.product_id);
-      EventServices.getProductDetails(this.$store.state.product_id).then(
+      EventServices.getProductDetails(sessionStorage.getItem("product_id")).then(
         (data) => {
           this.productdetails = data[0];
         }

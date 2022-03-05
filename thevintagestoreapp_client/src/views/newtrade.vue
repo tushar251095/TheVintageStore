@@ -205,7 +205,8 @@ export default {
           "https://i.ytimg.com/vi/2QvOxa_7wEw/maxresdefault.jpg";
       }
       EventServices.addNewCategory(this.addcatobj).then(() => {
-        this.$router.push("Trades");
+        //this.$router.push("newtrade");
+        window.location.reload()
       });
     },
   },

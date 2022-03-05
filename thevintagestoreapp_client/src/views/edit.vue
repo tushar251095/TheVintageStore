@@ -252,6 +252,8 @@ export default {
     async getproductdetails(product_id) {
       EventServices.getProductDetails(product_id).then((data) => {
         this.editobj = data[0];
+        console.log(this.editobj)
+        sessionStorage.setItem("product_id",this.editobj.product_id)
         // console.log(this.editobj)
       });
     },
@@ -264,7 +266,7 @@ export default {
           type: "success",
           position: "top",
         });
-        this.$router.push("trades");
+        this.$router.push("trade");
         //window.location.reload();
       });
     },
