@@ -97,6 +97,7 @@
     <b-modal ref="modal-editcat" title="editCategory" hide-header>
       <h4 class="text-center">Edit Category</h4>
       <div class="p-3 d-flex flex-column justify-content-center">
+       <div class="form-group">
         <label><b>Category Name</b></label
         ><br />
         <input
@@ -104,7 +105,11 @@
           class="form-control"
           type="text"
           placeholder="Enter category name"
-        /><br />
+          :class="{ 'is-invalid': submitted && $v.editcategories.title.$error }"
+        />
+         <div v-if="submitted && !$v.editcategories.title.required" class="invalid-feedback">Category name is required</div>
+        <br />
+        </div>
         <label><b>Category Image URL</b></label
         ><br />
         <input
@@ -126,6 +131,7 @@
     <b-modal id="addcategory-modal" hide-header>
             <h4 class="text-center">Add Category</h4>
             <div class="p-3 d-flex flex-column justify-content-center">
+              <div class="form-group">
               <label><b>Category Name</b></label
               ><br />
               <input
@@ -133,7 +139,11 @@
                 type="text"
                 placeholder="Enter category name"
                 v-model="addcatobj.category_name"
-              /><br />
+                 :class="{ 'is-invalid': catsubmitted && $v.addcatobj.category_name.$error }"
+              />
+              <div v-if="catsubmitted && !$v.addcatobj.category_name.required" class="invalid-feedback">Category name is required</div>
+              <br />
+              </div>
               <label><b>Category Image URL</b></label
               ><br />
               <input
@@ -182,9 +192,12 @@
 </template>
 <script>
 import EventServices from "@/services/EventServices.js";
+import {required} from "vuelidate/lib/validators"
 export default {
   data() {
     return {
+      catsubmitted:false,
+      submitted:false,
       categories: [
         {
           title: "",
@@ -205,6 +218,14 @@ export default {
         imageurl:""
       }
     };
+  },
+  validations:{
+     addcatobj:{
+      category_name:{required},
+    },
+    editcategories:{
+      title:{required},
+    }
   },
   created() {
     this.getdata();
@@ -263,23 +284,49 @@ export default {
       }
     },
     EditCategory() {
-      EventServices.editCategory(this.editcategories).then(() => {
-        this.$refs["modal-editcat"].hide();
+      this.submitted = true;
+      this.$v.editcategories.$touch();
+        if (this.$v.editcategories.$invalid) {
+            return;
+        }
+      EventServices.editCategory(this.editcategories).then((res) => {
+        if(res!=undefined){
+           this.$refs["modal-editcat"].hide();
         this.$toast.open({
           message: "Category edited Successfully",
           type: "success",
           position: "top",
         });
         window.location.reload();
+        }
+       
       });
     },
     CreateCategory() {
      // console.log(this.addcatobj)
+      this.catsubmitted = true;
+      this.$v.addcatobj.$touch();
+        if (this.$v.addcatobj.$invalid) {
+            return;
+        }
       if(this.addcatobj.imageurl==""){
         this.addcatobj.imageurl="https://i.ytimg.com/vi/2QvOxa_7wEw/maxresdefault.jpg";
       }
-      EventServices.addNewCategory(this.addcatobj).then(() => {
+      EventServices.addNewCategory(this.addcatobj).then((data) => {
+        if(data=="SUCCESS"){
+          this.$toast.open({
+          message: "Category Added Successfully",
+          type: "success",
+          position: "top",
+        });
         window.location.reload()
+        }else{
+          this.$toast.open({
+          message: data,
+          type: "error",
+          position: "top",
+        });
+        }
       });
     },
     saveCategoryinfo(data){

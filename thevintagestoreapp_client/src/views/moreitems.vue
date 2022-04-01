@@ -92,7 +92,7 @@ export default {
       catgoryname: "",
       currentPage: 1,
       pages: 9,
-      perPage: 6,
+      perPage: 8,
       startingIndex: 0,
       endingIndex: 0,
     };
@@ -111,20 +111,16 @@ export default {
       var sendobj = {};
       this.generatingIndex().then(() => {
         this.startingIndex = (this.currentPage - 1) * this.perPage;
-        this.endingIndex = this.currentPage * this.perPage - 1;
-        // console.log("startingIndex" + ": " + this.startingIndex);
-        // console.log("endingIndex" + ": " + this.endingIndex);
+        this.endingIndex = this.perPage;
         sendobj = {
           startingIndex: this.startingIndex,
           endingIndex: this.endingIndex,
-          category_id: parseInt(sessionStorage.getItem("category_id")),
+          category_id: sessionStorage.getItem("category_id"),
         };
         EventServices.getMoreitems(sendobj).then((data) => {
-          this.productArray = data;
-          this.catgoryname = data[data.length - 1].category_name;
-          this.pages=((data[data.length - 1].arraySize-1) + this.perPage - 1)/this.perPage
-         data.pop();
-          this.productArray = data;
+          this.productArray = data.products;
+          this.catgoryname = data.others.category_name;
+          this.pages=((data.others.arraySize) + this.perPage - 1)/this.perPage
         });
       });
     },

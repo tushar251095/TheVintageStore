@@ -1,22 +1,36 @@
 const express = require("express");
 const app = express();
+const mongoose =  require('mongoose');
+const cors = require("cors");
+const morgan = require('morgan');
+const methodoverride= require('method-override')
+const tradeRouter= require("./routes/tradeRoutes")
+
 app.use(express.json());
 
 //cors policy for server
-var cors = require("cors");
 app.use(cors());
+app.use(express.static('public'));
+//mongoose connection
+mongoose.connect('mongodb://localhost:27017/VintageStore',{useNewUrlParser: true,useUnifiedTopology: true})
+.then(()=>{
+//start the server
+//Starting server
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+ console.log("server running on port: ", port);
+});
+})
+.catch(err=>console.log(err.message))
 
 //middeleware to log httprequest and errors
-const morgan = require('morgan');
 app.use(morgan('tiny'))
 
 //middelware for put and delete request
-const methodoverride= require('method-override')
 app.use(methodoverride('_method'))
 app.use(express.urlencoded({extended:true}))
 
 //routes
-const tradeRouter= require("./routes/tradeRoutes")
 app.use("/trade",tradeRouter);
 
 //middleware to handle pagenotfound error
@@ -36,8 +50,4 @@ app.use((req,res,next)=>{
      res.status(err.status)
      res.send({message:err.message,statusCode:err.status})
  })
-//Starting server
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
- console.log("server running on port: ", port);
-});
+

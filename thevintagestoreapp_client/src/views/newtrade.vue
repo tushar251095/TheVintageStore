@@ -7,7 +7,8 @@
           <label class="mt-3"
             ><b>Category</b><span class="text-danger">*</span></label
           >
-          <select v-model="tradeobj.category_id" class="form-control">
+          <div class="form-group">
+          <select v-model="tradeobj.category_id" class="form-control" :class="{ 'is-invalid': submitted && $v.tradeobj.category_id.$error }">
             <option disabled value="">Please select one</option>
             <option
               v-for="(category, index) in dropdowncategories"
@@ -17,8 +18,9 @@
               {{ category.title }}
             </option>
           </select>
-          <p class="text-danger">{{errorobj.category_nameErr}}</p>
+          <div v-if="submitted && !$v.tradeobj.category_id.required" class="invalid-feedback">Category is required</div>
           <br />
+          </div>
           <label>Not in list add new:&nbsp;&nbsp;</label>
 
           <button
@@ -33,6 +35,7 @@
           <b-modal id="addcategory-modal" hide-header>
             <h4 class="text-center">Add Category</h4>
             <div class="p-3 d-flex flex-column justify-content-center">
+              <div class="form-group">
               <label><b>Category Name</b></label
               ><br />
               <input
@@ -40,7 +43,11 @@
                 type="text"
                 placeholder="Enter category name"
                 v-model="addcatobj.category_name"
-              /><br />
+               :class="{ 'is-invalid': catsubmitted && $v.addcatobj.category_name.$error }"
+              />
+              <div v-if="catsubmitted && !$v.addcatobj.category_name.required" class="invalid-feedback">Category name is required</div>
+              <br />
+              </div>
               <label><b>Category Image URL</b></label
               ><br />
               <input
@@ -64,6 +71,7 @@
               </button>
             </template>
           </b-modal>
+          <div class="form-group">
           <label class="mt-3"
             ><b>Product Name</b><span class="text-danger">*</span></label
           >
@@ -72,9 +80,12 @@
             class="form-control"
             type="text"
             placeholder="Enter Name of Product"
-            required
+             :class="{ 'is-invalid': submitted && $v.tradeobj.prod_name.$error }"
+          
           />
-
+         <div v-if="submitted && !$v.tradeobj.prod_name.required" class="invalid-feedback">Product Name is required</div>
+          </div>
+          <div class="form-group">
           <label class="mt-3"
             ><b>Seller Name</b><span class="text-danger">*</span></label
           >
@@ -83,8 +94,11 @@
             class="form-control"
             type="text"
             placeholder="Enter Name who will sell it"
+             :class="{ 'is-invalid': submitted && $v.tradeobj.seller.$error }"
           />
-
+          <div v-if="submitted && !$v.tradeobj.seller.required" class="invalid-feedback">Seller Name is required</div>
+          </div>
+          <div class="form-group">
           <label class="mt-3"
             ><b>Year</b><span class="text-danger">*</span></label
           >
@@ -93,8 +107,15 @@
             class="form-control"
             type="number"
             placeholder="Enter year"
+             :class="{ 'is-invalid': submitted && $v.tradeobj.year.$error }"
           />
-
+          <div v-if="submitted && $v.tradeobj.year.$error" class="invalid-feedback">
+            <span v-if="!$v.tradeobj.year.required">Year is required</span>
+            <span v-if="!$v.tradeobj.year.minLength">year must be at least 4 characters</span>
+            <span v-if="!$v.tradeobj.year.maxLength">year must be at atmost 4 characters</span>
+          </div>
+          </div>
+          <div class="form-group">
           <label class="mt-3"
             ><b>Product Image URL</b><span class="text-danger">*</span></label
           >
@@ -103,8 +124,11 @@
             class="form-control"
             type="url"
             placeholder="Enter product image URL"
+             :class="{ 'is-invalid': submitted && $v.tradeobj.product_img_url.$error }"
           />
-
+          <div v-if="submitted && !$v.tradeobj.product_img_url.required" class="invalid-feedback">Image URL is required</div>
+          </div>
+          <div class="form-group">
           <label class="mt-3"
             ><b>Description</b><span class="text-danger">*</span></label
           >
@@ -113,7 +137,10 @@
             class="form-control"
             cols="20"
             rows="5"
+             :class="{ 'is-invalid': submitted && $v.tradeobj.description.$error }"
           ></textarea>
+          <div v-if="submitted && !$v.tradeobj.description.required" class="invalid-feedback">Description is required</div>
+          </div>
           <div class="text-center mt-3">
             <button @click.prevent="CreateTrade()" class="thmbtn1">
               Create Trade
@@ -126,20 +153,21 @@
 </template>
 <script>
 import EventServices from "@/services/EventServices.js";
+import {required, minLength, maxLength} from "vuelidate/lib/validators"
+//https://codesandbox.io/s/r0lkrn4wxo?file=/app/App.vue
 export default {
   data() {
     return {
       category: "",
+      submitted:false,
+      catsubmitted:false,
       tradeobj: {
         prod_name: "",
-        category_id: 0,
+        category_id: "",
         year: "",
         seller: "",
         description: "",
         product_img_url: "",
-      },
-      errorobj: {
-        category_nameErr:""
       },
       dropdowncategories: [],
       addcatobj: {
@@ -147,6 +175,20 @@ export default {
         category_name: "",
       },
     };
+  },
+  validations:{
+    addcatobj:{
+      category_name:{required},
+    },
+    
+    tradeobj: {
+        category_id:{required},
+        prod_name: {required},
+        year: {required,minLength: minLength(4),maxLength: maxLength(4)},
+        seller: {required},
+        description: {required},
+        product_img_url: {required},
+      }
   },
   created() {
     this.categoriesdropdown();
@@ -157,49 +199,30 @@ export default {
         this.dropdowncategories = data;
       });
     },
-    formValidations() {
-      if (this.tradeobj.prod_name == "") {
-        this.errorobj.prod_nameErr = "Product name is required";
-      }
-      if (this.tradeobj.category_name == "") {
-        this.errorobj.category_nameErr = "Category name is required";
-      }
-      if (this.tradeobj.product_img_url == "") {
-        this.errorobj.product_img_urlErr = "Product Image URL is required";
-      }
-      if (this.tradeobj.year == "") {
-        this.errorobj.yearErr = "year is required";
-      }
-      if (this.tradeobj.seller == "") {
-        this.errorobj.sellerErr = "seller name is required";
-      }
-      if (this.tradeobj.description == "") {
-        this.errorobj.descriptionErr = "Description is required";
-      }
-    },
     CreateTrade() {
-      if (
-        this.tradeobj.prod_name == "" ||
-        this.tradeobj.product_img_url == "" ||
-        this.tradeobj.category_name == "" ||
-        this.tradeobj.year == "" ||
-        this.tradeobj.description == "" ||
-        this.tradeobj.seller == ""
-      ) {
-        this.formValidations()
-        console.log(this.errorobj);
-      } else {
-        EventServices.addNewTrade(this.tradeobj).then(() => {
-          this.$toast.open({
+        this.submitted = true;
+        this.$v.tradeobj.$touch();
+        if (this.$v.tradeobj.$invalid) {
+            return;
+        }
+        this.tradeobj.seller_id = "05a91894-3fda-40e1-8e3a-27546329e26b";
+        EventServices.addNewTrade(this.tradeobj).then((res) => {
+          if(res!=undefined){
+            this.$toast.open({
             message: "Trade Added Successfully",
             type: "success",
             position: "top",
           });
           this.$router.push("Trades");
+          }
         });
-      }
     },
     CreateCategory() {
+       this.catsubmitted = true;
+      this.$v.addcatobj.$touch();
+        if (this.$v.addcatobj.$invalid) {
+            return;
+        }
       if (this.addcatobj.imageurl == "") {
         this.addcatobj.imageurl =
           "https://i.ytimg.com/vi/2QvOxa_7wEw/maxresdefault.jpg";

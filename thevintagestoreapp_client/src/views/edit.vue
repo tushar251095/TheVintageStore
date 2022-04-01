@@ -120,14 +120,20 @@
           class="mt-2 mx-auto d-block"
         />
         <h5 class="text-center mt-3">Below are the current details.</h5>
+        <div class="form-group">
         <label>Product Name</label><br />
         <input
           type="text"
           v-model="editobj.prod_name"
           class="form-control"
-        /><br />
+          :class="{ 'is-invalid': submitted && $v.editobj.prod_name.$error }"
+        />
+        <div v-if="submitted && !$v.editobj.prod_name.required" class="invalid-feedback">Product Name is required</div>
+        <br />
+        </div>
+        <div class="form-group">
         <label>Category</label><br />
-        <select v-model="editobj.category_id" class="form-control">
+        <select v-model="editobj.category_id" class="form-control" :class="{ 'is-invalid': submitted && $v.editobj.category_id.$error }">
           <option disabled value="">Please select one</option>
           <option
             v-for="(category,index) in dropdowncategories"
@@ -136,21 +142,42 @@
           >
             {{ category.title }}
           </option></select
-        ><br />
+        >
+         <div v-if="submitted && !$v.editobj.category_id.required" class="invalid-feedback">Category is required</div>
+        <br />
+        </div>
+        <div class="form-group">
         <label>Year</label><br />
-        <input type="text" v-model="editobj.year" class="form-control" /><br />
+        <input type="text" v-model="editobj.year" class="form-control" :class="{ 'is-invalid': submitted && $v.editobj.year.$error }"/>
+         <div v-if="submitted && $v.editobj.year.$error" class="invalid-feedback">
+            <span v-if="!$v.editobj.year.required">Year is required</span>
+            <span v-if="!$v.editobj.year.minLength">year must be at least 4 characters</span>
+            <span v-if="!$v.editobj.year.maxLength">year must be at atmost 4 characters</span>
+          </div>
+          <br />
+        </div>
+        <div class="form-group">
         <label>Product Image URL</label><br />
         <input
           type="url"
           v-model="editobj.product_img_url"
           class="form-control"
-        /><br />
+           :class="{ 'is-invalid': submitted && $v.editobj.product_img_url.$error }"
+        />
+        <div v-if="submitted && !$v.editobj.product_img_url.required" class="invalid-feedback">Image URL is required</div>
+        <br />
+        </div>
+        <div class="form-group">
         <label>Description</label><br />
         <textarea
           v-model="editobj.description"
           class="form-control"
           rows="7"
-        /><br />
+          :class="{ 'is-invalid': submitted && $v.editobj.description.$error }"
+        />
+        <div v-if="submitted && !$v.editobj.description.required" class="invalid-feedback">Description is required</div>
+        <br />
+        </div>
       </div>
       <template #modal-footer="{ cancel }">
         <b-button size="md" variant="secondary" @click="cancel()">
@@ -182,9 +209,11 @@
 
 <script>
 import EventServices from "@/services/EventServices.js";
+import {required, minLength, maxLength} from "vuelidate/lib/validators"
 export default {
   data() {
     return {
+      submitted: false,
       productArray: [],
       productID: 0,
       productname: "",
@@ -197,6 +226,16 @@ export default {
       endingIndex: 0,
      
     };
+  },
+  validations:{
+     editobj: {
+        category_id:{required},
+        prod_name: {required},
+        year: {required,minLength: minLength(4),maxLength: maxLength(4)},
+        seller: {required},
+        description: {required},
+        product_img_url: {required},
+      }
   },
   created() {
     this.getproducts();
@@ -211,7 +250,7 @@ export default {
     getproducts() {
        this.generatingIndex().then(() => {
         this.startingIndex = (this.currentPage - 1) * this.perPage;
-        this.endingIndex = this.currentPage * this.perPage - 1;
+        this.endingIndex =  this.perPage;
         var sendobj = {
           startingIndex: this.startingIndex,
           endingIndex: this.endingIndex,
@@ -219,9 +258,8 @@ export default {
          EventServices.getAllItemsForEditpage(sendobj).then(
         (data) => {
           if(data != undefined){
-            this.pages=((data[data.length - 1].arraySize-1) + this.perPage - 1)/this.perPage
-         data.pop();
-          this.productArray = data;
+            this.pages=((data.arraySize) + this.perPage - 1)/this.perPage
+          this.productArray = data.products;
           }
         }
       );
@@ -251,23 +289,27 @@ export default {
     },
     async getproductdetails(product_id) {
       EventServices.getProductDetails(product_id).then((data) => {
-        this.editobj = data[0];
-        console.log(this.editobj)
+        console.log(data)
+        this.editobj = data.productdetails[0];
         sessionStorage.setItem("product_id",this.editobj.product_id)
-        // console.log(this.editobj)
       });
     },
     editTrade() {
-      // console.log(this.editobj);
-      EventServices.updateProduct(this.editobj).then(() => {
-        // console.log(data[0]);
+        this.submitted = true;
+        this.$v.editobj.$touch();
+        if (this.$v.editobj.$invalid) {
+            return;
+        }
+      EventServices.updateProduct(this.editobj).then((res) => {
+        if(res!=undefined){
          this.$toast.open({
           message: "Trade Updated Successfully",
           type: "success",
           position: "top",
         });
         this.$router.push("trade");
-        //window.location.reload();
+        }
+       
       });
     },
     StoreProductID(payload) {

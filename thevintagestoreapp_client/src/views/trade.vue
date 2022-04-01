@@ -57,6 +57,9 @@
           <label class="mt-2"
             ><b>Category:</b> {{ productdetails.category_name }}</label
           ><br />
+          <label class="mt-2"
+            ><b>Status:</b> {{ productdetails.product_status }}</label
+          ><br />
           <label class="mt-2"><b>Year:</b> {{ productdetails.year }}</label
           ><br />
 
@@ -109,7 +112,9 @@ export default {
       //console.log(this.$store.state.product_id);
       EventServices.getProductDetails(sessionStorage.getItem("product_id")).then(
         (data) => {
-          this.productdetails = data[0];
+          console.log(data)
+          this.productdetails = data.productdetails[0];
+          this.productdetails.category_name=data.categorytitle
         }
       );
     },

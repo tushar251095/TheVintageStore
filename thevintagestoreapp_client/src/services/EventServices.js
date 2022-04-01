@@ -35,8 +35,8 @@ export default {
   },
   async getMoreitems(payload) {
     try{
-      let res = await apiClient.post("/moreitems/"+payload.category_id+"/"+payload.startingIndex+"/"+payload.endingIndex);
-    return res.data;
+      let res = await apiClient.get("/moreitems/"+payload.category_id+"/"+payload.startingIndex+"/"+payload.endingIndex);
+      return res.data;
     }catch(error){
       sessionStorage.setItem("statusCode",error.response.data.statusCode)
       sessionStorage.setItem("errorMessage",error.response.data.message)

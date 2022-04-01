@@ -10,7 +10,7 @@ router.get("/categories",controller.categories);
 router.get("/:product_id",controller.productdetails);
 
 //API to view all items on More items page
-router.post("/moreitems/:category_id/:startingIndex/:endingIndex", controller.moreitems);
+router.get("/moreitems/:category_id/:startingIndex/:endingIndex", controller.moreitems);
 
 //api to add new trade in product_data
 router.post("/add/trade", controller.addnewtrade);
