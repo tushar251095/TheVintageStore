@@ -18,8 +18,8 @@ export default{
     }
   },
   created(){
-    this.statusCode=sessionStorage.getItem("statusCode")
-    this.errorMessage=sessionStorage.getItem("errorMessage")
+    this.statusCode=localStorage.getItem("statusCode")
+    this.errorMessage=localStorage.getItem("errorMessage")
   }
 }
 </script>

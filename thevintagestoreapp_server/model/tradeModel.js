@@ -1,4 +1,5 @@
 const mongoose= require('mongoose');
+const { schema } = require('./user');
 const Schema= mongoose.Schema;
 
 //Category Schema
@@ -19,7 +20,7 @@ const productSchema= new Schema({
   category_id:{type:String,required:[true,'Category is required']},
   year:{type:Number,required:[true,'year is required']},
   seller:{type:String,required:[true,'seller is required']},
-  seller_id:{type:String,required:[true,'seller is required']},
+  seller_id:{type:Schema.Types.ObjectId,ref:'User',required:[true,'seller is required']},
   ratings:{type:Number,default:0},
   description:{type:String,required:[true,'Description is required']},
   product_img_url:{type:String,default:"images/productdefault.jpg"},

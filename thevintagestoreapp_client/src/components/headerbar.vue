@@ -13,20 +13,25 @@
           </router-link>
         </div>
         <div class="col-sm-7">
-          <ul class="headernav list-group list-group-horizontal mt-2">
-            <li class="list-group-item">
+          <ul class="headernav list-group list-group-horizontal mt-2" >
+            <li class="list-group-item" v-if="user!=null">
               <router-link to="/newtrade" class="text-light anchorstyle"
                 >Start Trading</router-link
               >
             </li>
-            <li class="list-group-item">
+            <li class="list-group-item"  v-if="user==null">
               <router-link to="/registration" class="text-light anchorstyle"
                 >SignUp</router-link
               >
             </li>
-            <li class="list-group-item">
+            <li class="list-group-item"  v-if="user==null">
               <router-link to="/login" class="text-light anchorstyle"
                 >Login</router-link
+              >
+            </li>
+             <li class="list-group-item" v-if="user!=null">
+              <button  @click="logout()" class="text-light anchorstyle"
+                >Logout</button
               >
             </li>
           </ul>
@@ -35,6 +40,34 @@
     </header>
   </div>
 </template>
+<script>
+import UserServices from "@/services/userService.js";
+export default{
+  data(){
+    return{
+      user:false
+    }
+  },
+  created(){
+    
+    this.user=localStorage.getItem('id');
+  },
+  methods:{
+   async logout(){
+       await UserServices.logout(this.login).then(() => {
+             console.log("logout successfully")
+      })
+    }
+  }
+  
+}
+</script>
 <style>
 @import "../assets/CSS/common.css";
+button{
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  color: white;
+}
 </style>

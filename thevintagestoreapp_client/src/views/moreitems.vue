@@ -62,7 +62,7 @@
               </span>
 
               <p>Year: {{ product.year }}</p>
-              <button class="thmbtn1">Trade It</button>
+              <button v-if="user!=null" class="thmbtn1">Trade It</button>
             </div>
           </div>
         </div>
@@ -88,6 +88,7 @@ import EventServices from "@/services/EventServices.js";
 export default {
   data() {
     return {
+      user:null,
       productArray: [],
       catgoryname: "",
       currentPage: 1,
@@ -98,6 +99,7 @@ export default {
     };
   },
   created() {
+    this.user=localStorage.getItem('id')
     this.getproducts();
   },
   methods: {
@@ -115,7 +117,7 @@ export default {
         sendobj = {
           startingIndex: this.startingIndex,
           endingIndex: this.endingIndex,
-          category_id: sessionStorage.getItem("category_id"),
+          category_id: localStorage.getItem("category_id"),
         };
         EventServices.getMoreitems(sendobj).then((data) => {
           this.productArray = data.products;

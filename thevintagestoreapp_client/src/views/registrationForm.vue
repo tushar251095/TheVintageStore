@@ -14,55 +14,132 @@
                   <form class="mx-1 mx-md-4">
                     <div class="d-flex flex-row align-items-center mb-4">
                       <div class="form-outline flex-fill mb-0">
+                        <label class="form-label">First Name</label>
                         <input
                           type="text"
                           class="form-control"
-                          v-model.trim="registerobj.fullname"
+                          v-model.trim="registerobj.firstName"
+                          :class="{
+                            'is-invalid':
+                              submitted && $v.registerobj.firstName.$error,
+                          }"
                         />
-                        <label class="form-label">Full Name</label>
+                        <div
+                          v-if="submitted && !$v.registerobj.firstName.required"
+                          class="invalid-feedback"
+                        >
+                          First Name is required
+                        </div>
                       </div>
                     </div>
 
                     <div class="d-flex flex-row align-items-center mb-4">
                       <div class="form-outline flex-fill mb-0">
+                        <label class="form-label">Last Name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          v-model.trim="registerobj.lastName"
+                          :class="{
+                            'is-invalid':
+                              submitted && $v.registerobj.lastName.$error,
+                          }"
+                        />
+                        <div
+                          v-if="submitted && !$v.registerobj.lastName.required"
+                          class="invalid-feedback"
+                        >
+                          Last Name is required
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="d-flex flex-row align-items-center mb-4">
+                      <div class="form-outline flex-fill mb-0">
+                        <label class="form-label">Email Address</label>
                         <input
                           type="email"
                           class="form-control"
                           v-model.trim="registerobj.email"
+                          :class="{
+                            'is-invalid':
+                              submitted && $v.registerobj.email.$error,
+                          }"
                         />
-                        <label class="form-label">Email Address</label>
+                        <div
+                          v-if="submitted && !$v.registerobj.email.required"
+                          class="invalid-feedback"
+                        >
+                          Email is required
+                        </div>
                       </div>
                     </div>
                     <div class="d-flex flex-row align-items-center mb-4">
                       <div class="form-outline flex-fill mb-0">
+                        <label class="form-label">Contact</label>
                         <input
                           type="text"
                           class="form-control"
-                          v-model.number="registerobj.conatct"
+                          v-model.number="registerobj.contact"
+                          :class="{
+                            'is-invalid':
+                              submitted && $v.registerobj.contact.$error,
+                          }"
                         />
-                        <label class="form-label">Contact</label>
+                        <div
+                          v-if="submitted && !$v.registerobj.contact.required"
+                          class="invalid-feedback"
+                        >
+                          Contact is required
+                        </div>
                       </div>
                     </div>
 
                     <div class="d-flex flex-row align-items-center mb-4">
                       <div class="form-outline flex-fill mb-0">
+                        <label class="form-label">Password</label>
                         <input
                           type="password"
                           class="form-control"
                           v-model.trim="registerobj.password"
+                          :class="{
+                            'is-invalid':
+                              submitted && $v.registerobj.password.$error,
+                          }"
                         />
-                        <label class="form-label">Password</label>
+                        <div
+                          v-if="submitted && $v.registerobj.password.$error"
+                          class="invalid-feedback"
+                        >
+                          <span v-if="!$v.registerobj.password.required"
+                            >Password is required</span
+                          >
+                          <span v-if="!$v.registerobj.password.minLength"
+                            >Password must be at least 8 characters</span
+                          >
+                          <span v-if="!$v.registerobj.password.maxLength"
+                            >Password must be at atmost 16 characters</span
+                          >
+                        </div>
                       </div>
                     </div>
 
                     <div class="d-flex flex-row align-items-center mb-4">
                       <div class="form-outline flex-fill mb-0">
+                        <label class="form-label">Confirm password</label>
                         <input
                           type="password"
                           class="form-control"
-                          v-model.trim="confirmpassword"
+                          v-model.trim="registerobj.confirmPassword"
+                          :class="{
+                            'is-invalid':
+                              submitted && $v.registerobj.confirmPassword.$error,
+                          }"
                         />
-                        <label class="form-label">Confirm password</label>
+                        <div v-if="this.submitted && $v.registerobj.confirmPassword.$error" class="invalid-feedback left">
+          <span v-if="!$v.registerobj.confirmPassword.required">Confirm Password is required</span>
+          <span v-if="registerobj.confirmPassword && !$v.registerobj.confirmPassword.sameAsPassword">Password and Confirm Password should match</span>
+        </div>
                       </div>
                     </div>
 
@@ -94,41 +171,51 @@
 </template>
 
 <script>
+import UserServices from "@/services/userService.js";
+import { required, minLength, maxLength,sameAs } from "vuelidate/lib/validators";
 export default {
   data() {
     return {
+      submitted: false,
       registerobj: {},
-      confirmpassword: "",
       message: "Successfully Rgistered.",
       alertmsg: "",
     };
   },
-  methods: {
-    makeToast(append = false) {
-      this.toastCount++;
-      this.$bvToast.toast(`This is toast number ${this.toastCount}`, {
-        title: "BootstrapVue Toast",
-        autoHideDelay: 5000,
-        appendToast: append,
-      });
+  validations: {
+    registerobj: {
+      firstName: { required },
+      lastName: { required },
+      password: { required, minLength: minLength(8), maxLength: maxLength(16) },
+      email: { required },
+      contact: { required },
+      confirmPassword: { required, sameAsPassword: sameAs('password') }
     },
-    register() {
-      // this.$toasted.show('hello billo')
-      if (this.registerobj.password == this.confirmpassword) {
-       // console.log("in if");
-        this.$toast.open({
-          message: "Registration Successfull!!",
-          type: "success",
-          position: "top",
-        });
-      } else {
-        //console.log("in else");
-        this.$toast.open({
-          message: "Something went wrong!",
-          type: "error",
-          position: "top",
-        });
+  },
+  methods: {
+    async register() {
+      this.submitted = true;
+      this.$v.registerobj.$touch();
+      if (this.$v.registerobj.$invalid) {
+        return;
       }
+      await UserServices.registerUser(this.registerobj).then((data) => {
+        if (data == "SUCCESS") {
+          this.$toast.open({
+            message: "Registration Successful",
+            type: "success",
+            position: "top",
+          });
+          this.$router.push({ path: "/login" });
+        } else if (data == "Email has been used") {
+          this.$toast.open({
+            message:
+              "Email has been used please try with another email address",
+            type: "error",
+            position: "top",
+          });
+        }
+      });
     },
   },
 };

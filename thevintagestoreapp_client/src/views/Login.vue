@@ -2,7 +2,9 @@
   <div>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-sm-12 col-lg-8 col-md-8 text-center d-flex justify-content-center p-5">
+        <div
+          class="col-sm-12 col-lg-8 col-md-8 text-center d-flex justify-content-center p-5"
+        >
           <div class="innercontent">
             <h2>Login to Your Account</h2>
             <label class="text-secondary">Login using social networks</label>
@@ -22,28 +24,53 @@
             <div class="signupbox p-3">
               <div class="form-floating mb-3">
                 <input
+                  v-model="login.email"
                   type="email"
                   class="form-control rounded-pill"
                   id="floatingInput"
                   placeholder="Email Address"
+                  :class="{
+                            'is-invalid':
+                              submitted && $v.login.email.$error,
+                          }"
                 />
+                <div
+                          v-if="submitted && !$v.login.email.required"
+                          class="invalid-feedback"
+                        >
+                          Email is required
+                        </div>
                 <label for="floatingInput">Email address</label>
               </div>
               <div class="form-floating">
                 <input
+                  v-model="login.password"
                   :type="passwordtoggle"
                   class="form-control rounded-pill"
                   id="floatingPassword"
                   placeholder="Password"
-                  required
+                   :class="{
+                            'is-invalid':
+                              submitted && $v.login.password.$error,
+                          }"
                 />
+                <div
+                          v-if="submitted && !$v.login.password.required"
+                          class="invalid-feedback"
+                        >
+                          Password is required
+                        </div>
                 <label for="floatingPassword">Password</label>
-                
               </div>
-                <div class=" text-start ms-3">
-                  <input type="checkbox" @change="PasswordToogle()" v-model="checked" required/>&nbsp;Show Password
-                </div>
-              <button class="thmbtn1 w-50 mt-3">Login</button>
+              <div class="text-start ms-3">
+                <input
+                  type="checkbox"
+                  @change="PasswordToogle()"
+                  v-model="checked"
+                  required
+                />&nbsp;Show Password
+              </div>
+              <button class="thmbtn1 w-50 mt-3" @click="Login()">Login</button>
             </div>
           </div>
         </div>
@@ -55,7 +82,7 @@
             <h6 class="text-light mt-3">
               Signup and discover more number of vintage products.
             </h6>
-            <button class="thmbtn1 mt-3">Sign Up</button>
+            <router-link to="/registration" class=" btn btnsignup mt-3">Sign Up</router-link>
           </div>
         </div>
       </div>
@@ -63,24 +90,66 @@
   </div>
 </template>
 <script>
+import UserServices from "@/services/userService.js";
+import { required } from "vuelidate/lib/validators";
 export default {
-    data(){
-        return{
-            checked:false,
-            passwordtoggle:"password"
-        }
+  data() {
+    return {
+      submitted:false,
+      login: {
+        email:"",
+        password: "",
+      },
+      checked: false,
+      passwordtoggle: "password",
+    };
+  },
+  validations:{
+    login: {
+        email:{required},
+        password: {required},
+      }
+  },
+  methods: {
+    PasswordToogle() {
+      if (this.checked) {
+        this.passwordtoggle = "text";
+      } else {
+        this.passwordtoggle = "password";
+      }
     },
-    methods:{
-        PasswordToogle(){
-            if(this.checked){
-                this.passwordtoggle="text"
-            }else{
-                this.passwordtoggle="password"
-            }
+    async Login() {
+       this.submitted = true;
+      this.$v.login.$touch();
+      if (this.$v.login.$invalid) {
+        return;
+      }
+      await UserServices.loginService(this.login).then((data) => {
+        console.log(data)
+        if (data == "wrong email address") {
+           this.$toast.open({
+          message: "Wrong email address",
+          type: "error",
+          position: "top",
+        });
+        } else if (data == "wrong password") {
+          this.$toast.open({
+          message: "Wrong password",
+          type: "error",
+          position: "top",
+        });
+        } else {
+          localStorage.setItem("id", data.userinfo.id);
+          localStorage.setItem("token", data.token);
+           localStorage.setItem("username", data.userinfo.firstName+" "+data.userinfo.lastName);
+          this.$router.push({ path: "/users/loginhome" });
+          location.reload();
         }
-    }
-}
+      });
+    },
+  },
+};
 </script>
 <style scoped src="../assets/CSS/login.css">
-/* @import "../assets/CSS/login.css"; */
+
 </style>

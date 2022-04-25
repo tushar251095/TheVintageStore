@@ -9,7 +9,9 @@ import VueToast from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
 import '@fortawesome/fontawesome-free/css/all.css'
 import '@fortawesome/fontawesome-free/js/all.js'
+import VueCookies from 'vue-cookies';
 import Vuelidate from 'vuelidate'
+Vue.use(VueCookies);
 Vue.use(Vuelidate)
 Vue.use(VueToast);
 Vue.use(BootstrapVue);

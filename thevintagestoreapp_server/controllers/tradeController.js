@@ -1,6 +1,7 @@
 const { Category, Product } = require("../model/tradeModel");
 let errorMsg = "cannot find the requested resource URL: ";
 const { v4: uuidv4 } = require("uuid");
+const jwt=require("../middleware/jwt");
 //API for categories page
 exports.categories = (req, res, next) => {
   Category.aggregate([
@@ -13,12 +14,21 @@ exports.categories = (req, res, next) => {
       },
     },
     {$sort:{title:1}},
+    
     {
       $project: {
         title: 1,
         category_id: 1,
         imageurl: 1,
-        subtype: { $slice: ["$subtype", 3] },
+        subtype: {
+          $filter: {
+             input: "$subtype",
+             as: "sub",
+             cond: { $eq: [ "$$sub.product_status", "Available" ] }
+          }
+       },
+       subtype: { $slice: ["$subtype", 3] },
+
       },
     },
   ])
@@ -90,7 +100,7 @@ exports.moreitems = (req, res, next) => {
   let finalresponsoe = {};
   Product.find({ category_id: category_id }).sort({prod_name:1}).skip(startingIndex).limit(endingIndex)
     .then((products) => {
-      console.log(products)
+      //console.log(products)
       if(products.length>0){
         Category.find({ category_id: category_id })
         .then((result) => {
@@ -123,8 +133,15 @@ exports.moreitems = (req, res, next) => {
 
 //api to add new trade in product_data
 exports.addnewtrade = (req, res, next) => {
-  console.log(req.body);
  req.body.product_id = uuidv4();
+ let token=req.headers.authorization.split(' ')[1]
+ let jwterror,userinfo=jwt.decodeJWT(token)
+ if(jwterror!=null){
+  let err= new Error('Unauthorized access');
+  err.status=401;
+  return next(err);
+ }
+ req.body.seller_id=userinfo.id;
   let addproduct = new Product(req.body);
   addproduct
     .save()
@@ -176,7 +193,7 @@ exports.addcategory = (req, res, next) => {
       next(err);
     });
     }
-    console.log(details)
+    //console.log(details)
   })
   .catch(err=>{
     next(err)
@@ -249,9 +266,15 @@ exports.viewall = (req, res) => {
   let response={}
   let startingIndex = parseInt(req.params.startingIndex);
   let endingIndex = parseInt(req.params.endingIndex);
-  Product.find().sort({prod_name:1}).skip(startingIndex).limit(endingIndex)
+  let jwterror,userinfo=jwt.decodeJWT(req.headers.authorization.split(' ')[1])
+  if(jwterror!=null){
+    let err= new Error('Unauthorized access');
+    err.status=401;
+    return next(err);
+  }
+  Product.find({seller_id:userinfo.id}).sort({prod_name:1}).skip(startingIndex).limit(endingIndex)
   .then(products=>{
-    Product.find().count()
+    Product.find({seller_id:userinfo.id}).count()
     .then(result=>{
       response.products=products
       response.arraySize=result
@@ -310,7 +333,7 @@ exports.findcategory = (req, res, next) => {
 }
   Category.find({ category_id: category_id })
     .then((resopnse) => {
-      console.log(resopnse)
+      //console.log(resopnse)
       if(resopnse.length>0){
         res.send(resopnse[0]);
       }else{

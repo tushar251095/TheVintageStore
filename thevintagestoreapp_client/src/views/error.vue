@@ -6,6 +6,7 @@
   <h4 class="text-secondary">{{errorMessage}}</h4>
   <h4 class="text-secondary" v-if="statusCode==500">Something went wrong while processing your request.</h4>
   <router-link to="/">Back to Home</router-link>
+
 </div>
 </div>
 
@@ -19,8 +20,22 @@ export default{
     }
   },
   created(){
-    this.statusCode=sessionStorage.getItem("statusCode")
-    this.errorMessage=sessionStorage.getItem("errorMessage")
+    this.statusCode=localStorage.getItem("statusCode")
+    this.errorMessage=localStorage.getItem("errorMessage")
+    this.Unauthorized();
+  },
+  methods:{
+    Unauthorized(){
+      if(this.statusCode==401){
+        localStorage.clear()
+        //this.$router.push({ path: "/login" })
+        this.$toast.open({
+          message: "Unauthorized access",
+          type: "error",
+          position: "top",
+        })
+      }
+    }
   }
 }
 </script>

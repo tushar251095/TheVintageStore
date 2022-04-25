@@ -73,7 +73,7 @@
           </p>
         </section>
       </div>
-      <div class="col-sm-12 col-md-3 col-lg-3 p-3">
+      <div class="col-sm-12 col-md-3 col-lg-3 p-3" v-if="user!=null">
         <div class="sidesection">
           <p><b>Are you interested in this product?</b></p>
           <!-- <button class="thmbtn1">Trade It</button>
@@ -92,6 +92,7 @@ import EventServices from "@/services/EventServices.js";
 export default {
   data() {
     return {
+      user:null,
       productdetails: {
         prod_name: "",
         year: "",
@@ -105,12 +106,13 @@ export default {
     };
   },
   created() {
+    this.user=localStorage.getItem('id')
     this.getproductdetails();
   },
   methods: {
     async getproductdetails() {
       //console.log(this.$store.state.product_id);
-      EventServices.getProductDetails(sessionStorage.getItem("product_id")).then(
+      EventServices.getProductDetails(localStorage.getItem("product_id")).then(
         (data) => {
           console.log(data)
           this.productdetails = data.productdetails[0];

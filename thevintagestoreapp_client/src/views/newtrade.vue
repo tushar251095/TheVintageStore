@@ -90,6 +90,7 @@
             ><b>Seller Name</b><span class="text-danger">*</span></label
           >
           <input
+            disabled
             v-model="tradeobj.seller"
             class="form-control"
             type="text"
@@ -192,6 +193,7 @@ export default {
   },
   created() {
     this.categoriesdropdown();
+    this.tradeobj.seller=localStorage.getItem('username')
   },
   methods: {
     async categoriesdropdown() {
@@ -205,7 +207,6 @@ export default {
         if (this.$v.tradeobj.$invalid) {
             return;
         }
-        this.tradeobj.seller_id = "05a91894-3fda-40e1-8e3a-27546329e26b";
         EventServices.addNewTrade(this.tradeobj).then((res) => {
           if(res!=undefined){
             this.$toast.open({

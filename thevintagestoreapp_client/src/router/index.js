@@ -12,6 +12,8 @@ import Login from "../views/Login.vue";
 import errorViewComponent from "../views/error.vue";
 import Contact from "../views/contact.vue";
 import PageNotFound from "../views/PageNotFound.vue";
+import profile from "../views/profile.vue";
+import userProfile from "../views/userProfile.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -29,6 +31,9 @@ const routes = [
     path: "/newtrade",
     name: "Addtrade",
     component: Addtrade,
+    meta: {
+      requiresAuth: true
+  }
   },
   {
     path: "/trades",
@@ -49,6 +54,9 @@ const routes = [
     path: "/edit",
     name: "Edit",
     component: Edit,
+    meta: {
+      requiresAuth: true
+  }
   },
   {
     path: "/registration",
@@ -65,9 +73,24 @@ const routes = [
     name: "contact",
     component:Contact ,
   },
+  {
+    path: "/users/profile",
+    name: "/users/profile",
+    component:userProfile ,
+    meta: {
+      requiresAuth: true
+  }
+  },
   { path: "/error", 
   name:"error",
   component: errorViewComponent,
+ },
+ { path: "/users/loginhome", 
+  name:"/users/loginhome",
+  component: profile,
+  meta: {
+    requiresAuth: true
+}
  },
  { path: "*", 
   name:"PageNotFound",
@@ -79,6 +102,33 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+   if(to.name=='Login'){
+     if(localStorage.getItem('id')!=null){
+       alert("You are already logged in")
+       next('/users/loginhome')
+     }else{
+       next()
+     }
+   }
+  var authenticatedUser = null;
+  if(localStorage.getItem('token')!=null){
+    authenticatedUser=true;
+  }
+
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+  if (requiresAuth && ! authenticatedUser) {
+    alert("you need to login first")
+    localStorage.clear();
+    next('/login')
+    location.reload()
+  }else{
+     next();
+  }
+ 
 });
 
 export default router;

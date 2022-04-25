@@ -277,7 +277,7 @@ export default {
           type: "success",
           position: "top",
         });
-        this.$router.push("trades");
+        location.reload()
       });
     },
     openUpdateForm(product_id) {
@@ -291,7 +291,7 @@ export default {
       EventServices.getProductDetails(product_id).then((data) => {
         console.log(data)
         this.editobj = data.productdetails[0];
-        sessionStorage.setItem("product_id",this.editobj.product_id)
+        localStorage.setItem("product_id",this.editobj.product_id)
       });
     },
     editTrade() {
@@ -308,6 +308,7 @@ export default {
           position: "top",
         });
         this.$router.push("trade");
+
         }
        
       });

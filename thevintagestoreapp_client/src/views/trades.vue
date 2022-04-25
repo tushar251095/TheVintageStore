@@ -1,9 +1,10 @@
 <template>
   <main class="container-fluid">
     <section class="row p-3">
-      <div class="col-sm-12 col-md-6 col-lg-12 p-3">
+      <div class="col-sm-12 col-md-6 col-lg-12 p-3" >
         <h4 class="text-center">Categories</h4>
         <button
+        v-if="user!=null"
           type="button"
           class="thmbtn1 rounded float-end"
           @click="EditCategoriesEnable()"
@@ -80,7 +81,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-12 col-md-6 col-lg-4 ps-5 pe-5" >
+      <div class="col-sm-12 col-md-6 col-lg-4 ps-5 pe-5" v-if="user!=null">
         <div
           class="cardbox pluscard d-flex flex-column justify-content-center align-items-center"
           :class="cardClass"
@@ -196,6 +197,7 @@ import {required} from "vuelidate/lib/validators"
 export default {
   data() {
     return {
+      user:null,
       catsubmitted:false,
       submitted:false,
       categories: [
@@ -228,6 +230,7 @@ export default {
     }
   },
   created() {
+    this.user=localStorage.getItem('id');
     this.getdata();
   },
   methods: {
