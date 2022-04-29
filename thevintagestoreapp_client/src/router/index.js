@@ -14,6 +14,10 @@ import Contact from "../views/contact.vue";
 import PageNotFound from "../views/PageNotFound.vue";
 import profile from "../views/profile.vue";
 import userProfile from "../views/userProfile.vue";
+import trading from "../views/trading.vue";
+import tradehistory from "../views/tradehistory.vue";
+import tradeoffers from "../views/tradeoffers.vue";
+import wishlist from "../views/wishlist.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -88,6 +92,34 @@ const routes = [
  { path: "/users/loginhome", 
   name:"/users/loginhome",
   component: profile,
+  meta: {
+    requiresAuth: true
+}
+ },
+ { path: "/history", 
+  name:"/history",
+  component: tradehistory,
+  meta: {
+    requiresAuth: true
+}
+ },
+ { path: "/trade/offers", 
+  name:"/trade/offers",
+  component: tradeoffers,
+  meta: {
+    requiresAuth: true
+}
+ },
+ { path: "/trading", 
+  name:"trading",
+  component: trading,
+  meta: {
+    requiresAuth: true
+}
+ },
+ { path: "/wishlist", 
+  name:"wishlist",
+  component: wishlist,
   meta: {
     requiresAuth: true
 }

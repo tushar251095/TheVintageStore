@@ -55,6 +55,63 @@ export default {
      
     }
   },
+  async addToWatchList(payload) {
+    try{
+      let res = await apiClient.post("/watchlist",payload);
+      return res.data;
+    }catch(error){
+      if(error.response.data.statusCode==401){
+        alert("Unauthorized access")
+        this.logout().then(()=>{
+          console.log("logout")
+        })
+       // return router.push(errorView)
+     }else{
+      localStorage.setItem("statusCode",error.response.data.statusCode)
+      localStorage.setItem("errorMessage",error.response.data.message)
+      router.push(errorView)
+     }
+     
+    }
+  },
+  async getWatchList() {
+    try{
+      let res = await apiClient.get("/watchlist");
+      return res.data;
+    }catch(error){
+      if(error.response.data.statusCode==401){
+        alert("Unauthorized access")
+        this.logout().then(()=>{
+          console.log("logout")
+        })
+       // return router.push(errorView)
+     }else{
+      localStorage.setItem("statusCode",error.response.data.statusCode)
+      localStorage.setItem("errorMessage",error.response.data.message)
+      router.push(errorView)
+     }
+     
+    }
+  },
+  async removeFromWatchList(payload) {
+    try{
+      let res = await apiClient.post("/watchlist/remove",payload);
+      return res.data;
+    }catch(error){
+      if(error.response.data.statusCode==401){
+        alert("Unauthorized access")
+        this.logout().then(()=>{
+          console.log("logout")
+        })
+       // return router.push(errorView)
+     }else{
+      localStorage.setItem("statusCode",error.response.data.statusCode)
+      localStorage.setItem("errorMessage",error.response.data.message)
+      router.push(errorView)
+     }
+     
+    }
+  },
   async logout() {
     try{
      // let res = await apiClient.get("/logout");

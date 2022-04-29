@@ -75,12 +75,15 @@
       </div>
       <div class="col-sm-12 col-md-3 col-lg-3 p-3" v-if="user!=null">
         <div class="sidesection">
-          <p><b>Are you interested in this product?</b></p>
+          <p v-if="user!=productdetails.seller_id"><b>Are you interested in this product?</b></p>
           <!-- <button class="thmbtn1">Trade It</button>
             <button class="thmbtn2">Rate It</button> -->
-          <router-link to="/" class="thmbtn1">Trade It</router-link>
-          <router-link to="/" class="thmbtn2 ms-2 anchorstyle"
+          <button @click="trading()" class="thmbtn1" v-if="user!=productdetails.seller_id && productdetails.product_status=='Available'" :disabled="tradebtnTitle==='Requested'">{{tradebtnTitle}}</button>
+          <router-link to="/" class="thmbtn2 ms-2 anchorstyle" v-if="user!=productdetails.seller_id" 
             >Rate It</router-link
+          >
+           <button class="thmbtn2 ms-2 anchorstyle" v-if="user!=productdetails.seller_id" :disabled="watchlistStatus" @click="watchList(productdetails.product_id)"
+            >+ watchlist</button
           >
         </div>
       </div>
@@ -89,10 +92,13 @@
 </template>
 <script>
 import EventServices from "@/services/EventServices.js";
+import userServices from "@/services/userService.js";
 export default {
   data() {
     return {
+      tradebtnTitle:"Trade it",
       user:null,
+      watchlistStatus:true,
       productdetails: {
         prod_name: "",
         year: "",
@@ -115,11 +121,42 @@ export default {
       EventServices.getProductDetails(localStorage.getItem("product_id")).then(
         (data) => {
           console.log(data)
+          this.watchlistStatus=data.watchlist
           this.productdetails = data.productdetails[0];
           this.productdetails.category_name=data.categorytitle
+          if(data.tradedetails.length>0){
+            if(data.tradedetails[0].status=='pending'){
+               this.tradebtnTitle='Requested'
+            }
+            
+          }
         }
       );
     },
+    trading(){
+      localStorage.setItem('tradeproduct',JSON.stringify(this.productdetails) )
+      this.$router.push("/trading")
+    },
+    watchList(productid){
+         userServices.addToWatchList({product_id:productid}).then(
+        (data) => {
+           location.reload()
+            if(data==true){
+                 this.$toast.open({
+          message: "Added to watchList",
+          type: "success",
+          position: "top",
+        });
+            }else{
+               this.$toast.open({
+          message: "Failed to add. Please try again",
+          type: "error",
+          position: "top",
+        });
+            }
+           
+        })
+    }
   },
 };
 </script>

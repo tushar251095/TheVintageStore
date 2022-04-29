@@ -18,7 +18,8 @@
           v-for="(product, index) in productArray"
           :key="index"
         >
-          <div class="card">
+        <div class="main-card">
+          <div :class="dynamicClass">
             <img
               :src="product.product_img_url"
               class="img-fluid"
@@ -85,6 +86,8 @@
               </button>
             </div>
           </div>
+        </div>
+          
         </div>
       </div>
     </div>
@@ -213,6 +216,7 @@ import {required, minLength, maxLength} from "vuelidate/lib/validators"
 export default {
   data() {
     return {
+      dynamicClass:"card",
       submitted: false,
       productArray: [],
       productID: 0,

@@ -176,4 +176,113 @@ export default {
       router.push(errorView)
     }
   },
+  async getProducts(){
+    try{
+      let res = await apiClient.get("/users/products");
+      return res.data;
+    }catch(error){
+      if(error.response.data.statusCode==401){
+        alert("Unauthorized access")
+        this.logout().then(()=>{
+          //console.log("logout")
+        })
+       // return router.push(errorView)
+     }else{
+      localStorage.setItem("statusCode",error.response.data.statusCode)
+      localStorage.setItem("errorMessage",error.response.data.message)
+      router.push(errorView)
+     }
+    }
+  },
+  async saveTrade(payload){
+    try{
+      let res = await apiClient.post("/trading/request",payload);
+      return res.data;
+    }catch(error){
+      if(error.response.data.statusCode==401){
+        alert("Unauthorized access")
+        this.logout().then(()=>{
+          //console.log("logout")
+        })
+       // return router.push(errorView)
+     }else{
+      localStorage.setItem("statusCode",error.response.data.statusCode)
+      localStorage.setItem("errorMessage",error.response.data.message)
+      router.push(errorView)
+     }
+    }
+  },
+  async getTradeHistory(){
+    try{
+      let res = await apiClient.get("/trading/history");
+      return res.data;
+    }catch(error){
+      if(error.response.data.statusCode==401){
+        alert("Unauthorized access")
+        this.logout().then(()=>{
+          //console.log("logout")
+        })
+       // return router.push(errorView)
+     }else{
+      localStorage.setItem("statusCode",error.response.data.statusCode)
+      localStorage.setItem("errorMessage",error.response.data.message)
+      router.push(errorView)
+     }
+    }
+  },
+  async getTradeOffers(){
+    try{
+      let res = await apiClient.get("/trading/offers");
+      return res.data;
+    }catch(error){
+      if(error.response.data.statusCode==401){
+        alert("Unauthorized access")
+        this.logout().then(()=>{
+          //console.log("logout")
+        })
+       // return router.push(errorView)
+     }else{
+      localStorage.setItem("statusCode",error.response.data.statusCode)
+      localStorage.setItem("errorMessage",error.response.data.message)
+      router.push(errorView)
+     }
+    }
+  },
+  async acceptRejectStatus(paylaod){
+    try{
+      let res = await apiClient.post("/trading/update/offer",paylaod);
+      return res.data;
+    }catch(error){
+      if(error.response.data.statusCode==401){
+        alert("Unauthorized access")
+        this.logout().then(()=>{
+          //console.log("logout")
+        })
+       // return router.push(errorView)
+     }else{
+      localStorage.setItem("statusCode",error.response.data.statusCode)
+      localStorage.setItem("errorMessage",error.response.data.message)
+      router.push(errorView)
+     }
+    }
+  },
+  async cancelTrade(paylaod){
+    try{
+      let res = await apiClient.get("/trading/cancel/offer/"+paylaod);
+      return res.data;
+    }catch(error){
+      if(error.response.data.statusCode==401){
+        alert("Unauthorized access")
+        this.logout().then(()=>{
+          //console.log("logout")
+        })
+       // return router.push(errorView)
+     }else{
+      localStorage.setItem("statusCode",error.response.data.statusCode)
+      localStorage.setItem("errorMessage",error.response.data.message)
+      router.push(errorView)
+     }
+    }
+  },
 };
+

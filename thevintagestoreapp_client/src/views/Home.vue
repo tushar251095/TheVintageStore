@@ -147,7 +147,7 @@
             </span>
              <div class="p-3">
             <h4>
-              What's the difference between old clothes and Vintage clothing?
+              What's the difference between old and Vintage?
             </h4>
             <p>
               Well, "old" is a relative term. You might consider your four year

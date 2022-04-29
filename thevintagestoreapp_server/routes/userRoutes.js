@@ -1,4 +1,5 @@
 const express = require('express');
+
 const controller = require('../controllers/userController');
 const router = express.Router();
 //const {isGuest,isLoggedIn }= require('../middleware/auth');
@@ -16,6 +17,15 @@ router.post('/login', jwt.isGuest,controller.login);
 
 //GET /users/profile: send user's profile page
 router.get('/profile', jwt.verifyToken,jwt.isLoggedIn,controller.profile);
+
+//GET /users/profile: send user's profile page
+router.post('/watchlist', jwt.verifyToken,jwt.isLoggedIn,controller.addToWatchList);
+
+//GET /users/profile: send user's profile page
+router.get('/watchlist', jwt.verifyToken,jwt.isLoggedIn,controller.getWatchList);
+
+//GET /users/profile: send user's profile page
+router.post('/watchlist/remove', jwt.verifyToken,jwt.isLoggedIn,controller.removefromWatchList);
 
 //POST /users/logout: logout a user
 //router.get('/logout',jwt.isLoggedIn, controller.logout);

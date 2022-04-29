@@ -1,15 +1,15 @@
 <template>
-  <main class="container-fluid">
+     <main class="container-fluid">
     <div>
       <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">
-          <h4 class="text-center p-3">{{ catgoryname }}</h4>
+          <h4 class="text-center p-3">Select product for trading</h4>
         </div>
       </div>
       <div class="row">
         <div
           class="col-sm-12 col-md-6 col-lg-3 p-3"
-          v-for="(product, index) in productArray"
+          v-for="(product, index) in productlist"
           :key="index"
         >
           <div class="card">
@@ -20,7 +20,7 @@
             />
             <div class="p-3">
               <h6>
-                <p>
+                <p @click="StoreProductID(product.product_id)">
                   {{ product.prod_name }}
                 </p>
               </h6>
@@ -62,40 +62,42 @@
               </span>
 
               <p>Year: {{ product.year }}</p>
-              <button v-if="user!=null" class="thmbtn1" @click="StoreProductID(product.product_id)">More Details</button>
+              <button v-if="user!=null" class="thmbtn1" @click="openConfirmationmodal(product.prod_name,product.product_id)"  v-b-modal.confirm-modal>Select</button>
             </div>
           </div>
-        </div>
-        <div class="d-flex justify-content-center">
-          <b-pagination-nav
-        class=""
-          v-model="currentPage"
-          :number-of-pages="pages"
-          @change="getproducts()"
-          base-url="#"
-          first-number
-          last-number
-        ></b-pagination-nav>
         </div>
         
       </div>
     </div>
+
+    <b-modal id="confirm-modal" hide-header>
+        <div class="text-success text-center mt-3">
+            <i class="fas fa-check-circle fa-5x"></i>
+        </div>
+      <h5 class="text-center mt-3">
+        Are you sure you want to trade below product?
+      </h5>
+      <h5 class="text-center text-secondary">{{ productname }}</h5>
+      <template #modal-footer="{ cancel }">
+        <b-button size="md" variant="secondary" @click="cancel()">
+          Cancel
+        </b-button>
+        <button type="button" class="btn btn-success" @click="confirmTrade()">
+          Yes
+        </button>
+      </template>
+    </b-modal>
   </main>
 </template>
-
 <script>
 import EventServices from "@/services/EventServices.js";
 export default {
   data() {
     return {
       user:null,
-      productArray: [],
-      catgoryname: "",
-      currentPage: 1,
-      pages: 9,
-      perPage: 8,
-      startingIndex: 0,
-      endingIndex: 0,
+       productlist:[],
+       productname:"",
+       product_id:""
     };
   },
   created() {
@@ -103,39 +105,44 @@ export default {
     this.getproducts();
   },
   methods: {
-    generatingIndex() {
-      return new Promise((resolve, reject) => {
-        resolve(true);
-        reject(true);
-      });
+    async getproducts() {
+      //console.log(this.$store.state.product_id);
+      EventServices.getProducts().then(
+        (data) =>{
+          this.productlist = data;
+         
+        }
+      );
     },
-    getproducts() {
-      var sendobj = {};
-      this.generatingIndex().then(() => {
-        this.startingIndex = (this.currentPage - 1) * this.perPage;
-        this.endingIndex = this.perPage;
-        sendobj = {
-          startingIndex: this.startingIndex,
-          endingIndex: this.endingIndex,
-          category_id: localStorage.getItem("category_id"),
-        };
-        EventServices.getMoreitems(sendobj).then((data) => {
-          this.productArray = data.products;
-          this.catgoryname = data.others.category_name;
-          this.pages=((data.others.arraySize) + this.perPage - 1)/this.perPage
+    openConfirmationmodal(prodname,product_id){
+        this.productname=prodname;
+        this.product_id=product_id
+    },
+    confirmTrade(){
+        let confirmtradeobj={}
+        confirmtradeobj.buyer_id=localStorage.getItem('id')
+        confirmtradeobj.requested_product_id=JSON.parse(localStorage.getItem('tradeproduct')).product_id
+        confirmtradeobj.offered_product_id=this.product_id
+        confirmtradeobj.seller_id=JSON.parse(localStorage.getItem('tradeproduct')).seller_id
+        confirmtradeobj.requested_product_name=JSON.parse(localStorage.getItem('tradeproduct')).prod_name
+        confirmtradeobj.buyer_name=localStorage.getItem('username')
+        confirmtradeobj.offered_product_name=this.productname
+        confirmtradeobj.seller_name=JSON.parse(localStorage.getItem('tradeproduct')).seller
+       EventServices.saveTrade(confirmtradeobj).then(
+        (data) =>{
+            if(data){
+                this.$toast.open({
+          message: "Trade requested successfully",
+          type: "success",
+          position: "top",
         });
-      });
-    },
-    StoreProductID(payload) {
-      this.$store.dispatch("saveid", payload).then(() => {
-        this.$router.push({
-          name: "Trade",
-        });
-      });
-    },
+         this.$router.push('/trades')
+            }
+         console.log(data)
+         
+        }
+      );
+    }
   },
 };
 </script>
-<style scoped>
-@import "../assets/CSS/moreItem.css";
-</style>

@@ -46,6 +46,22 @@ router.get("/view/allproduct/:startingIndex/:endingIndex",jwt.verifyToken, contr
 //API to Update trade in product_data
 router.put("/update/trade", jwt.verifyToken,jwt.isAuthor,controller.updatetrade);
 
+//API to get products using userid
+router.get("/users/products", jwt.verifyToken,controller.productByUserID);
 
+//API to save trade
+router.post("/trading/request", jwt.verifyToken,controller.saveTrade);
 
+//API to get trade history
+router.get("/trading/history", jwt.verifyToken,controller.tradeHistory);
+
+//API to get trade offers
+router.get("/trading/offers", jwt.verifyToken,controller.tradeOffers);
+
+//API to get trade offers
+router.post("/trading/update/offer", jwt.verifyToken,controller.acceptRejectStatus);
+module.exports=router;
+
+//API to cancel trade offers
+router.get("/trading/cancel/offer/:id", jwt.verifyToken,controller.cancelTrade);
 module.exports=router;
