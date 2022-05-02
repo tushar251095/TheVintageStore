@@ -1,5 +1,6 @@
 import axios from "axios";
 import router from '../router'
+import errorjs from "../Javascript/error"
 const apiClient = axios.create({
   baseURL: "http://localhost:3000/users",
   withCredentials: true,
@@ -11,7 +12,6 @@ const apiClient = axios.create({
  
 });
 
-let errorView="error"
 export default {
   async registerUser(payload) {
     try{
@@ -21,9 +21,7 @@ export default {
       if(error.response.data.message=="Email has been used"){
          return error.response.data.message
       }else{
-        localStorage.setItem("statusCode",error.response.data.statusCode)
-        localStorage.setItem("errorMessage",error.response.data.message)
-        router.push(errorView)
+        errorjs.openRouteErrors(error)
       }
      
     }
@@ -41,17 +39,7 @@ export default {
       let res = await apiClient.get("/profile",payload);
       return res.data;
     }catch(error){
-      if(error.response.data.statusCode==401){
-        alert("Unauthorized access")
-        this.logout().then(()=>{
-          console.log("logout")
-        })
-       // return router.push(errorView)
-     }else{
-      localStorage.setItem("statusCode",error.response.data.statusCode)
-      localStorage.setItem("errorMessage",error.response.data.message)
-      router.push(errorView)
-     }
+      errorjs.restrictedRouteErrors(error)
      
     }
   },
@@ -60,17 +48,7 @@ export default {
       let res = await apiClient.post("/watchlist",payload);
       return res.data;
     }catch(error){
-      if(error.response.data.statusCode==401){
-        alert("Unauthorized access")
-        this.logout().then(()=>{
-          console.log("logout")
-        })
-       // return router.push(errorView)
-     }else{
-      localStorage.setItem("statusCode",error.response.data.statusCode)
-      localStorage.setItem("errorMessage",error.response.data.message)
-      router.push(errorView)
-     }
+      errorjs.restrictedRouteErrors(error)
      
     }
   },
@@ -79,17 +57,7 @@ export default {
       let res = await apiClient.get("/watchlist");
       return res.data;
     }catch(error){
-      if(error.response.data.statusCode==401){
-        alert("Unauthorized access")
-        this.logout().then(()=>{
-          console.log("logout")
-        })
-       // return router.push(errorView)
-     }else{
-      localStorage.setItem("statusCode",error.response.data.statusCode)
-      localStorage.setItem("errorMessage",error.response.data.message)
-      router.push(errorView)
-     }
+      errorjs.restrictedRouteErrors(error)
      
     }
   },
@@ -98,17 +66,7 @@ export default {
       let res = await apiClient.post("/watchlist/remove",payload);
       return res.data;
     }catch(error){
-      if(error.response.data.statusCode==401){
-        alert("Unauthorized access")
-        this.logout().then(()=>{
-          console.log("logout")
-        })
-       // return router.push(errorView)
-     }else{
-      localStorage.setItem("statusCode",error.response.data.statusCode)
-      localStorage.setItem("errorMessage",error.response.data.message)
-      router.push(errorView)
-     }
+      errorjs.restrictedRouteErrors(error)
      
     }
   },
@@ -120,9 +78,7 @@ export default {
       location.reload()
       return;
     }catch(error){
-      localStorage.setItem("statusCode",error.response.data.statusCode)
-      localStorage.setItem("errorMessage",error.response.data.message)
-      router.push(errorView)
+      errorjs.openRouteErrors(error)
     }
   },
 };

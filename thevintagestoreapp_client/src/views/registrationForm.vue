@@ -67,10 +67,15 @@
                           }"
                         />
                         <div
-                          v-if="submitted && !$v.registerobj.email.required"
+                          v-if="submitted && $v.registerobj.email.$error"
                           class="invalid-feedback"
                         >
-                          Email is required
+                          <span v-if="!$v.registerobj.email.required"
+                            >Email is required</span
+                          >
+                          <span v-if="!$v.registerobj.email.email"
+                            >Must be valid Email</span
+                          >
                         </div>
                       </div>
                     </div>
@@ -87,10 +92,18 @@
                           }"
                         />
                         <div
-                          v-if="submitted && !$v.registerobj.contact.required"
+                          v-if="submitted && $v.registerobj.contact.$error"
                           class="invalid-feedback"
                         >
-                          Contact is required
+                          <span v-if="!$v.registerobj.contact.required"
+                            >Contact is required</span
+                          >
+                          <span v-if="!$v.registerobj.contact.minLength"
+                            >Contact must be at least 10 characters</span
+                          >
+                          <span v-if="!$v.registerobj.contact.maxLength"
+                            >Contact must be at atmost 10 characters</span
+                          >
                         </div>
                       </div>
                     </div>
@@ -172,7 +185,7 @@
 
 <script>
 import UserServices from "@/services/userService.js";
-import { required, minLength, maxLength,sameAs } from "vuelidate/lib/validators";
+import { required, minLength, maxLength,sameAs,email } from "vuelidate/lib/validators";
 export default {
   data() {
     return {
@@ -187,8 +200,8 @@ export default {
       firstName: { required },
       lastName: { required },
       password: { required, minLength: minLength(8), maxLength: maxLength(16) },
-      email: { required },
-      contact: { required },
+      email: { required,email },
+      contact: { required,minLength: minLength(10), maxLength: maxLength(10) },
       confirmPassword: { required, sameAsPassword: sameAs('password') }
     },
   },
@@ -207,12 +220,20 @@ export default {
             position: "top",
           });
           this.$router.push({ path: "/login" });
-        } else if (data == "Email has been used") {
+        } else if (typeof(data)=="string") {
           this.$toast.open({
-            message:
-              "Email has been used please try with another email address",
+            message:data,
             type: "error",
             position: "top",
+          });
+        }else{
+          console.log(data)
+          data.errors.forEach(element => {
+            this.$toast.open({
+            message:element.msg,
+            type: "error",
+            position: "top",
+          });
           });
         }
       });

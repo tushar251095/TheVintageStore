@@ -1,6 +1,7 @@
 const express = require('express');
-
+const {loginLimiter} = require('../middleware/rateLimiter')
 const controller = require('../controllers/userController');
+const {validateSignUp,validateLogIn,validateResult}= require('../middleware/validator')
 const router = express.Router();
 //const {isGuest,isLoggedIn }= require('../middleware/auth');
 const jwt = require('../middleware/jwt')
@@ -8,10 +9,10 @@ const jwt = require('../middleware/jwt')
 //-----------------------------------------Open routes--------------------------------------
 
 //POST /users: create a new user account
-router.post('/new',jwt.isGuest,controller.create);
+router.post('/new',jwt.isGuest,validateSignUp,validateResult,controller.create);
 
 //POST /users/login: authenticate user's login
-router.post('/login', jwt.isGuest,controller.login);
+router.post('/login', jwt.isGuest,loginLimiter,validateLogIn,validateResult,controller.login);
 
 //---------------------------------------restricted routes--------------------------------
 

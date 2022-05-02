@@ -35,10 +35,15 @@
                           }"
                 />
                 <div
-                          v-if="submitted && !$v.login.email.required"
+                          v-if="submitted && $v.login.email.$error"
                           class="invalid-feedback"
                         >
-                          Email is required
+                          <span v-if="!$v.login.email.required"
+                            >Email is required</span
+                          >
+                          <span v-if="!$v.login.email.email"
+                            >Must be valid Email</span
+                          >
                         </div>
                 <label for="floatingInput">Email address</label>
               </div>
@@ -91,7 +96,7 @@
 </template>
 <script>
 import UserServices from "@/services/userService.js";
-import { required } from "vuelidate/lib/validators";
+import { required,email } from "vuelidate/lib/validators";
 export default {
   data() {
     return {
@@ -106,7 +111,7 @@ export default {
   },
   validations:{
     login: {
-        email:{required},
+        email:{required,email},
         password: {required},
       }
   },
@@ -125,25 +130,28 @@ export default {
         return;
       }
       await UserServices.loginService(this.login).then((data) => {
-        console.log(data)
-        if (data == "wrong email address") {
+        if (typeof(data) == "string") {
            this.$toast.open({
-          message: "Wrong email address",
+          message:data,
           type: "error",
           position: "top",
         });
-        } else if (data == "wrong password") {
-          this.$toast.open({
-          message: "Wrong password",
-          type: "error",
-          position: "top",
-        });
-        } else {
+        } else if(data.userinfo) {
           localStorage.setItem("id", data.userinfo.id);
           localStorage.setItem("token", data.token);
            localStorage.setItem("username", data.userinfo.firstName+" "+data.userinfo.lastName);
           this.$router.push({ path: "/users/loginhome" });
           location.reload();
+        }else{
+          data.errors.forEach(element => {
+             this.$toast.open({
+          message:element.msg,
+          type: "error",
+          position: "top",
+        });
+            element.message
+          });
+          
         }
       });
     },

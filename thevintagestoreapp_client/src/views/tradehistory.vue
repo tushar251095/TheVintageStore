@@ -1,10 +1,26 @@
 <template>
-    <div class="container-fluid">
+    <div class="container-fluid pb-5">
         <h3 class="text-center mt-4">Trade History</h3>
        <div class="row mt-3">
            <div class="col-sm-12">
+             <div class="row">
+                   <div class="col-sm-9"></div>
+                   <div class="col-sm-3">
+                    <label class=""><b>Filter by status: </b></label>
+                  <select class="form-control" v-model="filtervalue" @change="filterTable(filtervalue)">
+                    <option value="all" selected>All</option>
+                   <option value="pending">Pending</option>
+                   <option value="rejected">Rejected</option>
+                   <option value="accepted">Accepted</option>
+                   <option value="cancelled">Cancelled</option>
+                 </select>
+                   </div>
+                    
+                 </div>
                <div v-if="history.length>0">
-                   <table class="table">
+                 
+                 
+                   <table class="table mt-2">
                        <thead>
                            <tr>
                                <th>Trade ID</th>
@@ -35,7 +51,7 @@
                    </table>
                </div>
                <div v-else>
-                    <div class="border border-secondary">
+                    <div class="border border-secondary mt-2">
                         <h3 class="text-center p-5 text-secondary">No trades to display</h3>
                     </div>
                </div>
@@ -75,8 +91,10 @@ import vuehtml2pdf from "vue-html2pdf";
      },
      data(){
          return{
+           filtervalue:"all",
              history:[],
-             pdfcontent:{}
+             pdfcontent:{},
+             filterData:[]
              
          }
      },
@@ -94,6 +112,7 @@ import vuehtml2pdf from "vue-html2pdf";
          EventServices.getTradeHistory().then(
         (data) =>{
            this.history=data
+           this.filterData=data
         }
       );
      },
@@ -107,6 +126,13 @@ import vuehtml2pdf from "vue-html2pdf";
      generatePDF(data){
          this.pdfcontent=data
          this.$refs.html2Pdf.generatePdf();
+     },
+     filterTable(status){
+       if(status=="all"){
+         this.history=this.filterData
+       }else{
+          this.history=this.filterData.filter(obj => obj.status==status)
+       }
      },
      cancelTrade(id){
          EventServices.cancelTrade(id).then(

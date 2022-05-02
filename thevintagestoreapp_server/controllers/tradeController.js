@@ -56,12 +56,7 @@ exports.categories = (req, res, next) => {
 
 //API for product details page
 exports.productdetails = (req, res, next) => {
-  let product_id = req.params.product_id;
-  if(!product_id.match(/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)){
-    let err = new Error('Invalid Story id');
-    err.status = 400;
-    return next(err);
-}
+  let product_id = req.params.id;
   Product.find({ product_id: product_id })
     .then((product) => {
       if (product.length==0) {
@@ -86,7 +81,7 @@ exports.productdetails = (req, res, next) => {
                  //console.log(req.headers.authorization.split(' ')[1])
                  if(req.headers && req.headers.authorization && req.headers.authorization.split(' ')[1]!=='null'){
                  // console.log("in if")
-                  let jwterror,userinfo=jwt.decodeJWT(req.headers.authorization.split(' ')[1])
+                  let userinfo=jwt.decodeJWT(req.headers.authorization.split(' ')[1])
                   Promise.all([Trade.find({buyer_id:userinfo.id,requested_product_id:product_id}),user.find({_id:userinfo.id,watchlist:product_id},{watchlist:1})])
                     
                     .then((data)=>{
@@ -126,12 +121,7 @@ exports.productdetails = (req, res, next) => {
 
 //API to view all items for specific category
 exports.moreitems = (req, res, next) => {
-  let category_id = req.params.category_id;
-  if(!category_id.match(/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)){
-    let err = new Error('Invalid Story id');
-    err.status = 400;
-    return next(err);
-}
+  let category_id = req.params.id;
   let startingIndex = parseInt(req.params.startingIndex);
   let endingIndex = parseInt(req.params.endingIndex);
   let finalresponsoe = {};
@@ -172,12 +162,8 @@ exports.moreitems = (req, res, next) => {
 exports.addnewtrade = (req, res, next) => {
  req.body.product_id = uuidv4();
  let token=req.headers.authorization.split(' ')[1]
- let jwterror,userinfo=jwt.decodeJWT(token)
- if(jwterror!=null){
-  let err= new Error('Unauthorized access');
-  err.status=401;
-  return next(err);
- }
+ let userinfo=jwt.decodeJWT(token)
+ 
  req.body.seller_id=userinfo.id;
   let addproduct = new Product(req.body);
   addproduct
@@ -239,15 +225,11 @@ exports.addcategory = (req, res, next) => {
 
 //api to delete trade
 exports.deletetrade = (req, res, next) => {
-  let product_id = req.params.product_id;
-  if(!product_id.match(/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)){
-    let err = new Error('Invalid Story id');
-    err.status = 400;
-    return next(err);
-}
-  Product.deleteOne({product_id:product_id})
+  let product_id = req.params.id;
+Promise.all([Product.deleteOne({product_id:product_id}),Trade.updateMany({requested_product_id:product_id,status:"pending"},{$set:{status:"rejected"}}),Trade.updateMany({offered_product_id:product_id,status:"pending"},{$set:{status:"rejected"}})]) 
   .then(result=>{
-    if (result.deletedCount==1) {
+    console.log(result)
+    if (result[0].deletedCount==1) {
       res.send("SUCCESS");
     } else {
       let err = new Error(errorMsg + req.url);
@@ -262,12 +244,7 @@ exports.deletetrade = (req, res, next) => {
 
 //api to delete category
 exports.deletecategory = (req, res, next) => {
-  let category_id = req.params.category_id;
-  if(!category_id.match(/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)){
-    let err = new Error('Invalid Story id');
-    err.status = 400;
-    return next(err);
-}
+  let category_id = req.params.id;
   Category.deleteOne({category_id:category_id})
   .then(result=>{
     if (result.deletedCount==1) {
@@ -303,12 +280,8 @@ exports.viewall = (req, res) => {
   let response={}
   let startingIndex = parseInt(req.params.startingIndex);
   let endingIndex = parseInt(req.params.endingIndex);
-  let jwterror,userinfo=jwt.decodeJWT(req.headers.authorization.split(' ')[1])
-  if(jwterror!=null){
-    let err= new Error('Unauthorized access');
-    err.status=401;
-    return next(err);
-  }
+  let userinfo=jwt.decodeJWT(req.headers.authorization.split(' ')[1])
+ 
   Product.find({seller_id:userinfo.id,product_status:"Available"}).sort({prod_name:1}).skip(startingIndex).limit(endingIndex)
   .then(products=>{
     Product.find({seller_id:userinfo.id,product_status:"Available"}).count()
@@ -329,11 +302,6 @@ exports.viewall = (req, res) => {
 //API to Update trade in product_data
 exports.updatetrade = (req, res, next) => {
   let updatedTarde = req.body;
-  if(!updatedTarde.product_id.match(/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)){
-    let err = new Error('Invalid Story id');
-    err.status = 400;
-    return next(err);
-}
   Product.updateOne({product_id:updatedTarde.product_id},{
     $set:{
             prod_name : updatedTarde.prod_name,
@@ -362,12 +330,7 @@ exports.updatetrade = (req, res, next) => {
 
 //api to find category by id
 exports.findcategory = (req, res, next) => {
-  let category_id = req.params.category_id;
-  if(!category_id.match(/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)){
-    let err = new Error('Invalid Story id');
-    err.status = 400;
-    return next(err);
-}
+  let category_id = req.params.id;
   Category.find({ category_id: category_id })
     .then((resopnse) => {
       //console.log(resopnse)
@@ -388,11 +351,6 @@ exports.findcategory = (req, res, next) => {
 //API to update Category by id
 exports.updatecategory = (req, res, next) => {
   let updatedCategory = req.body;
-  if(!updatedCategory.category_id.match(/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)){
-    let err = new Error('Invalid Story id');
-    err.status = 400;
-    return next(err);
-}
   Category.updateOne({category_id:updatedCategory.category_id},{$set:{
       title : updatedCategory.title,
       imageurl : updatedCategory.imageurl
@@ -431,13 +389,7 @@ exports.mostSearched = (req, res, next) => {
 //API for products by userid
 exports.productByUserID = (req, res, next) => {
   let token=req.headers.authorization.split(' ')[1]
-  let jwterror,userinfo=jwt.decodeJWT(token)
-  if(jwterror!=null){
-   let err= new Error('Unauthorized access');
-   err.status=401;
-   return next(err);
-  }
-
+  let userinfo=jwt.decodeJWT(token)
  Trade.find({buyer_id:userinfo.id})
  .then((result)=>{
    let unavailableTrades=[]
@@ -464,22 +416,17 @@ exports.productByUserID = (req, res, next) => {
 //api to make/save trade request
 exports.saveTrade = (req, res, next) => {
   let token=req.headers.authorization.split(' ')[1]
-  let jwterror,userinfo=jwt.decodeJWT(token)
-  if(jwterror!=null){
-   let err= new Error('Unauthorized access');
-   err.status=401;
-   return next(err);
-  }
+  let userinfo=jwt.decodeJWT(token)
    let addproduct = new Trade(req.body);
    addproduct
      .save()
-     .then(() => {
+     .then((data) => {
        user.updateOne({_id:userinfo.id},{$pull:{watchlist:req.body.requested_product_id}})
        .then(result=>{
           if(result.acknowledged==true){
-            res.send(true)
+            res.send(data)
           }else{
-            res.send(false);
+            res.send(null);
           }
        })
        .catch(err=>next(err))
@@ -495,12 +442,8 @@ exports.saveTrade = (req, res, next) => {
 
  exports.tradeHistory=(req,res,next)=>{
   let token=req.headers.authorization.split(' ')[1]
-  let jwterror,userinfo=jwt.decodeJWT(token)
-  if(jwterror!=null){
-   let err= new Error('Unauthorized access');
-   err.status=401;
-   return next(err);
-  }
+  let userinfo=jwt.decodeJWT(token)
+  
   Trade.find({$or:[{buyer_id:userinfo.id},{$and:[{seller_id:userinfo.id},{$or:[{status:"accepted"},{status:"rejected"}]}]}]})
   //Trade.find({buyer_id:userinfo.id})
   .then((trades)=>{
@@ -512,12 +455,7 @@ exports.saveTrade = (req, res, next) => {
 
  exports.tradeOffers=(req,res,next)=>{
   let token=req.headers.authorization.split(' ')[1]
-  let jwterror,userinfo=jwt.decodeJWT(token)
-  if(jwterror!=null){
-   let err= new Error('Unauthorized access');
-   err.status=401;
-   return next(err);
-  }
+  let userinfo=jwt.decodeJWT(token)
   Trade.find({$and:[{seller_id:userinfo.id},{status:"pending"}]})
   //Trade.find({buyer_id:userinfo.id})
   .then((trades)=>{
@@ -528,13 +466,6 @@ exports.saveTrade = (req, res, next) => {
  }
 
  exports.acceptRejectStatus=(req,res,next)=>{
-  let token=req.headers.authorization.split(' ')[1]
-  let jwterror,userinfo=jwt.decodeJWT(token)
-  if(jwterror!=null){
-   let err= new Error('Unauthorized access');
-   err.status=401;
-   return next(err);
-  }
   Trade.updateOne({_id:req.body._id},{$set:{status:req.body.status}})
   .then((result)=>{
     if(result.acknowledged==true && req.body.status=="accepted"){
@@ -564,16 +495,7 @@ exports.saveTrade = (req, res, next) => {
  }
 
  exports.cancelTrade=(req,res,next)=>{
-  let token=req.headers.authorization.split(' ')[1]
-  let jwterror,userinfo=jwt.decodeJWT(token)
-  if(jwterror!=null){
-   let err= new Error('Unauthorized access');
-   err.status=401;
-   return next(err);
-  }
-
   let id=req.params.id
-
   Trade.updateOne({_id:id},{$set:{status:"cancelled"}})
   .then(result=>{
     if(result.acknowledged==true){
@@ -583,4 +505,28 @@ exports.saveTrade = (req, res, next) => {
     }
   })
   .catch(err=>next(err))
+ }
+
+ exports.recommendedProduct=(req,res,next)=>{
+  let id=req.params.id
+  Trade.updateOne({_id:id},{$set:{status:"cancelled"}})
+  .then(result=>{
+    if(result.acknowledged==true){
+      res.send(true)
+    }else{
+      res.send(false)
+    }
+  })
+  .catch(err=>next(err))
+ }
+
+ exports.getRecommendedProducts=(req,res,next)=>{
+  let id=req.params.id
+  Product.find({product_id:id})
+  .then(result=>{
+    Product.find({category_id:result[0].category_id})
+    .then(response=>{
+       res.send(response)
+    })
+  })
  }

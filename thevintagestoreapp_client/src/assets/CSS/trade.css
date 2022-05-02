@@ -14,8 +14,4 @@
     width: 100%;
 }
 
-button[disabled]{
-  background-color: #cccccc;
-  color: #666666;
-}
 

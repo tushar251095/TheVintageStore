@@ -131,15 +131,14 @@ export default {
        EventServices.saveTrade(confirmtradeobj).then(
         (data) =>{
             if(data){
-                this.$toast.open({
+              localStorage.setItem('requestedid',data.requested_product_id)
+            this.$toast.open({
           message: "Trade requested successfully",
           type: "success",
           position: "top",
         });
-         this.$router.push('/trades')
+         this.$router.push('/confirmation')
             }
-         console.log(data)
-         
         }
       );
     }

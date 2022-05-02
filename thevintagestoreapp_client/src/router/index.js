@@ -18,6 +18,7 @@ import trading from "../views/trading.vue";
 import tradehistory from "../views/tradehistory.vue";
 import tradeoffers from "../views/tradeoffers.vue";
 import wishlist from "../views/wishlist.vue";
+import confirmation from "../views/confirmation.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -117,6 +118,14 @@ const routes = [
     requiresAuth: true
 }
  },
+ { path: "/confirmation", 
+  name:"confirmation",
+  component: confirmation,
+  
+  meta: {
+    requiresAuth: true
+}
+ },
  { path: "/wishlist", 
   name:"wishlist",
   component: wishlist,
@@ -162,5 +171,6 @@ router.beforeEach((to, from, next) => {
   }
  
 });
+
 
 export default router;

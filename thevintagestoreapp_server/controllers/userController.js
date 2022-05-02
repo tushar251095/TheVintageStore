@@ -2,8 +2,10 @@ const model = require("../model/user");
 const jwtMiddleware = require("../middleware/jwt");
 const user = require("../model/user");
 const { Category, Product } = require("../model/tradeModel");
+
 exports.create = (req, res, next) => {
   //res.send('Created a new story');
+  req.body.email=req.body.email.toLowerCase()
   let user = new model(req.body);
   user
     .save()
@@ -25,7 +27,7 @@ exports.create = (req, res, next) => {
 };
 
 exports.login = (req, res, next) => {
-  let email = req.body.email;
+  let email = req.body.email.toLowerCase();
   let password = req.body.password;
   model
     .findOne({ email: email })
@@ -62,13 +64,8 @@ exports.login = (req, res, next) => {
 
 exports.profile = (req, res, next) => {
   let token = req.headers.authorization.split(" ")[1];
-  let jwterror,
-    userinfo = jwtMiddleware.decodeJWT(token);
-  if (jwterror != null) {
-    let err = new Error("Unauthorized access");
-    err.status = 401;
-    return next(err);
-  }
+  let userinfo = jwtMiddleware.decodeJWT(token);
+ 
   let id = userinfo.id;
   model
     .findById(id)
@@ -80,13 +77,7 @@ exports.profile = (req, res, next) => {
 
 exports.addToWatchList = (req, res, next) => {
   let token = req.headers.authorization.split(" ")[1];
-  let jwterror,
-    userinfo = jwtMiddleware.decodeJWT(token);
-  if (jwterror != null) {
-    let err = new Error("Unauthorized access");
-    err.status = 401;
-    return next(err);
-  }
+  let userinfo = jwtMiddleware.decodeJWT(token);
   let productid = req.body.product_id;
   user
     .updateOne({ _id: userinfo.id }, { $push: { watchlist: productid } })
@@ -102,13 +93,7 @@ exports.addToWatchList = (req, res, next) => {
 
 exports.getWatchList = (req, res, next) => {
   let token = req.headers.authorization.split(" ")[1];
-  let jwterror,
-    userinfo = jwtMiddleware.decodeJWT(token);
-  if (jwterror != null) {
-    let err = new Error("Unauthorized access");
-    err.status = 401;
-    return next(err);
-  }
+  let userinfo = jwtMiddleware.decodeJWT(token);
   user
     .find({ _id: userinfo.id }, { watchlist: 1 })
     .then((result) => {
@@ -137,13 +122,7 @@ exports.getWatchList = (req, res, next) => {
 
 exports.removefromWatchList=(req,res,next)=>{
   let token = req.headers.authorization.split(" ")[1];
-  let jwterror,
-    userinfo = jwtMiddleware.decodeJWT(token);
-  if (jwterror != null) {
-    let err = new Error("Unauthorized access");
-    err.status = 401;
-    return next(err);
-  }
+  let userinfo = jwtMiddleware.decodeJWT(token);
   user.updateOne({_id:userinfo.id},{$pull:{watchlist:req.body.product_id}})
   .then(result=>{
     if(result.acknowledged==true){

@@ -41,7 +41,7 @@
   </div>
 </template>
 <script>
-import UserServices from "@/services/userService.js";
+import logoutService from "../Javascript/error";
 export default{
   data(){
     return{
@@ -54,7 +54,7 @@ export default{
   },
   methods:{
    async logout(){
-       await UserServices.logout(this.login).then(() => {
+       await logoutService.logout().then(() => {
              console.log("logout successfully")
       })
     }

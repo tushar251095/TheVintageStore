@@ -208,13 +208,21 @@ export default {
             return;
         }
         EventServices.addNewTrade(this.tradeobj).then((res) => {
-          if(res!=undefined){
+          if(res==true){
             this.$toast.open({
             message: "Trade Added Successfully",
             type: "success",
             position: "top",
           });
           this.$router.push("Trades");
+          }else{
+             res.errors.forEach(element => {
+                this.$toast.open({
+            message: element.msg,
+            type: "error",
+            position: "top",
+          });
+             });
           }
         });
     },

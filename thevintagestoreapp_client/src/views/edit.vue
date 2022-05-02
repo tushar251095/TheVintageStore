@@ -288,12 +288,12 @@ export default {
       this.getproductdetails(product_id);
       EventServices.getdropdownCategories().then((data) => {
         this.dropdowncategories = data;
-        console.log(this.dropdowncategories[0].title);
+        //console.log(this.dropdowncategories[0].title);
       });
     },
     async getproductdetails(product_id) {
       EventServices.getProductDetails(product_id).then((data) => {
-        console.log(data)
+        //console.log(data)
         this.editobj = data.productdetails[0];
         localStorage.setItem("product_id",this.editobj.product_id)
       });
@@ -305,7 +305,7 @@ export default {
             return;
         }
       EventServices.updateProduct(this.editobj).then((res) => {
-        if(res!=undefined){
+        if(res=="SUCCESS"){
          this.$toast.open({
           message: "Trade Updated Successfully",
           type: "success",
@@ -313,6 +313,14 @@ export default {
         });
         this.$router.push("trade");
 
+        }else{
+           res.errors.forEach(element => {
+                this.$toast.open({
+            message: element.msg,
+            type: "error",
+            position: "top",
+          });
+             });
         }
        
       });
