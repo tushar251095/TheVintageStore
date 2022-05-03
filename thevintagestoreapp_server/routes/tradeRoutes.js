@@ -40,7 +40,7 @@ router.get("/product/mostviewed", controller.mostSearched);
 router.post("/add/trade",jwt.verifyToken,validateProduct,validateResult, controller.addnewtrade);
 
 //api to delete trade
-router.delete("/product/delete/:id",idValidator,jwt.isAuthorParam, jwt.verifyToken,controller.deletetrade);
+router.delete("/product/delete/:id",idValidator,jwt.isAuthor, jwt.verifyToken,controller.deletetrade);
 
 //API to view all items on edit page
 router.get("/view/allproduct/:startingIndex/:endingIndex",jwt.verifyToken, controller.viewall);

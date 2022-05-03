@@ -8,6 +8,9 @@ const userSchema = new Schema({
     password: { type: String, required: [true, 'password is required'] },
     contact: { type: String, required: [true, 'contact is required'] },
     watchlist: { type: Array, default:[] }
+},
+{
+  timestamps:true
 }
 );
 

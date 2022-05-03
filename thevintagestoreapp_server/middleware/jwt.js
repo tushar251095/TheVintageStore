@@ -8,13 +8,11 @@ exports.generateToken = (data) => {
   return jwt.sign(data, secretKey, { expiresIn: "86400s" });
 };
 exports.verifyToken = (req, res, next) => {
-  // console.log("in"+req.headers.authorization)
   if (
     req.headers &&
     req.headers.authorization &&
     req.headers.authorization.split(" ")[0] === "Bearer"
   ) {
-    //console.log(req.headers.authorization.split(' ')[1])
     jwt.verify(
       req.headers.authorization.split(" ")[1],
       secretKey,
@@ -34,7 +32,6 @@ exports.verifyToken = (req, res, next) => {
         }).then((result) => {
           if (result) {
             if (result._id == decode.id) {
-              // console.log("success")
               next();
             } else {
               let err = new Error("Unauthorized user");
@@ -72,7 +69,6 @@ exports.decodeJWT = (token) => {
 };
 
 exports.isGuest = (req, res, next) => {
-  console.log(req.headers.authorization.split(" ")[1]);
   if (req.headers.authorization.split(" ")[1] != null) {
     return next();
   } else {
@@ -93,10 +89,14 @@ exports.isLoggedIn = (req, res, next) => {
 };
 
 exports.isAuthor = (req, res, next) => {
-  product_id = req.body.product_id;
+  
+  if(req.params.id!=null){
+    product_id = req.params.id;
+  }else{
+    product_id = req.body.product_id;
+  }
   Product.find({ product_id: product_id })
     .then((trade) => {
-      console.log(trade);
       if (trade.length > 0) {
         let jwterror,
           userinfo = this.decodeJWT(req.headers.authorization.split(" ")[1]);
@@ -117,27 +117,3 @@ exports.isAuthor = (req, res, next) => {
     .catch((err) => next(err));
 };
 
-exports.isAuthorParam = (req, res, next) => {
-  product_id = req.params.product_id;
-  Product.find({ product_id: product_id })
-    .then((trade) => {
-      console.log(trade);
-      if (trade.length > 0) {
-        let jwterror,
-          userinfo = this.decodeJWT(req.headers.authorization.split(" ")[1]);
-        if (jwterror != null) {
-          let err = new Error("Unauthorized access to the resource");
-          err.status = 401;
-          return next(err);
-        }
-        if (trade[0].seller_id == userinfo.id) {
-          return next();
-        } else {
-          let err = new Error("Unauthorized access to the resource");
-          err.status = 401;
-          return next(err);
-        }
-      }
-    })
-    .catch((err) => next(err));
-};

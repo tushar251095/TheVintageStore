@@ -24,7 +24,8 @@
                        <thead>
                            <tr>
                                <th>Trade ID</th>
-                           
+                                <th>Created On</th>
+                               
                                <th>Seller Name</th>
                            
                                <th>Requested Product</th>
@@ -32,16 +33,17 @@
                                <th>Offered product</th>
                            
                                <th>Trade Status</th>
-
+                                
                                 <th>Action/Download Invoice</th>
                            </tr>
                        </thead>
                        <tbody>
                            <tr v-for="(trade,index) in history" :key="index">
                                <td>{{trade._id}}</td>
+                               <td>{{trade.createdAt | formatDate}}</td>
                                <td>{{trade.seller_name}}</td>
-                               <td @click="getProductDetails(trade.requested_product_id)" ><span class="cursorclass linkclass">{{trade.requested_product_name}}</span></td>
-                               <td @click="getProductDetails(trade.offered_product_id)"><span class="cursorclass linkclass">{{trade.offered_product_name}}</span></td>
+                               <td @click="getProductDetails(trade.requested_product_id)" class="tdwidth"><span class="cursorclass linkclass ">{{trade.requested_product_name}}</span></td>
+                               <td @click="getProductDetails(trade.offered_product_id)" class="tdwidth"><span class="cursorclass linkclass">{{trade.offered_product_name}}</span></td>
                                <td>{{trade.status}}</td>
                                <td class="text-center text-danger" v-if="trade.status=='accepted' || trade.status=='rejected'" @click="generatePDF(trade)"><i class="fa-solid fa-download cursorclass" ></i></td>
                                <td v-else-if="trade.status=='cancelled'"><span class="text-danger">No action to perform</span></td>
@@ -84,6 +86,7 @@
 import EventServices from "@/services/EventServices.js";
 import Invoice from "../components/invoice.vue"
 import vuehtml2pdf from "vue-html2pdf";
+
  export default {
      components:{
          Invoice:Invoice,
@@ -165,5 +168,11 @@ import vuehtml2pdf from "vue-html2pdf";
 }
 .linkclass{
     color: blue;
+}
+.tdwidth{
+  max-width:200px ;
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
 }
 </style>

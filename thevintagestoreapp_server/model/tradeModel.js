@@ -23,7 +23,7 @@ const productSchema= new Schema({
   seller_id:{type:Schema.Types.ObjectId,ref:'User',required:[true,'seller is required']},
   ratings:{type:Number,default:0},
   description:{type:String,required:[true,'Description is required']},
-  product_img_url:{type:String,default:"images/productdefault.jpg"},
+  product_img_url:{type:String,default:"https://github.com/tushar251095/TheVintageStore_V2/blob/main/thevintagestoreapp_client/src/assets/Images/no-image.jpg?raw=true"},
   product_status:{type:String,default:"Available"},
   view_count:{type:Number,default:0},
 },

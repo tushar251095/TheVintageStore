@@ -11,6 +11,9 @@ import '@fortawesome/fontawesome-free/css/all.css'
 import '@fortawesome/fontawesome-free/js/all.js'
 import VueCookies from 'vue-cookies';
 import Vuelidate from 'vuelidate'
+import moment from 'moment';
+
+
 Vue.use(VueCookies);
 Vue.use(Vuelidate)
 Vue.use(VueToast);
@@ -18,6 +21,11 @@ Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 Vue.config.productionTip = false;
 
+Vue.filter('formatDate', function(value) {
+  if (value) {
+      return moment(String(value)).format('MM/DD/YYYY hh:mm A')
+  }
+});
 new Vue({
   router,
   store,

@@ -77,15 +77,10 @@ exports.productdetails = (req, res, next) => {
                   response.categorytitle = cat[0].title;
                   response.tradedetails=[]
                   response.watchlist=false
-                 // Trade.find({buyer:})
-                 //console.log(req.headers.authorization.split(' ')[1])
                  if(req.headers && req.headers.authorization && req.headers.authorization.split(' ')[1]!=='null'){
-                 // console.log("in if")
                   let userinfo=jwt.decodeJWT(req.headers.authorization.split(' ')[1])
                   Promise.all([Trade.find({buyer_id:userinfo.id,requested_product_id:product_id}),user.find({_id:userinfo.id,watchlist:product_id},{watchlist:1})])
-                    
                     .then((data)=>{
-                      console.log(data)
                           if(data[0].length>0){
                             response.tradedetails=data[0];
                           }
@@ -127,7 +122,6 @@ exports.moreitems = (req, res, next) => {
   let finalresponsoe = {};
   Product.find({ category_id: category_id,product_status:"Available" }).sort({prod_name:1}).skip(startingIndex).limit(endingIndex)
     .then((products) => {
-      //console.log(products)
       if(products.length>0){
         Category.find({ category_id: category_id })
         .then((result) => {
@@ -192,7 +186,6 @@ exports.dropdownlisttrades = (req, res, next) => {
 
 //api to add category
 exports.addcategory = (req, res, next) => {
-  //console.log(req.body);
   let newCategory = {};
   newCategory.title = req.body.category_name;
   newCategory.imageurl = req.body.imageurl;
@@ -206,7 +199,6 @@ exports.addcategory = (req, res, next) => {
   addCategory
     .save()
     .then(() => {
-      //console.log(newCategory);
       res.send("SUCCESS");
     })
     .catch((err) => {
@@ -216,7 +208,6 @@ exports.addcategory = (req, res, next) => {
       next(err);
     });
     }
-    //console.log(details)
   })
   .catch(err=>{
     next(err)
@@ -228,7 +219,6 @@ exports.deletetrade = (req, res, next) => {
   let product_id = req.params.id;
 Promise.all([Product.deleteOne({product_id:product_id}),Trade.updateMany({requested_product_id:product_id,status:"pending"},{$set:{status:"rejected"}}),Trade.updateMany({offered_product_id:product_id,status:"pending"},{$set:{status:"rejected"}})]) 
   .then(result=>{
-    console.log(result)
     if (result[0].deletedCount==1) {
       res.send("SUCCESS");
     } else {
@@ -333,7 +323,6 @@ exports.findcategory = (req, res, next) => {
   let category_id = req.params.id;
   Category.find({ category_id: category_id })
     .then((resopnse) => {
-      //console.log(resopnse)
       if(resopnse.length>0){
         res.send(resopnse[0]);
       }else{
@@ -399,7 +388,6 @@ exports.productByUserID = (req, res, next) => {
           unavailableTrades.push(result[i].offered_product_id); 
      }
    }
-  // console.log(unavailableTrades)
    Product.find({seller_id:userinfo.id,product_id: { $nin: unavailableTrades },product_status:"Available" })
    .then((products) => {
      res.send(products);
@@ -474,11 +462,9 @@ exports.saveTrade = (req, res, next) => {
        // Trade.updateMany({$or:[{requested_product_id:req.body.requested_product_id},{offered_product_id:req.body.offered_product_id}],status:"pending"},{$set:{status:"rejected"}})
         Promise.all([Trade.updateMany({requested_product_id:req.body.requested_product_id,status:"pending"},{$set:{status:"rejected"}}),Trade.updateMany({offered_product_id:req.body.offered_product_id,status:"pending"},{$set:{status:"rejected"}}),Trade.updateMany({requested_product_id:req.body.offered_product_id,status:"pending"},{$set:{status:"rejected"}}),Trade.updateMany({offered_product_id:req.body.requested_product_id,status:"pending"},{$set:{status:"rejected"}})])
         .then((data)=>{
-         // console.log(data)
             res.send(true)
         })
         .catch(err=>next(err))
-        //console.log(result2)
       })
      .catch(err=>next(err))
     }else{

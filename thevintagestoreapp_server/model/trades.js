@@ -11,7 +11,10 @@ const tradeSchema = new Schema({
     offered_product_name: {type: String, required: [true, 'offered_product_name is required']},
     offered_product_id: { type: String, required: [true, 'offered product_id is required']},
     status: { type: String, default:"pending" }
-}
+},
+{
+    timestamps:true
+  }
 );
 
 //collection name is stories in the database

@@ -275,6 +275,7 @@ export default {
       this.productname = name;
     },
     deleteTrade() {
+      console.log("in")
       EventServices.deleteProduct({ product_id: this.productID }).then(() => {
         this.$toast.open({
           message: "Trade Deleted Successfully",

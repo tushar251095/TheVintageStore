@@ -8,7 +8,7 @@
             <thead>
               <tr>
                 <th>Trade ID</th>
-
+                <th>Created On</th>
                 <th>Requester Name</th>
 
                 <th>Requested Product</th>
@@ -23,13 +23,14 @@
             <tbody>
               <tr v-for="(trade, index) in offers" :key="index">
                 <td>{{ trade._id }}</td>
+                <td>{{trade.createdAt | formatDate}}</td>
                 <td>{{ trade.buyer_name }}</td>
-                <td @click="getProductDetails(trade.requested_product_id)">
+                <td @click="getProductDetails(trade.requested_product_id)" class="tdwidth">
                   <span class="cursorclass linkclass">{{
                     trade.requested_product_name
                   }}</span>
                 </td>
-                <td @click="getProductDetails(trade.offered_product_id)">
+                <td @click="getProductDetails(trade.offered_product_id)" class="tdwidth">
                   <span class="cursorclass linkclass">{{
                     trade.offered_product_name
                   }}</span>
@@ -157,5 +158,11 @@ export default {
 }
 .linkclass {
   color: blue;
+}
+.tdwidth{
+  max-width:200px ;
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
 }
 </style>

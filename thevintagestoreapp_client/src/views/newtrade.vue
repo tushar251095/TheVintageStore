@@ -118,16 +118,14 @@
           </div>
           <div class="form-group">
           <label class="mt-3"
-            ><b>Product Image URL</b><span class="text-danger">*</span></label
+            ><b>Product Image URL</b></label
           >
           <input
             v-model="tradeobj.product_img_url"
             class="form-control"
             type="url"
             placeholder="Enter product image URL"
-             :class="{ 'is-invalid': submitted && $v.tradeobj.product_img_url.$error }"
           />
-          <div v-if="submitted && !$v.tradeobj.product_img_url.required" class="invalid-feedback">Image URL is required</div>
           </div>
           <div class="form-group">
           <label class="mt-3"
@@ -187,8 +185,7 @@ export default {
         prod_name: {required},
         year: {required,minLength: minLength(4),maxLength: maxLength(4)},
         seller: {required},
-        description: {required},
-        product_img_url: {required},
+        description: {required}
       }
   },
   created() {
@@ -206,6 +203,9 @@ export default {
         this.$v.tradeobj.$touch();
         if (this.$v.tradeobj.$invalid) {
             return;
+        }
+        if(this.tradeobj.product_img_url==""){
+          this.tradeobj.product_img_url="https://github.com/tushar251095/TheVintageStore_V2/blob/main/thevintagestoreapp_client/src/assets/Images/no-image.jpg?raw=true"
         }
         EventServices.addNewTrade(this.tradeobj).then((res) => {
           if(res==true){
