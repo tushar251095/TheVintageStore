@@ -16,7 +16,7 @@
               ><i class="fa fa-handshake fa-lg"></i>&nbsp;<b>Trades</b></router-link
             >
           </li>
-          <li class="nav-item ms-4" v-if="user!=null"> 
+          <li class="nav-item ms-4" v-if="user!=null && userinfo.role=='user'"> 
             <router-link class="nav-link text-dark font-weight-bold" to="/edit"
               ><i class="fas fa-edit fa-lg"></i>&nbsp;<b>Edit Trade</b></router-link
             >
@@ -41,14 +41,19 @@
   </div>
 </template>
 <script>
+import VueJwtDecode from 'vue-jwt-decode'
 export default{
   data(){
     return{
       user:null,
-      fullname:""
+      fullname:"",
+      userinfo:{}
     }
   },
   created(){
+    if(localStorage.getItem('token')!=null){
+       this.userinfo=VueJwtDecode.decode(localStorage.getItem('token'))
+    }
     this.user=localStorage.getItem('id')
     this.fullname=localStorage.getItem('username')
   }

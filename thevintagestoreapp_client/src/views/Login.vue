@@ -139,6 +139,7 @@ export default {
         } else if(data.userinfo) {
           localStorage.setItem("id", data.userinfo.id);
           localStorage.setItem("token", data.token);
+           localStorage.setItem("role", data.userinfo.role);
            localStorage.setItem("username", data.userinfo.firstName+" "+data.userinfo.lastName);
           this.$router.push({ path: "/users/loginhome" });
           location.reload();

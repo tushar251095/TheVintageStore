@@ -14,6 +14,7 @@ router.post('/new',jwt.isGuest,validateSignUp,validateResult,controller.create);
 //POST /users/login: authenticate user's login
 router.post('/login', jwt.isGuest,loginLimiter,validateLogIn,validateResult,controller.login);
 
+
 //---------------------------------------restricted routes--------------------------------
 
 //GET /users/profile: send user's profile page

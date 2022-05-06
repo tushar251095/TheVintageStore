@@ -20,10 +20,10 @@
               <div class="card-body">
                 <h5 class="card-title">{{ product.prod_name }}</h5>
                 <p class="card-text">
-                  <i class="fas fa-thumbs-up"></i>&nbsp; 10 &nbsp;<i
-                    class="fas fa-thumbs-down"
+                  <i class="far fa-thumbs-up text-info"></i>&nbsp; {{ product.like.length }} &nbsp; &nbsp;<i
+                    class="far fa-thumbs-down text-danger"
                   ></i
-                  >&nbsp;20
+                  >&nbsp;{{ product.dislike.length }}
                 </p>
                 <p class="card-text">Status:{{ product.product_status }}</p>
                 <p class="card-text">Seller Name: {{ product.seller }}</p>
@@ -56,7 +56,12 @@ import UserServices from "@/services/userService.js";
 export default {
   data() {
     return {
-      watchlist: [],
+      watchlist: [
+        {
+          like:[],
+          dislike:[]
+        }
+      ],
     };
   },
   created() {
@@ -74,13 +79,13 @@ export default {
     },
     remove(product) {
       UserServices.removeFromWatchList({ product_id: product }).then((data) => {
-        location.reload();
         if (data == true) {
           this.$toast.open({
             message: "Removed from watchlist",
             type: "success",
             position: "top",
           });
+          this.getWatchList();
         } else {
           this.$toast.open({
             message: "Unable to remove from watclist.Please try again",

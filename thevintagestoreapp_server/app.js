@@ -7,6 +7,7 @@ const cors = require("cors");
 const morgan = require('morgan');
 const methodoverride= require('method-override')
 const tradeRouter= require("./routes/tradeRoutes");
+const adminRouter= require("./routes/adminroutes");
 const userRouter= require("./routes/userRoutes")
 
 app.use(express.json());
@@ -51,6 +52,7 @@ app.use(express.urlencoded({extended:true}))
 
 //routes
 app.use("/trade",tradeRouter);
+app.use("/trade",adminRouter);
 app.use("/users",userRouter);
 
 //middleware to handle pagenotfound error

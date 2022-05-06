@@ -15,6 +15,11 @@ import navbar from "./components/navbar.vue";
 import footerbar from "./components/footerbar.vue";
 
 export default {
+  data(){
+    return{
+       
+    }
+  },
   name: "app",
   components: {
     /* eslint-disable vue/no-unused-components */
@@ -24,6 +29,7 @@ export default {
     footerbar: footerbar,
   },
   created(){
+   
   }
 };
 </script>

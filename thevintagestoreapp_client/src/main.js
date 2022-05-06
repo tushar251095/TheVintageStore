@@ -23,7 +23,8 @@ Vue.config.productionTip = false;
 
 Vue.filter('formatDate', function(value) {
   if (value) {
-      return moment(String(value)).format('MM/DD/YYYY hh:mm A')
+      return  moment(new Date(value)).format('MM/DD/YYYY hh:mm A')
+      //return moment(String(value)).format('MM/DD/YYYY hh:mm A')
   }
 });
 new Vue({

@@ -23,16 +23,19 @@ router.get("/categories/names", controller.dropdownlisttrades);
 router.post("/add/category",controller.addcategory);
 
 //api to delete category
-router.delete("/delete/category/:id",idValidator, controller.deletecategory);
+//router.delete("/delete/category/:id",idValidator, controller.deletecategory);
 
 //api to find cattegory
 router.get("/find/catrgory/:id",idValidator, controller.findcategory);
 
 //api to edit category by id
-router.put("/edit/catrgory", controller.updatecategory);
+//router.put("/edit/catrgory", controller.updatecategory);
 
 //api to view most searched product
 router.get("/product/mostviewed", controller.mostSearched);
+
+//api to view product comments
+router.get("/products/comments/:id",idValidator, controller.getComments);
 
 //--------------------------------------------restricted routes---------------------------
 
@@ -62,12 +65,25 @@ router.get("/trading/offers", jwt.verifyToken,controller.tradeOffers);
 
 //API to get trade offers
 router.post("/trading/update/offer", jwt.verifyToken,controller.acceptRejectStatus);
-module.exports=router;
 
 //API to cancel trade offers
 router.get("/trading/cancel/offer/:id", jwt.verifyToken,controller.cancelTrade);
-module.exports=router;
 
 //API to get recommended trade offers
 router.get("/trading/confirmation/:id", jwt.verifyToken,idValidator,controller.getRecommendedProducts);
+
+//API to update like dislike
+router.post("/product/likedislike", jwt.verifyToken,controller.likeDislike);
+
+//API to post comments
+router.post("/product/comments", jwt.verifyToken,controller.postComment);
+
+//API to delete comments
+router.post("/product/comment/delete", jwt.verifyToken,controller.deleteComment);
+
+
+//API to edit comments
+router.put("/product/comment/edit", jwt.verifyToken,controller.editComment);
 module.exports=router;
+
+

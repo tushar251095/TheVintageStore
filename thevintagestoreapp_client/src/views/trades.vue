@@ -4,7 +4,7 @@
       <div class="col-sm-12 col-md-6 col-lg-12 p-3" >
         <h4 class="text-center">Categories</h4>
         <button
-        v-if="user!=null"
+        v-if="user!=null && userinfo.role=='admin'"
           type="button"
           class="thmbtn1 rounded float-end"
           @click="EditCategoriesEnable()"
@@ -81,7 +81,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-12 col-md-6 col-lg-4 ps-5 pe-5" v-if="user!=null">
+      <div class="col-sm-12 col-md-6 col-lg-4 ps-5 pe-5" v-if="user!=null && userinfo.role=='admin'">
         <div
           class="cardbox pluscard d-flex flex-column justify-content-center align-items-center"
           :class="cardClass"
@@ -129,7 +129,7 @@
         </button>
       </template>
     </b-modal>
-    <b-modal id="addcategory-modal" hide-header>
+    <b-modal id="addcategory-modal" ref="addcategory-modal" hide-header>
             <h4 class="text-center">Add Category</h4>
             <div class="p-3 d-flex flex-column justify-content-center">
               <div class="form-group">
@@ -168,7 +168,7 @@
               </button>
             </template>
           </b-modal>
-      <b-modal id="delete-modal" hide-header>
+      <b-modal id="delete-modal" ref="delete-modal" hide-header>
       <img
         src="../assets/Images/delete.png"
         alt="delete icon"
@@ -194,9 +194,11 @@
 <script>
 import EventServices from "@/services/EventServices.js";
 import {required} from "vuelidate/lib/validators"
+import VueJwtDecode from 'vue-jwt-decode'
 export default {
   data() {
     return {
+      userinfo:{},
       user:null,
       catsubmitted:false,
       submitted:false,
@@ -230,6 +232,10 @@ export default {
     }
   },
   created() {
+    if(localStorage.getItem('token')!=null){
+      this.userinfo=VueJwtDecode.decode(localStorage.getItem('token'))
+    }
+    
     this.user=localStorage.getItem('id');
     this.getdata();
   },
@@ -300,7 +306,7 @@ export default {
           type: "success",
           position: "top",
         });
-        window.location.reload();
+        this.getdata();
         }
        
       });
@@ -322,7 +328,12 @@ export default {
           type: "success",
           position: "top",
         });
-        window.location.reload()
+        this.$toast.open({
+          message: "Category will be visible when there is atleast one product added to it.",
+          type: "success",
+          position: "top",
+        });
+      this.$refs["addcategory-modal"].hide();
         }else{
           this.$toast.open({
           message: data,
@@ -342,7 +353,8 @@ export default {
           type: "success",
           position: "top",
         });
-        window.location.reload()
+       this.getdata();
+       this.$refs["delete-modal"].hide();
       });
     }
   },

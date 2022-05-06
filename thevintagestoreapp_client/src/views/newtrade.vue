@@ -32,7 +32,7 @@
           </button>
           <br />
 
-          <b-modal id="addcategory-modal" hide-header>
+          <b-modal id="addcategory-modal" ref="addcategory-modal" hide-header>
             <h4 class="text-center">Add Category</h4>
             <div class="p-3 d-flex flex-column justify-content-center">
               <div class="form-group">
@@ -238,7 +238,7 @@ export default {
       }
       EventServices.addNewCategory(this.addcatobj).then(() => {
         //this.$router.push("newtrade");
-        window.location.reload()
+        this.$refs["addcategory-modal"].hide();
       });
     },
   },

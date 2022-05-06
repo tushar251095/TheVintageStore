@@ -13,5 +13,24 @@
     max-height: 500px;
     width: 100%;
 }
+.likedislike{
+    cursor: pointer;
+    font-size: 23px;
+}
+.mainlikedislike{
+    display: flex;
+}
+.dislike{
+    margin-top: auto;
+}
 
-
+.datesize{
+    font-size: small;
+}
+.maincardcomment{
+    max-height: 150px;
+    min-height: 150px;
+}
+.cursorclass{
+cursor: pointer;
+}

@@ -95,43 +95,12 @@
                   {{ product.prod_name }}
                 </p>
               </h6>
-              <span v-if="product.ratings == 0"> Rating Not Available </span>
-              <span v-if="product.ratings == 1">
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
-              </span>
-              <span v-if="product.ratings == 2">
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
-              </span>
-              <span v-if="product.ratings == 3">
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
-              </span>
-              <span v-if="product.ratings == 4">
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star"></span>
-              </span>
-              <span v-if="product.ratings == 5">
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-              </span>
-
+             <p class="">
+                  <i class="far fa-thumbs-up text-info"></i>&nbsp; {{ product.like.length }} &nbsp; &nbsp;<i
+                    class="far fa-thumbs-down text-danger"
+                  ></i
+                  >&nbsp;{{ product.dislike.length }}
+              </p>
               <p>Year: {{ product.year }}</p>
             </div>
           </div>

@@ -173,6 +173,51 @@ export default {
     }catch(error){
       errorjs.restrictedRouteErrors(error)
     }
-  }
+  },
+  async likeDislike(payload){
+    try{
+      let res = await apiClient.post("/product/likedislike",payload);
+      return res.data;
+    }catch(error){
+      errorjs.restrictedRouteErrors(error)
+    }
+  },
+  async postComment(payload){
+    try{
+      let res = await apiClient.post("/product/comments",payload);
+      return res.data;
+    }catch(error){
+      errorjs.restrictedRouteErrors(error)
+    }
+  },
+  async getComments(payload) {
+    try{
+      let res = await apiClient.get("/products/comments/"+payload);
+      return res.data;
+    }catch(error){
+      if(error.response.data.message=="Email has been used"){
+         return error.response.data.message
+      }else{
+        errorjs.openRouteErrors(error)
+      }
+     
+    }
+  },
+  async deleteComment(payload){
+    try{
+      let res = await apiClient.post("/product/comment/delete",payload);
+      return res.data;
+    }catch(error){
+      errorjs.restrictedRouteErrors(error)
+    }
+  },
+  async editComment(payload){
+    try{
+      let res = await apiClient.put("/product/comment/edit",payload);
+      return res.data;
+    }catch(error){
+      errorjs.restrictedRouteErrors(error)
+    }
+  },
 };
 

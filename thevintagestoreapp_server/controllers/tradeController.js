@@ -77,8 +77,11 @@ exports.productdetails = (req, res, next) => {
                   response.categorytitle = cat[0].title;
                   response.tradedetails=[]
                   response.watchlist=false
+                  
                  if(req.headers && req.headers.authorization && req.headers.authorization.split(' ')[1]!=='null'){
                   let userinfo=jwt.decodeJWT(req.headers.authorization.split(' ')[1])
+                  response.liked=product[0].like.includes(userinfo.id)
+                  response.disliked=product[0].dislike.includes(userinfo.id)
                   Promise.all([Trade.find({buyer_id:userinfo.id,requested_product_id:product_id}),user.find({_id:userinfo.id,watchlist:product_id},{watchlist:1})])
                     .then((data)=>{
                           if(data[0].length>0){
@@ -232,38 +235,38 @@ Promise.all([Product.deleteOne({product_id:product_id}),Trade.updateMany({reques
   })
 };
 
-//api to delete category
-exports.deletecategory = (req, res, next) => {
-  let category_id = req.params.id;
-  Category.deleteOne({category_id:category_id})
-  .then(result=>{
-    if (result.deletedCount==1) {
-      Product.deleteMany({category_id:category_id})
-      .then((restlt1)=>{
-       if(restlt1.acknowledged==true){
-        res.send("SUCCESS");
-       }else {
-        let err = new Error(errorMsg + req.url);
-        err.status = 404;
-        next(err);
-      }
+// //api to delete category
+// exports.deletecategory = (req, res, next) => {
+//   let category_id = req.params.id;
+//   Category.deleteOne({category_id:category_id})
+//   .then(result=>{
+//     if (result.deletedCount==1) {
+//       Product.deleteMany({category_id:category_id})
+//       .then((restlt1)=>{
+//        if(restlt1.acknowledged==true){
+//         res.send("SUCCESS");
+//        }else {
+//         let err = new Error(errorMsg + req.url);
+//         err.status = 404;
+//         next(err);
+//       }
        
-      })
-      .catch(err=>{
-        next(err)
-      })
+//       })
+//       .catch(err=>{
+//         next(err)
+//       })
      
-    } else {
-      let err = new Error(errorMsg + req.url);
-      err.status = 404;
-      next(err);
-    }
-  })
-  .catch(err=>{
-    next(err)
-  })
+//     } else {
+//       let err = new Error(errorMsg + req.url);
+//       err.status = 404;
+//       next(err);
+//     }
+//   })
+//   .catch(err=>{
+//     next(err)
+//   })
   
-};
+// };
 
 //API to view all items on edit page
 exports.viewall = (req, res) => {
@@ -337,30 +340,30 @@ exports.findcategory = (req, res, next) => {
     });
 };
 
-//API to update Category by id
-exports.updatecategory = (req, res, next) => {
-  let updatedCategory = req.body;
-  Category.updateOne({category_id:updatedCategory.category_id},{$set:{
-      title : updatedCategory.title,
-      imageurl : updatedCategory.imageurl
-  }},{runValidators:true})
-  .then(result=>{
-    if (result.modifiedCount==1) {
-      res.send("SUCCESS");
-    } else {
-      let err = new Error(errorMsg + req.url + "/" + updatedCategory.category_id);
-      err.status = 404;
-      next(err);
-    }
-  })
-  .catch(err=>{
-    if (err.name === "ValidationError") {
-      err.status = 400;
-    }
-    next(err)
-  })
+// //API to update Category by id
+// exports.updatecategory = (req, res, next) => {
+//   let updatedCategory = req.body;
+//   Category.updateOne({category_id:updatedCategory.category_id},{$set:{
+//       title : updatedCategory.title,
+//       imageurl : updatedCategory.imageurl
+//   }},{runValidators:true})
+//   .then(result=>{
+//     if (result.modifiedCount==1) {
+//       res.send("SUCCESS");
+//     } else {
+//       let err = new Error(errorMsg + req.url + "/" + updatedCategory.category_id);
+//       err.status = 404;
+//       next(err);
+//     }
+//   })
+//   .catch(err=>{
+//     if (err.name === "ValidationError") {
+//       err.status = 400;
+//     }
+//     next(err)
+//   })
   
-};
+// };
 
 //API for most serached products
 exports.mostSearched = (req, res, next) => {
@@ -432,7 +435,7 @@ exports.saveTrade = (req, res, next) => {
   let token=req.headers.authorization.split(' ')[1]
   let userinfo=jwt.decodeJWT(token)
   
-  Trade.find({$or:[{buyer_id:userinfo.id},{$and:[{seller_id:userinfo.id},{$or:[{status:"accepted"},{status:"rejected"}]}]}]})
+  Trade.find({$or:[{buyer_id:userinfo.id},{$and:[{seller_id:userinfo.id},{$or:[{status:"accepted"},{status:"rejected"}]}]}]}).sort({createdAt:-1})
   //Trade.find({buyer_id:userinfo.id})
   .then((trades)=>{
         res.send(trades)
@@ -444,7 +447,7 @@ exports.saveTrade = (req, res, next) => {
  exports.tradeOffers=(req,res,next)=>{
   let token=req.headers.authorization.split(' ')[1]
   let userinfo=jwt.decodeJWT(token)
-  Trade.find({$and:[{seller_id:userinfo.id},{status:"pending"}]})
+  Trade.find({$and:[{seller_id:userinfo.id},{status:"pending"}]}).sort({createdAt:-1})
   //Trade.find({buyer_id:userinfo.id})
   .then((trades)=>{
         res.send(trades)
@@ -516,3 +519,104 @@ exports.saveTrade = (req, res, next) => {
     })
   })
  }
+
+ exports.likeDislike=(req,res,next)=>{
+    let token=req.headers.authorization.split(' ')[1]
+    let userinfo=jwt.decodeJWT(token)
+    let product_id=req.body.product_id
+    let decision=req.body.decision
+
+    Product.find({product_id:product_id})
+    .then(result=>{
+      //console.log(result)
+       let liked=result[0].like.includes(userinfo.id)
+       let disliked=result[0].dislike.includes(userinfo.id)
+
+       if((decision=="like"&&liked==true) || (decision=="dislike" && disliked==true)){
+        Product.updateOne({product_id:product_id},{$pull:{[decision]:userinfo.id}})
+        .then(data=>{
+          res.send("updated")
+        })
+        .catch(err=>next(err))
+       }else if((decision=="dislike" && liked==true)){
+            Promise.all([Product.updateOne({product_id:product_id},{$push:{[decision]:userinfo.id}}),Product.updateOne({product_id:product_id},{$pull:{'like':userinfo.id}})])
+            .then(()=>{
+              res.send('updated')
+            })
+            .catch(err=>next(err))
+       }else if((decision=="like" && disliked==true)){
+        Promise.all([Product.updateOne({product_id:product_id},{$push:{[decision]:userinfo.id}}),Product.updateOne({product_id:product_id},{$pull:{'dislike':userinfo.id}})])
+        .then(()=>{
+          res.send('updated')
+        })
+        .catch(err=>next(err))
+       }else if((decision=="like"&&liked==false) || (decision=="dislike" && disliked==false)){
+        Product.updateOne({product_id:product_id},{$push:{[decision]:userinfo.id}})
+        .then(data=>{
+          res.send("updated")
+        })
+        .catch(err=>next(err))
+       }
+
+    })
+ };
+
+ exports.postComment=(req,res,next)=>{
+  let token=req.headers.authorization.split(' ')[1]
+  let userinfo=jwt.decodeJWT(token)
+
+  let comment=req.body
+  comment.username=userinfo.firstName+" "+userinfo.lastName
+  comment.userid=userinfo.id
+  let product_id=req.body.product_id;
+  comment.postedAt=Date.now()
+  comment.id=uuidv4()
+  Product.updateOne({product_id:product_id},{$push:{comments:comment}})
+  .then(result=>{
+    if(result.acknowledged==true){
+      res.send(true)
+    }else{
+      res.send(false)
+    }
+  })
+  .catch(err=>next(err))
+ }
+
+ exports.getComments=(req,res,next)=>{
+   let product_id=req.params.id
+   Product.find({product_id:product_id},{comments:1}).sort()
+   .then((result)=>{
+     res.send(result[0].comments.reverse())
+   })
+ }
+
+ exports.deleteComment=(req,res,next)=>{
+  let id=req.body.id
+  let product_id=req.body.product_id
+  Product.updateOne({product_id:product_id},{$pull:{comments:{id:id}}})
+  .then((result)=>{
+    if(result.acknowledged==true){
+      res.send(true)
+    }else{
+      res.send(false)
+    }
+    
+  })
+}
+
+exports.editComment=(req,res,next)=>{
+  console.log(req.body)
+  let id=req.body.id
+  let product_id=req.body.product_id
+  let comment=req.body.comment
+  Product.updateOne({product_id:product_id,"comments.id":id},{$set:{"comments.$.comment":comment}})
+  .then((result)=>{
+    if(result.acknowledged==true){
+      res.send(true)
+    }else{
+      res.send(false)
+    }
+    
+  })
+}
+

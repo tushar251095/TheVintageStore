@@ -44,6 +44,7 @@ exports.login = (req, res, next) => {
               id: user._id,
               firstName: user.firstName,
               lastName: user.lastName,
+              role:user.role
             };
             const token = jwtMiddleware.generateToken(userinfo);
             //req.session.user = user._id;

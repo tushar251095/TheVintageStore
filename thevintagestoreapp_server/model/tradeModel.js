@@ -26,6 +26,9 @@ const productSchema= new Schema({
   product_img_url:{type:String,default:"https://github.com/tushar251095/TheVintageStore_V2/blob/main/thevintagestoreapp_client/src/assets/Images/no-image.jpg?raw=true"},
   product_status:{type:String,default:"Available"},
   view_count:{type:Number,default:0},
+  like:{type:Array,default:[]},
+  dislike:{type:Array,default:[]},
+  comments:{type:Array,default:[]}
 },
 {
   timestamps:true

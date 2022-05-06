@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid pb-4">
     <h3 class="text-center mt-4">Trade Offers</h3>
     <div class="row mt-3">
       <div class="col-sm-12">
@@ -63,7 +63,7 @@
         </div>
       </div>
     </div>
-    <b-modal id="confirm-modal" hide-header>
+    <b-modal id="confirm-modal" ref="confirm-modal" hide-header>
       <div class="text-center mt-3">
         <i
           class="fas fa-check-circle fa-5x text-success"
@@ -123,17 +123,23 @@ export default {
       EventServices.acceptRejectStatus(this.tradedetails).then((data) => {
         if (data == true) {
           if (this.tradedetails.status == "accepted") {
+           // this.getHistory();
             this.$toast.open({
               message: "Offer Accepted",
               type: "success",
               position: "top",
             });
+             this.$refs["confirm-modal"].hide();
+             this.$router.push('/history')
           } else {
+           // this.getHistory();
             this.$toast.open({
               message: "Offer Rejected",
               type: "error",
               position: "top",
             });
+             this.$refs["confirm-modal"].hide();
+              this.$router.push('/history')
           }
         } else {
           this.$toast.open({
@@ -142,7 +148,6 @@ export default {
             position: "top",
           });
         }
-        location.reload()
       });
     },
     openModal(status, details) {

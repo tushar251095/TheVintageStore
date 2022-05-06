@@ -42,10 +42,12 @@
 </template>
 <script>
 import logoutService from "../Javascript/error";
+
 export default{
   data(){
     return{
-      user:false
+      user:false,
+      
     }
   },
   created(){

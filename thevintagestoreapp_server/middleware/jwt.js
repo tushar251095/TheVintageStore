@@ -18,6 +18,7 @@ exports.verifyToken = (req, res, next) => {
       secretKey,
       function (err, decode) {
         if (err) {
+          console.log(err.message)
           let err1 = "";
           if (err.message == "jwt expired") {
             err1 = new Error("Session expired");
@@ -53,6 +54,7 @@ exports.decodeJWT = (token) => {
     userinfo.firstName = decode.firstName;
     userinfo.lastName = decode.lastName;
     userinfo.id = decode.id;
+    userinfo.role=decode.role
   });
   if (err1 != null) {
     let err = "";
@@ -117,3 +119,15 @@ exports.isAuthor = (req, res, next) => {
     .catch((err) => next(err));
 };
 
+exports.isAdmin=(req,res,next)=>{
+  let token=req.headers.authorization.split(' ')[1]
+  let userinfo=this.decodeJWT(token)
+  //console.log(userinfo)
+  if(userinfo.role=="admin"){
+    return next()
+  }else{
+    let err = new Error("Unauthorized access to the resource");
+    err.status = 401;
+    return next(err); 
+  }
+}

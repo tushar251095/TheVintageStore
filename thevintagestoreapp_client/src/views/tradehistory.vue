@@ -140,13 +140,13 @@ import vuehtml2pdf from "vue-html2pdf";
      cancelTrade(id){
          EventServices.cancelTrade(id).then(
         (data) =>{
-            location.reload()
             if(data==true){
                 this.$toast.open({
               message: "Trade cancelled successfully",
               type: "success",
               position: "top",
             });
+            this.getHistory()
             }else{
                 this.$toast.open({
               message: "Unable to cancel. Please try again.",
@@ -154,7 +154,6 @@ import vuehtml2pdf from "vue-html2pdf";
               position: "top",
             });
             }
-           Location.reload()
         }
       );
      }
