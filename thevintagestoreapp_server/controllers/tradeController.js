@@ -235,38 +235,7 @@ Promise.all([Product.deleteOne({product_id:product_id}),Trade.updateMany({reques
   })
 };
 
-// //api to delete category
-// exports.deletecategory = (req, res, next) => {
-//   let category_id = req.params.id;
-//   Category.deleteOne({category_id:category_id})
-//   .then(result=>{
-//     if (result.deletedCount==1) {
-//       Product.deleteMany({category_id:category_id})
-//       .then((restlt1)=>{
-//        if(restlt1.acknowledged==true){
-//         res.send("SUCCESS");
-//        }else {
-//         let err = new Error(errorMsg + req.url);
-//         err.status = 404;
-//         next(err);
-//       }
-       
-//       })
-//       .catch(err=>{
-//         next(err)
-//       })
-     
-//     } else {
-//       let err = new Error(errorMsg + req.url);
-//       err.status = 404;
-//       next(err);
-//     }
-//   })
-//   .catch(err=>{
-//     next(err)
-//   })
-  
-// };
+
 
 //API to view all items on edit page
 exports.viewall = (req, res) => {
@@ -339,31 +308,6 @@ exports.findcategory = (req, res, next) => {
       next(err);
     });
 };
-
-// //API to update Category by id
-// exports.updatecategory = (req, res, next) => {
-//   let updatedCategory = req.body;
-//   Category.updateOne({category_id:updatedCategory.category_id},{$set:{
-//       title : updatedCategory.title,
-//       imageurl : updatedCategory.imageurl
-//   }},{runValidators:true})
-//   .then(result=>{
-//     if (result.modifiedCount==1) {
-//       res.send("SUCCESS");
-//     } else {
-//       let err = new Error(errorMsg + req.url + "/" + updatedCategory.category_id);
-//       err.status = 404;
-//       next(err);
-//     }
-//   })
-//   .catch(err=>{
-//     if (err.name === "ValidationError") {
-//       err.status = 400;
-//     }
-//     next(err)
-//   })
-  
-// };
 
 //API for most serached products
 exports.mostSearched = (req, res, next) => {
