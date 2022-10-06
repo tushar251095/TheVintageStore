@@ -7,9 +7,9 @@ Back-end: Nodejs, Express
 Database: MongoDB
 
 **Project Software requirement:**
-Nodejs version 16.X
-Vue.js version 2.X
-MongoDB
+*Nodejs version 16.X
+*Vue.js version 2.X
+*MongoDB
 
 **Steps to run the application:**
 1. Open the project folder in a VS code.
