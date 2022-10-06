@@ -1,10 +1,10 @@
 # TheVintageStore_V2
 This project is based on trade domain i.e. user can trade product for his own product
 
-**Development Stack:**
-  Front-end: Vue,js, Javascript,HTML,CSS
-  Back-end: Nodejs, Express
-  Database: MongoDB
+*Development Stack:
+  *Front-end: Vue,js, Javascript,HTML,CSS
+  *Back-end: Nodejs, Express
+  *Database: MongoDB
 
 **Project Software requirement:**
   Nodejs version 16.X
