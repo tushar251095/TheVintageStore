@@ -1,0 +1,430 @@
+[{
+  "_id": {
+    "$oid": "62473e50fca519440ace5742"
+  },
+  "prod_name": "The A LINE Vintage Dress",
+  "product_id": "7ed9b525-8aec-4f63-b6b7-7b596be16bf3",
+  "category_id": "b14a9471-0f39-42fe-9beb-d5adca084602",
+  "year": 1976,
+  "seller": "Tushar Nemade",
+  "seller_id": {
+    "$oid": "625490c1097115bef42374ba"
+  },
+  "ratings": 4,
+  "description": "May as well start with letter A. Popular in the 1960s, as the name implies this simple sleeveless dress gets wider towards the hem so that the skirt finishes up broader than the shoulders in an obvious A shape. The simplistic silhouette is an ideal blank canvas for vibrant highly patterned fabrics. Many sixties knee-length dresses can be found with this silhouette.",
+  "product_img_url": "https://github.com/tushar251095/TheVintageStore/blob/main/Images/productimage.png?raw=true",
+  "product_status": "Available",
+  "view_count": 126,
+  "createdAt": "2022-03-28T02:51:37.309Z",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1670820380831"
+    }
+  },
+  "like": [
+    "625490c1097115bef42374ba"
+  ],
+  "dislike": [],
+  "comments": [
+    {
+      "comment": "good product",
+      "product_id": "7ed9b525-8aec-4f63-b6b7-7b596be16bf3",
+      "username": "Aayush Ranade",
+      "userid": "62642a9da38de53f61d31006",
+      "postedAt": {
+        "$numberLong": "1652214581940"
+      },
+      "id": "5f859106-6a93-49bc-9b40-acee3dd3ba85"
+    },
+    {
+      "comment": "good product",
+      "product_id": "7ed9b525-8aec-4f63-b6b7-7b596be16bf3",
+      "username": "Aayush Ranade",
+      "userid": "62642a9da38de53f61d31006",
+      "postedAt": {
+        "$numberLong": "1652214593975"
+      },
+      "id": "4d0ef4b5-ae11-4d5e-89da-7733bdbc64ea"
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "62473e50fca519440ace5743"
+  },
+  "prod_name": "The Empire Line Vintage Dress",
+  "product_id": "17ebd7b5-cba6-4943-95ef-a09d75dec4c7",
+  "category_id": "b14a9471-0f39-42fe-9beb-d5adca084602",
+  "year": 1972,
+  "seller": "Tushar Nemade",
+  "seller_id": {
+    "$oid": "625490c1097115bef42374ba"
+  },
+  "ratings": 0,
+  "description": "The look became popular during the 1780s in Europe when women were inspired by the dresses they saw in classical art. Napoleon Bonaparte's first wife, Empress Josephine, was a fan of the style and the name 'Empire' comes from this look's popularity during the first French Empire",
+  "product_img_url": "https://github.com/tushar251095/TheVintageStore/blob/main/Images/empirelinedress.jpg?raw=true",
+  "product_status": "Not Available",
+  "view_count": 53,
+  "createdAt": "2022-03-28T03:03:49.071Z",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1652214232499"
+    }
+  },
+  "like": [
+    "625490c1097115bef42374ba"
+  ],
+  "dislike": [],
+  "comments": []
+},{
+  "_id": {
+    "$oid": "62473e50fca519440ace5744"
+  },
+  "prod_name": "The Fit and Flare Dress",
+  "product_id": "0bdf3ecf-b98f-4ec4-abcf-3770849117f0",
+  "category_id": "b14a9471-0f39-42fe-9beb-d5adca084602",
+  "year": 1980,
+  "seller": "Aayush Ranade",
+  "seller_id": {
+    "$oid": "62642a9da38de53f61d31006"
+  },
+  "ratings": 4,
+  "description": "A classic vintage or retro dress style that has remained popular through most decades from the 1940s onwards.  This flattering dress suits most figure types and is one of my own favourites.  The fit and flare dress usually has a simple bodice with darts from the waist into the bust-line.  The necklines vary - round, square, sweetheart necklines to name a few.  The skirt is flat over the tummy and flares out with extra fabric towards the hem.  If laid flat the skirt would be half-circle, commonly known as a semi-circle skirt or a full-circle skirt.  This style of vintage dress is often associated with 1940's and 1950s dances.  If the skirt extends from a higher than the natural waistline it is usually called a Swing dress. This cut allows lots of movement potential…. the dress will “swing” when you walk or dance!",
+  "product_img_url": "https://github.com/tushar251095/TheVintageStore/blob/main/Images/fitnflatedress.jpg?raw=true",
+  "product_status": "Available",
+  "view_count": 63,
+  "createdAt": "2022-03-28T03:06:13.203Z",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1670820399589"
+    }
+  },
+  "like": [],
+  "dislike": [],
+  "comments": []
+},{
+  "_id": {
+    "$oid": "62473e50fca519440ace5745"
+  },
+  "prod_name": "Vinatge Abstarct Painting",
+  "product_id": "24ab1f89-ac3e-49d0-8dd1-b517629ea34c",
+  "category_id": "03e1e6f3-3690-46be-999e-cb5329fe4163",
+  "year": 1910,
+  "seller": "Aayush Ranade",
+  "seller_id": {
+    "$oid": "62642a9da38de53f61d31006"
+  },
+  "ratings": 3,
+  "description": "This is a wonderfully cheery architectural abstract painting by Robert Daniels.\\n On the back of the painting it says “Webster Ave #3” which we assume is the title.\\n The frame on this is maple and in great condition apart from the bottom right corner where it has separated a bit. See photo.\\nThere is craquelure on this piece which is expected with a painting over a certain age.",
+  "product_img_url": "https://github.com/tushar251095/TheVintageStore/blob/main/Images/abstractpainting.jpg?raw=true",
+  "product_status": "Available",
+  "view_count": 32,
+  "createdAt": "2022-03-28T03:08:00.822Z",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1665014151263"
+    }
+  },
+  "like": [],
+  "dislike": [],
+  "comments": [
+    {
+      "comment": "hello tushar",
+      "product_id": "24ab1f89-ac3e-49d0-8dd1-b517629ea34c",
+      "username": "Tushar Nemade",
+      "userid": "625490c1097115bef42374ba",
+      "postedAt": {
+        "$numberLong": "1665014133093"
+      },
+      "id": "54b9d31f-a47c-4833-beaa-b65b3bd8ebab"
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "62473e50fca519440ace5746"
+  },
+  "prod_name": "Yellow Red Blue Painting",
+  "product_id": "d30a2ce4-daab-436c-9999-b8f190544d27",
+  "category_id": "03e1e6f3-3690-46be-999e-cb5329fe4163",
+  "year": 1967,
+  "seller": "Aayush Ranade",
+  "seller_id": {
+    "$oid": "62642a9da38de53f61d31006"
+  },
+  "ratings": 2,
+  "description": "Untitled (Yellow and Blue) was completed by Mark Rothko in 1954 and would go on to receive one of the highest prices at auction of any his artworks. It is one of his simpler compositions from the Color Field movement, with two main areas of colour and a narrow band at the bottom of the painting.",
+  "product_img_url": "https://github.com/tushar251095/TheVintageStore/blob/main/Images/yellowredpainting.jpg?raw=true",
+  "product_status": "Available",
+  "view_count": 5,
+  "createdAt": "2022-03-28T03:11:31.381Z",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1668466488256"
+    }
+  },
+  "like": [],
+  "dislike": [],
+  "comments": []
+},{
+  "_id": {
+    "$oid": "62473e50fca519440ace5747"
+  },
+  "prod_name": "Starry Night by Vincent Gogh",
+  "product_id": "a77098ec-6110-492c-aabb-b61325d30b5f",
+  "category_id": "03e1e6f3-3690-46be-999e-cb5329fe4163",
+  "year": 1923,
+  "seller": "Tushar Nemade",
+  "seller_id": {
+    "$oid": "625490c1097115bef42374ba"
+  },
+  "ratings": 5,
+  "description": "In creating this image of the night sky—dominated by the bright moon at right and Venus at center left—van Gogh heralded modern painting’s new embrace of mood, expression, symbol, and sentiment. Inspired by the view from his window at the Saint-Paul-de-Mausole asylum in Saint-Rémy, in southern France, where the artist spent twelve months in 1889–90 seeking reprieve from his mental illnesses, The Starry Night (made in mid-June) is both an exercise in observation and a clear departure from it. The vision took place at night, yet the painting, among hundreds of artworks van Gogh made that year, was created in several sessions during the day, under entirely different atmospheric conditions. ",
+  "product_img_url": "https://github.com/tushar251095/TheVintageStore/blob/main/Images/starynightpainting.jpg?raw=true",
+  "product_status": "Available",
+  "view_count": 42,
+  "createdAt": "2022-03-28T03:13:14.584Z",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1668466472071"
+    }
+  },
+  "like": [],
+  "dislike": [],
+  "comments": []
+},{
+  "_id": {
+    "$oid": "62473e50fca519440ace5748"
+  },
+  "prod_name": "Edwardian chair",
+  "product_id": "db91862a-13df-4de2-a62d-9095eab0a0c9",
+  "category_id": "0e6fada9-b143-4f21-a417-d9f8275f71a0",
+  "year": 1904,
+  "seller": "Tushar Nemade",
+  "seller_id": {
+    "$oid": "625490c1097115bef42374ba"
+  },
+  "ratings": 3,
+  "description": "Edwardian furniture is often characterized by eclecticism instead of focusing on just one style or design. That&amp;amp;amp;#x27;s because furniture makers during the Edwardian era sought to bring back designs from previous periods while incorporating new elements.During the Edwardian period, the favourite wood used for making furniture was mahogany but with a much lighter aesthetic. Sone light materials like wicker and bamboo were also introduced in making furniture. Also preferred by designers was bird&amp;amp;amp;#x27;s-eye maple, thus creating an easy-to-polish speckled finish.",
+  "product_img_url": "https://github.com/tushar251095/TheVintageStore/blob/main/Images/edwardiancharir.jpg?raw=true",
+  "product_status": "Available",
+  "view_count": 77,
+  "createdAt": "2022-03-28T03:16:06.311Z",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1670820355245"
+    }
+  },
+  "like": [],
+  "dislike": [],
+  "comments": []
+},{
+  "_id": {
+    "$oid": "62473e50fca519440ace5749"
+  },
+  "prod_name": "Trumpet Tables",
+  "product_id": "0e361ba7-bed2-4206-9e61-92c20f4aa196",
+  "category_id": "0e6fada9-b143-4f21-a417-d9f8275f71a0",
+  "year": 1860,
+  "seller": "Tushar Nemade",
+  "seller_id": {
+    "$oid": "625490c1097115bef42374ba"
+  },
+  "ratings": 1,
+  "description": "We are offering a beautiful 1840-60&amp;#x27;s Continental, (European), Walnut Trumpet Sewing Table with Inlay. The octagonal top of the table has a delicate marquetry inlay in multiple colors and conforms nicely with the octagonal sewing box. Available now through the link!",
+  "product_img_url": "https://github.com/tushar251095/TheVintageStore/blob/main/Images/trumpetable.jpg?raw=true",
+  "product_status": "Available",
+  "view_count": 9,
+  "createdAt": "2022-03-28T03:18:14.299Z",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1668466465101"
+    }
+  },
+  "like": [],
+  "dislike": [],
+  "comments": [
+    {
+      "comment": "ASAsaSA",
+      "product_id": "0e361ba7-bed2-4206-9e61-92c20f4aa196",
+      "username": "Tushar Nemade",
+      "userid": "625490c1097115bef42374ba",
+      "postedAt": {
+        "$numberLong": "1668466424695"
+      },
+      "id": "adddffb6-877f-4f6f-bbd4-6dc75a68ac00"
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "62473e50fca519440ace574a"
+  },
+  "prod_name": "Hoosier Cabinet",
+  "product_id": "b927cd91-b13d-41c4-92ea-25eb3012f0b4",
+  "category_id": "0e6fada9-b143-4f21-a417-d9f8275f71a0",
+  "year": 1976,
+  "seller": "Aayush Ranade",
+  "seller_id": {
+    "$oid": "62642a9da38de53f61d31006"
+  },
+  "ratings": 5,
+  "description": "Hoosier cabinets were more than just a cabinet; they were a must-have in most homes. The cabinets not only stored kitchen staples like flour and sugar, they also held workable utensils inside. Most Hoosier cabinets housed flour sifters, Lazy Susans for spices, bread boxes, and even meat grinders.",
+  "product_img_url": "https://github.com/tushar251095/TheVintageStore/blob/main/Images/hoosiercabinet.jpg?raw=true",
+  "product_status": "Not Available",
+  "view_count": 104,
+  "createdAt": "2022-03-28T03:19:16.265Z",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1652214299103"
+    }
+  },
+  "like": [
+    "626960b831e2a542fad84957",
+    "625490c1097115bef42374ba"
+  ],
+  "dislike": [],
+  "comments": [
+    {
+      "comment": "nice fur",
+      "product_id": "b927cd91-b13d-41c4-92ea-25eb3012f0b4",
+      "username": "Tushar Nemade",
+      "userid": "625490c1097115bef42374ba",
+      "postedAt": {
+        "$numberLong": "1651806027678"
+      },
+      "id": "488b4bf7-d4cd-43ec-b132-3455622d1d05"
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "62473e50fca519440ace574b"
+  },
+  "prod_name": "Jaguar E-Type",
+  "product_id": "ef533583-52a8-4ec8-9b07-9c0ac2bd1da0",
+  "category_id": "05a91894-3fda-40e1-8e3a-27546329e26a",
+  "year": 1987,
+  "seller": "Aayush Ranade",
+  "seller_id": {
+    "$oid": "62642a9da38de53f61d31006"
+  },
+  "ratings": 3,
+  "description": "The Jaguar E-Type, or the Jaguar XK-E for the North American market, is a British sports car that was manufactured by Jaguar Cars Ltd between 1961 and 1974. Its combination of beauty, high performance, and competitive pricing established the model as an icon of the motoring world. The E-Type's claimed 150 mph (241 km/h) top speed, sub-7-second 0 to 60 mph (97 km/h) acceleration, unitary construction, disc brakes, rack-and-pinion steering, and independent front and rear suspension distinguished the car and spurred industry-wide changes.[5] The E-Type was based on Jaguar's D-Type racing car, which had won the 24 Hours of Le Mans for three consecutive years beginning in 1955,and employed what was, for the early 1960s, a novel racing design principle, with a front subframe carrying the engine, front suspension and front bodywork bolted directly to the body tub. No ladder frame chassis, as was common at the time, was needed and as such the first cars weighed only 1315 kg (2900 lb).",
+  "product_img_url": "https://github.com/tushar251095/TheVintageStore/blob/main/Images/jaguareEtype.jpg?raw=true",
+  "product_status": "Not Available",
+  "view_count": 233,
+  "createdAt": "2022-03-28T03:22:21.084Z",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1654642708320"
+    }
+  },
+  "like": [
+    "625490c1097115bef42374ba"
+  ],
+  "dislike": [],
+  "comments": [
+    {
+      "comment": "good car",
+      "product_id": "ef533583-52a8-4ec8-9b07-9c0ac2bd1da0",
+      "username": "Tushar Nemade",
+      "userid": "625490c1097115bef42374ba",
+      "postedAt": {
+        "$numberLong": "1651688294048"
+      },
+      "id": "f50d7b77-fbaf-4bb8-8e8b-cf7e54b414b7"
+    },
+    {
+      "comment": "qq ww ww",
+      "product_id": "ef533583-52a8-4ec8-9b07-9c0ac2bd1da0",
+      "username": "Tushar Nemade",
+      "userid": "625490c1097115bef42374ba",
+      "postedAt": {
+        "$numberLong": "1651707223093"
+      },
+      "id": "aa1bc5f4-938b-4321-a0bb-5901774839c0"
+    },
+    {
+      "comment": "test",
+      "product_id": "ef533583-52a8-4ec8-9b07-9c0ac2bd1da0",
+      "username": "Tushar Nemade",
+      "userid": "625490c1097115bef42374ba",
+      "postedAt": {
+        "$numberLong": "1651707931496"
+      },
+      "id": "dc5994b5-b58f-42ce-96b4-1c1fae520a86"
+    },
+    {
+      "comment": "test2",
+      "product_id": "ef533583-52a8-4ec8-9b07-9c0ac2bd1da0",
+      "username": "Tushar Nemade",
+      "userid": "625490c1097115bef42374ba",
+      "postedAt": {
+        "$numberLong": "1651707990824"
+      },
+      "id": "c1e353fe-59d1-4f62-88d5-e89f402dab1d"
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "62473e50fca519440ace574c"
+  },
+  "prod_name": "Chevrolet Corvette",
+  "product_id": "bec78872-833b-4ea8-9310-e282b056d48e",
+  "category_id": "05a91894-3fda-40e1-8e3a-27546329e26a",
+  "year": 1966,
+  "seller": "Tushar Nemade",
+  "seller_id": {
+    "$oid": "625490c1097115bef42374ba"
+  },
+  "ratings": 4,
+  "description": "The 1963 Chevrolet Corvette is the definition of a classic car icon. The 1963 Corvette would have been a landmark car even without its one-year-only styling gimmick, penned by legendary stylist Bill Mitchell. The ’63 Corvette is the definitive “C2” to Corvette nerds, and brought the Corvette into the world of independent rear suspension.",
+  "product_img_url": "https://github.com/tushar251095/TheVintageStore/blob/main/Images/corvettecar.jpg?raw=true",
+  "product_status": "Available",
+  "view_count": 43,
+  "createdAt": "2022-03-28T03:25:33.558Z",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1670820376917"
+    }
+  },
+  "like": [
+    "625490c1097115bef42374ba"
+  ],
+  "dislike": [],
+  "comments": [
+    {
+      "comment": "sadasd",
+      "product_id": "bec78872-833b-4ea8-9310-e282b056d48e",
+      "username": "Tushar Nemade",
+      "userid": "625490c1097115bef42374ba",
+      "postedAt": {
+        "$numberLong": "1670820341825"
+      },
+      "id": "48d7404f-5758-4c6f-9822-413dbf85afe6"
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "62473e50fca519440ace574d"
+  },
+  "prod_name": "Porsche 911",
+  "product_id": "4da2a571-11a8-4fe6-9f7f-c6c579ee9455",
+  "category_id": "05a91894-3fda-40e1-8e3a-27546329e26a",
+  "year": 1973,
+  "seller": "Tushar Nemade",
+  "seller_id": {
+    "$oid": "625490c1097115bef42374ba"
+  },
+  "ratings": 5,
+  "description": "the legendary shape of the 911 meets the puristic character of the Chronograph I. The anniversary model has a limited run of 750 units and features a timeless sports car design with the standout elements of an iconic timepiece. It is a continuation of the success story of the 911 and a unique watch manufacturer.",
+  "product_img_url": "https://github.com/tushar251095/TheVintageStore/blob/main/Images/porsche911.jpg?raw=true",
+  "product_status": "Not Available",
+  "view_count": 18,
+  "createdAt": "2022-03-28T03:27:41.018Z",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1654642708320"
+    }
+  },
+  "like": [],
+  "dislike": [],
+  "comments": []
+}]

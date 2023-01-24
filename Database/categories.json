@@ -1,0 +1,41 @@
+[{
+  "_id": {
+    "$oid": "62473e50fca519440ace573e"
+  },
+  "title": "Cars",
+  "imageurl": "https://github.com/tushar251095/TheVintageStore/blob/main/Images/vintagecars.jpg?raw=true",
+  "category_id": "05a91894-3fda-40e1-8e3a-27546329e26a",
+  "createdAt": "2022-03-28T00:42:33.831Z",
+  "updatedAt": "2022-03-28T00:42:33.831Z"
+},{
+  "_id": {
+    "$oid": "62473e50fca519440ace573f"
+  },
+  "title": "Furnitures",
+  "imageurl": "https://github.com/tushar251095/TheVintageStore/blob/main/Images/vintagefurniture.jpg?raw=true",
+  "category_id": "0e6fada9-b143-4f21-a417-d9f8275f71a0",
+  "createdAt": "2022-03-28T01:57:46.105Z",
+  "updatedAt": "2022-03-28T20:20:40.724Z"
+},{
+  "_id": {
+    "$oid": "62473e50fca519440ace5740"
+  },
+  "title": "Clothing",
+  "imageurl": "https://github.com/tushar251095/TheVintageStore/blob/main/Images/vintagedresses.jpg?raw=true",
+  "category_id": "b14a9471-0f39-42fe-9beb-d5adca084602",
+  "createdAt": "2022-03-28T02:45:35.833Z",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1651727691261"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "62473e50fca519440ace5741"
+  },
+  "title": "Paintings",
+  "imageurl": "https://github.com/tushar251095/TheVintageStore/blob/main/Images/vintagepaintings.jpg?raw=true",
+  "category_id": "03e1e6f3-3690-46be-999e-cb5329fe4163",
+  "createdAt": "2022-03-28T02:57:17.161Z",
+  "updatedAt": "2022-03-28T02:57:17.161Z"
+}]

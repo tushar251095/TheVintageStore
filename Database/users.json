@@ -1,0 +1,72 @@
+[{
+  "_id": {
+    "$oid": "62642a9da38de53f61d31006"
+  },
+  "firstName": "Aayush",
+  "lastName": "Ranade",
+  "email": "aayush@gmail.com",
+  "password": "$2b$10$fFeGBYDkGb9D0M3upZwGwOJgmj5lRcJyXP8NaDzLisOGKsNigKhNi",
+  "contact": "1234567890",
+  "__v": 0,
+  "watchlist": [],
+  "role": "user",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1652296152292"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "625490c1097115bef42374ba"
+  },
+  "firstName": "Tushar",
+  "lastName": "Nemade",
+  "email": "tnemade@uncc.edu",
+  "password": "$2b$10$4bTkz8gdc7dio/TQUmHjteIG9g4B6r6DqmzPCUihVWfx8Kx9q9mta",
+  "contact": "9975884096",
+  "__v": 0,
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1670820418418"
+    }
+  },
+  "watchlist": [],
+  "role": "user"
+},{
+  "_id": {
+    "$oid": "6272149af9c10ff914931599"
+  },
+  "firstName": "Tushar",
+  "lastName": "Nemade",
+  "email": "admin@gmail.com",
+  "password": "$2b$10$oi57BV3OQKPXlkG8ZhUo0.VK5HaBB.DkNjHEj/TtitYTW9KFAUGRm",
+  "contact": "1234567890",
+  "watchlist": [],
+  "role": "admin",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1651643546826"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1652296152292"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "627ac5eb85f7c5da026266ef"
+  },
+  "firstName": "Tushar",
+  "lastName": "Nemade",
+  "email": "tushar@gmail.com",
+  "password": "$2b$10$Ina4p9e.jRrT7m3vGFQL7e6jlqMYuCHTEcuvjE6FXECZQP/BLUqo2",
+  "contact": "1234567890",
+  "__v": 0,
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1652296152292"
+    }
+  }
+}]

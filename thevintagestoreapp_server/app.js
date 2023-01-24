@@ -23,7 +23,7 @@ app.use(cors({
 }));
 app.use(express.static('public'));
 //mongoose connection
-mongoose.connect('mongodb://localhost:27017/VintageStore',{useNewUrlParser: true,useUnifiedTopology: true})
+mongoose.connect('mongodb+srv://tushar4496:tushar@cluster0.atk986v.mongodb.net/VintageStore?retryWrites=true&w=majority',{useNewUrlParser: true,useUnifiedTopology: true})
 .then(()=>{
 //start the server
 //Starting server
