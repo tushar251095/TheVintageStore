@@ -59,9 +59,8 @@
                 {{ type.prod_name }}
               </p>
             </li>
-            <li class="p-1">
+            <li class="p-1" v-if="category.subtype.length > 2">
               <a
-                v-if="category.subtype.length > 2"
                 @click="StorecategoryID(category.category_id)"
                 class="text-primary"
                 :class="linkdisabled"
