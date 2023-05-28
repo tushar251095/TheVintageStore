@@ -18,6 +18,10 @@ This project is based on trade domain i.e. user can trade product for his own pr
 4. Open another terminal, go to thevintagestoreapp_server and run npm install.
 5. Run backend server using npm start.
 
+**Steps to run the application using docker:**
+1. Go to directory where docker-compose.yml file is present.
+2. Run command docker-compose up -d --build
+
 * **Project Structure:**
   * It uses MVC architecture using MVC separation of concern.
   * App.js acts as an entry point for back-end servers.
